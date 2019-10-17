@@ -17,7 +17,6 @@
 		3CB31F2723572C1F004726A1 /* DescriptionTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2323572C1F004726A1 /* DescriptionTextLayer.swift */; };
 		3CB31F2923572C1F004726A1 /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2523572C1F004726A1 /* LineLayer.swift */; };
 		3CB31F2B23580BD1004726A1 /* EasyStepIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2A23580BD1004726A1 /* EasyStepIndicator.swift */; };
-		3CB31F2F23581AF1004726A1 /* Kapture 2019-10-17 at 11.38.34.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F2E23581AED004726A1 /* Kapture 2019-10-17 at 11.38.34.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +33,6 @@
 		3CB31F2523572C1F004726A1 /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
 		3CB31F2A23580BD1004726A1 /* EasyStepIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyStepIndicator.swift; sourceTree = "<group>"; };
 		3CB31F2C23581055004726A1 /* EasyStepIndicator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EasyStepIndicator.entitlements; sourceTree = "<group>"; };
-		3CB31F2E23581AED004726A1 /* Kapture 2019-10-17 at 11.38.34.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Kapture 2019-10-17 at 11.38.34.gif"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +93,6 @@
 		3CB31F2D23581ACD004726A1 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				3CB31F2E23581AED004726A1 /* Kapture 2019-10-17 at 11.38.34.gif */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -160,7 +157,6 @@
 			files = (
 				3CB31F1A23572BE1004726A1 /* LaunchScreen.storyboard in Resources */,
 				3CB31F1723572BE1004726A1 /* Assets.xcassets in Resources */,
-				3CB31F2F23581AF1004726A1 /* Kapture 2019-10-17 at 11.38.34.gif in Resources */,
 				3CB31F1523572BDF004726A1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

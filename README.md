@@ -3,16 +3,16 @@ More attributes for a step indicator, indicates steps with a easy way
 
 ## Table of Contents
 
-- [Background](#)(#background)
-- [Install](#)(#install)
-- [Usage](#)(#usage)
-    - [Generator](#)(#generator)
-- [Badge](#)(#badge)
-- [Example Readmes](#)(#example-readmes)
-- [Related Efforts](#)(#related-efforts)
-- [Maintainers](#)(#maintainers)
-- [Contributing](#)(#contributing)
-- [License](#)(#license)
+- [Background]()(#background)
+- [Install]()(#install)
+- [Usage]()(#usage)
+	- [Generator]()(#generator)
+- [Badge]()(#badge)
+- [Example Readmes]()(#example-readmes)
+- [Related Efforts]()(#related-efforts)
+- [Maintainers]()(#maintainers)
+- [Contributing]()(#contributing)
+- [License]()(#license)
 
 
 ## Background
@@ -24,5 +24,6 @@ More attributes for a step indicator, indicates steps with a easy way
 ## Install
 
 将EasyStepIndicator拖入工程文件夹,在Storyboard中相应的View
+
 ![](/Demo/Xnip2019-10-17_12-17-21.png)
 
