@@ -1,5 +1,8 @@
 # EasyStepIndicator
+
 More attributes for a step indicator, indicates steps with a easy way
+
+![img][image-1]
 
 ## Table of Contents
 
@@ -25,5 +28,40 @@ More attributes for a step indicator, indicates steps with a easy way
 
 将EasyStepIndicator拖入工程文件夹,在Storyboard中相应的View
 
-![](/Demo/Xnip2019-10-17_12-17-21.png)
+![][image-2]
 
+## Usage
+### 基本使用
+#### 如果你使用Storyboard
+那么没有特别的步骤
+
+> ```swift
+> IBOutlet weak var indicator: EasyStepIndicator!
+> ```
+如果你要设置圈内文字和描述文字
+打开
+> ```swift
+> showStepDescriptionTexts
+> showCircleText
+> ```
+
+> ```swift
+> indicator.stepCircleTexts = ["A","B","C","D"]
+> indicator.stepDescriptionTexts = \["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]
+> ```
+
+就OK了
+
+#### 如果你用代码
+
+
+
+
+
+
+
+
+
+
+[image-1]:	/Demo/1.gif
+[image-2]:	/Demo/Xnip2019-10-17_12-17-21.png
