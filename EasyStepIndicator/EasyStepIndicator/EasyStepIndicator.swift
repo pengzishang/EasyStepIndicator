@@ -23,8 +23,6 @@ public class EasyStepIndicator: UIView {
     private var descriptionTextLayers = [DescriptionTextLayer]()
     private let containerLayer = CALayer()
     
-    var annularLayerType : AnnularLayer.Type = AnnularLayer.self
-    
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.setCurrentStep(step: self.currentStep)
@@ -37,6 +35,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
+    
     //总步骤数量
     @IBInspectable public var numberOfSteps: Int = 5 {
         didSet {
@@ -61,7 +60,7 @@ public class EasyStepIndicator: UIView {
     }
     
     //圆大小
-    @IBInspectable public var circleRadius: CGFloat = 10.0 {
+    @IBInspectable public var circleRadius: CGFloat = 20.0 {
         didSet {
             self.updateSubLayers()
         }
@@ -184,7 +183,7 @@ public class EasyStepIndicator: UIView {
     }
     
     //圆形内描述文字未完成时候颜色
-    @IBInspectable public var circleTextIncompleteColor: UIColor = defaultColor {
+    @IBInspectable public var circleTextIncompleteColor: UIColor = defaultTintColor  {
         didSet {
             self.updateSubLayers()
         }
