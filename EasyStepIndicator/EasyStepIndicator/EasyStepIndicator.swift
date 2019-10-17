@@ -474,7 +474,6 @@ public class EasyStepIndicator: UIView {
             self.horizontalLineLayers[index].currentStepAsIncomplete = currentStepAsIncomplete
             self.horizontalLineLayers[index].isFinished = isFinished
             self.horizontalLineLayers[index].isCurrent = isCurrent
-            self.horizontalLineLayers[index].updateStatus()
             if isFinished {
                 self.horizontalLineLayers[index].lineDashPattern = nil
             } else if isCurrent{
@@ -482,7 +481,7 @@ public class EasyStepIndicator: UIView {
             } else {
                 self.horizontalLineLayers[index].lineDashPattern = [NSNumber.init(value: self.lineImaginaryWidth), NSNumber.init(value: self.lineImaginaryMargin)]
             }
-            
+            self.horizontalLineLayers[index].updateStatus()
         }
     }
     

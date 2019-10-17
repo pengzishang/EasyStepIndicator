@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stepper.maximumValue = Double(indicator.numberOfSteps)
+        stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
         
 //        indicator.stepCircleTexts = []
