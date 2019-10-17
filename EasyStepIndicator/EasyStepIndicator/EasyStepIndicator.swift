@@ -65,19 +65,19 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-    //外框未完成时候的颜色
+    //指示圆框未完成时候的颜色
     @IBInspectable public var circleAnnularIncompleteColor: UIColor = defaultColor {
         didSet {
             self.updateSubLayers()
         }
     }
-    //外框完成时候的颜色
+    //指示圆框完成时候的颜色
     @IBInspectable public var circleAnnularCompleteColor: UIColor = defaultTintColor {
         didSet {
             self.updateSubLayers()
         }
     }
-    //外框的宽度
+    //指示圆框线条的宽度
     @IBInspectable public var circleStrokeWidth: CGFloat = 1.0 {
         didSet {
             self.updateSubLayers()
@@ -167,13 +167,12 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    //是否显示框内文字
     @IBInspectable public var showCircleText: Bool = false {
         didSet {
             self.updateSubLayers()
         }
     }
-
 
     //圆形内描述文字,建议只输入一个数字
     public var stepCircleTexts:[String] = []{
@@ -196,7 +195,7 @@ public class EasyStepIndicator: UIView {
         }
     }
     
-    //!!!!!!!!!是否显示步骤描述文字
+    //是否显示步骤描述文字
     @IBInspectable public var showStepDescriptionTexts: Bool = false {
         didSet {
             self.updateSubLayers()
@@ -208,12 +207,6 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-    
-    private var maxFontWidth : CGFloat = UIScreen.main.bounds.width/3
-    
-    private var maxFontHeight = 0
-    
-    private var showLineAnimating = true
     
     //步骤描述文字未完成时候颜色
     @IBInspectable public var stepDescriptionTextIncompleteColor: UIColor = UIColor.red {
@@ -242,6 +235,12 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
+    
+    private var maxFontWidth : CGFloat = UIScreen.main.bounds.width/3
+    
+    private var maxFontHeight = 0
+    
+    private var showLineAnimating = true
     
     // MARK: - Functions
     private func createSteps() {
@@ -372,7 +371,7 @@ public class EasyStepIndicator: UIView {
         }
     }
     
-    func getMaxTextRect() -> CGRect {
+    private func getMaxTextRect() -> CGRect {
         let text = self.stepDescriptionTexts.reduce(self.stepDescriptionTexts.first ?? "") {return $0.count > $1.count ? $0: $1 }
         let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.center
@@ -405,7 +404,7 @@ public class EasyStepIndicator: UIView {
         annularLayer.lineDashPattern = [NSNumber.init(value: self.circleAnnularLineDashWidth), NSNumber.init(value: self.circleAnnularLineDashMargin)]
     }
     
-    func applyStepText(annularLayer: AnnularLayer, index: Int) {
+    private func applyStepText(annularLayer: AnnularLayer, index: Int) {
         annularLayer.showCircleText = true
         annularLayer.circleTextCompleteColor = self.circleTextCompleteColor
         annularLayer.circleTextIncompleteColor = self.circleTextIncompleteColor
@@ -414,7 +413,7 @@ public class EasyStepIndicator: UIView {
         }
     }
     
-    func applyDescriptionText(descriptionText: DescriptionTextLayer, index: Int) {
+    private func applyDescriptionText(descriptionText: DescriptionTextLayer, index: Int) {
         descriptionText.stepDescriptionTextCompleteColor = self.stepDescriptionTextCompleteColor
         descriptionText.stepDescriptionTextIncompleteColor = self.stepDescriptionTextIncompleteColor
         descriptionText.stepDescriptionTextFontSize = self.stepDescriptionTextFontSize
