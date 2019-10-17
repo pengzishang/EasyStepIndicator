@@ -24,5 +24,5 @@ More attributes for a step indicator, indicates steps with a easy way
 ## Install
 
 将EasyStepIndicator拖入工程文件夹,在Storyboard中相应的View
-![](Xnip2019-10-17_12-17-21.png)
+![](/Demo/Xnip2019-10-17_12-17-21.png)
 
