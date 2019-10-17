@@ -15,8 +15,9 @@
 		3CB31F1A23572BE1004726A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F1823572BE1004726A1 /* LaunchScreen.storyboard */; };
 		3CB31F2623572C1F004726A1 /* AnnularLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2223572C1F004726A1 /* AnnularLayer.swift */; };
 		3CB31F2723572C1F004726A1 /* DescriptionTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2323572C1F004726A1 /* DescriptionTextLayer.swift */; };
-		3CB31F2823572C1F004726A1 /* StepIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2423572C1F004726A1 /* StepIndicatorView.swift */; };
 		3CB31F2923572C1F004726A1 /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2523572C1F004726A1 /* LineLayer.swift */; };
+		3CB31F2B23580BD1004726A1 /* EasyStepIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F2A23580BD1004726A1 /* EasyStepIndicator.swift */; };
+		3CB31F2F23581AF1004726A1 /* Kapture 2019-10-17 at 11.38.34.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F2E23581AED004726A1 /* Kapture 2019-10-17 at 11.38.34.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +31,10 @@
 		3CB31F1B23572BE1004726A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CB31F2223572C1F004726A1 /* AnnularLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnularLayer.swift; sourceTree = "<group>"; };
 		3CB31F2323572C1F004726A1 /* DescriptionTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTextLayer.swift; sourceTree = "<group>"; };
-		3CB31F2423572C1F004726A1 /* StepIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepIndicatorView.swift; sourceTree = "<group>"; };
 		3CB31F2523572C1F004726A1 /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
+		3CB31F2A23580BD1004726A1 /* EasyStepIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyStepIndicator.swift; sourceTree = "<group>"; };
+		3CB31F2C23581055004726A1 /* EasyStepIndicator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EasyStepIndicator.entitlements; sourceTree = "<group>"; };
+		3CB31F2E23581AED004726A1 /* Kapture 2019-10-17 at 11.38.34.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Kapture 2019-10-17 at 11.38.34.gif"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +51,7 @@
 		3CB31F0123572BDF004726A1 = {
 			isa = PBXGroup;
 			children = (
+				3CB31F2D23581ACD004726A1 /* Demo */,
 				3CB31F0C23572BDF004726A1 /* EasyStepIndicator */,
 				3CB31F0B23572BDF004726A1 /* Products */,
 			);
@@ -64,6 +68,7 @@
 		3CB31F0C23572BDF004726A1 /* EasyStepIndicator */ = {
 			isa = PBXGroup;
 			children = (
+				3CB31F2C23581055004726A1 /* EasyStepIndicator.entitlements */,
 				3CB31F2123572BF1004726A1 /* EasyStepIndicator */,
 				3CB31F0D23572BDF004726A1 /* AppDelegate.swift */,
 				3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */,
@@ -82,9 +87,17 @@
 				3CB31F2223572C1F004726A1 /* AnnularLayer.swift */,
 				3CB31F2323572C1F004726A1 /* DescriptionTextLayer.swift */,
 				3CB31F2523572C1F004726A1 /* LineLayer.swift */,
-				3CB31F2423572C1F004726A1 /* StepIndicatorView.swift */,
+				3CB31F2A23580BD1004726A1 /* EasyStepIndicator.swift */,
 			);
 			path = EasyStepIndicator;
+			sourceTree = "<group>";
+		};
+		3CB31F2D23581ACD004726A1 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				3CB31F2E23581AED004726A1 /* Kapture 2019-10-17 at 11.38.34.gif */,
+			);
+			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +160,7 @@
 			files = (
 				3CB31F1A23572BE1004726A1 /* LaunchScreen.storyboard in Resources */,
 				3CB31F1723572BE1004726A1 /* Assets.xcassets in Resources */,
+				3CB31F2F23581AF1004726A1 /* Kapture 2019-10-17 at 11.38.34.gif in Resources */,
 				3CB31F1523572BDF004726A1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,7 +176,7 @@
 				3CB31F0E23572BDF004726A1 /* AppDelegate.swift in Sources */,
 				3CB31F1023572BDF004726A1 /* SceneDelegate.swift in Sources */,
 				3CB31F2723572C1F004726A1 /* DescriptionTextLayer.swift in Sources */,
-				3CB31F2823572C1F004726A1 /* StepIndicatorView.swift in Sources */,
+				3CB31F2B23580BD1004726A1 /* EasyStepIndicator.swift in Sources */,
 				3CB31F2923572C1F004726A1 /* LineLayer.swift in Sources */,
 				3CB31F2623572C1F004726A1 /* AnnularLayer.swift in Sources */,
 			);
@@ -308,7 +322,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EasyStepIndicator/EasyStepIndicator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 5646353WJR;
 				INFOPLIST_FILE = EasyStepIndicator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -317,6 +333,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengzishang.EasyStepIndicator.EasyStepIndicator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -326,7 +343,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EasyStepIndicator/EasyStepIndicator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 5646353WJR;
 				INFOPLIST_FILE = EasyStepIndicator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -335,6 +354,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pengzishang.EasyStepIndicator.EasyStepIndicator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

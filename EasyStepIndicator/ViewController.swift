@@ -8,13 +8,35 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
 
+    
+    @IBOutlet weak var stepper: UIStepper!
+    @IBOutlet weak var indicator: EasyStepIndicator!
+    @IBOutlet weak var currentStep: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        stepper.maximumValue = Double(indicator.numberOfSteps)
+        setState(step: 0)
+        
+//        indicator.stepCircleTexts = []
+        indicator.stepCircleTexts = ["A","B","C","D"]
+        
+        indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]
+        
     }
-
-
+    
+    fileprivate func setState(step: Int) {
+        currentStep.text = String(step)
+        indicator.currentStep = step
+    }
+    
+    @IBAction func didChangeValue(_ sender: UIStepper) {
+        setState(step: Int(sender.value))
+    }
+    
 }
 
