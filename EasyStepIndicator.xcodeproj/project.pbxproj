@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C49854C2359B2B80008A66E /* EasyStepIndicator.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C49854B2359B2B80008A66E /* EasyStepIndicator.podspec */; };
 		3CB31F0E23572BDF004726A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F0D23572BDF004726A1 /* AppDelegate.swift */; };
 		3CB31F1023572BDF004726A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */; };
 		3CB31F1223572BDF004726A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F1123572BDF004726A1 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C49854B2359B2B80008A66E /* EasyStepIndicator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EasyStepIndicator.podspec; sourceTree = "<group>"; };
 		3CB31F0A23572BDF004726A1 /* EasyStepIndicator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyStepIndicator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB31F0D23572BDF004726A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		3CB31F0123572BDF004726A1 = {
 			isa = PBXGroup;
 			children = (
+				3C49854B2359B2B80008A66E /* EasyStepIndicator.podspec */,
 				3CB31F40235863E2004726A1 /* README.md */,
 				3CB31F2D23581ACD004726A1 /* Demo */,
 				3CB31F0C23572BDF004726A1 /* EasyStepIndicator */,
@@ -170,6 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C49854C2359B2B80008A66E /* EasyStepIndicator.podspec in Resources */,
 				3CB31F41235863E2004726A1 /* README.md in Resources */,
 				3CB31F1A23572BE1004726A1 /* LaunchScreen.storyboard in Resources */,
 				3CB31F4723587522004726A1 /* 2.png in Resources */,
@@ -343,6 +347,7 @@
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 5646353WJR;
 				INFOPLIST_FILE = EasyStepIndicator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -364,6 +369,7 @@
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 5646353WJR;
 				INFOPLIST_FILE = EasyStepIndicator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
