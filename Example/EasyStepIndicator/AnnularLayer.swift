@@ -46,6 +46,7 @@ class AnnularLayer: CAShapeLayer {
     // MARK: - Initialization
     required override init() {
         super.init()
+        self.fillColor = UIColor.clear.cgColor
     }
 
     required init?(coder aDecoder: NSCoder) {

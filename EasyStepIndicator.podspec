@@ -42,6 +42,7 @@ Pod::Spec.new do |spec|
   spec.license      = "MIT"
   # spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
+  spec.swift_version = '5.0'
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -91,8 +92,8 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "EasyStepIndicator", "EasyStepIndicator/EasyStepIndicator/**/*.{h,m}"
-  spec.exclude_files = "EasyStepIndicator/Exclude"
+  spec.source_files  = "Example", "EasyStepIndicator/**/*.swift"
+  #  spec.exclude_files = "Example/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
 
