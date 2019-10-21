@@ -36,14 +36,6 @@ public class EasyStepIndicator: UIView {
         }
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     //总步骤数量
     @IBInspectable public var numberOfSteps: Int = 5 {
         didSet {
