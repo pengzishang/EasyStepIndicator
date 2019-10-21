@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "EasyStepIndicator"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.1"
   spec.summary      = "More attributes for a step indicator, indicates steps with a easy way."
 
   # This description is used to generate tags and improve search results.
