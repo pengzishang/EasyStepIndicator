@@ -2,7 +2,7 @@
 
 More attributes for a step indicator, indicates steps with a easy way
 
-![img][image-1]
+<img src="https://s2.ax1x.com/2019/10/23/KYvrFJ.gif" alt="KYvrFJ.gif" border="0" />
 
 ## Background
 
@@ -14,7 +14,7 @@ More attributes for a step indicator, indicates steps with a easy way
 
 将EasyStepIndicator拖入工程文件夹,在Storyboard中相应的View
 
-![][image-2]
+<img src="https://s2.ax1x.com/2019/10/23/KYvweU.png" alt="KYvweU.png" border="0" />
 
 ## Usage
 ### 基本使用
@@ -52,7 +52,7 @@ let indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x
 
 ## 属性列表
 
-![img][image-3]
+<img src="https://s2.ax1x.com/2019/10/23/KYvUyV.png" alt="KYvUyV.png" border="0" />
 
 | 属性名 | 描述  | 图中位置 |
 |:--------------------:|:---------------------------:|:----------------------------:|
