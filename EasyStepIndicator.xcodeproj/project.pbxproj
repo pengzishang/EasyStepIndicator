@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C49854C2359B2B80008A66E /* EasyStepIndicator.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3C49854B2359B2B80008A66E /* EasyStepIndicator.podspec */; };
+		3C50ED2D23605138009E44B5 /* VerticalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C50ED2C23605138009E44B5 /* VerticalController.swift */; };
 		3CB31F0E23572BDF004726A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F0D23572BDF004726A1 /* AppDelegate.swift */; };
 		3CB31F1023572BDF004726A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */; };
 		3CB31F1223572BDF004726A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F1123572BDF004726A1 /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		3C49854B2359B2B80008A66E /* EasyStepIndicator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EasyStepIndicator.podspec; sourceTree = "<group>"; };
+		3C50ED2C23605138009E44B5 /* VerticalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalController.swift; sourceTree = "<group>"; };
 		3CB31F0A23572BDF004726A1 /* EasyStepIndicator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyStepIndicator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB31F0D23572BDF004726A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */,
 				3CB31F1123572BDF004726A1 /* ViewController.swift */,
 				3CB31F3A23585C9A004726A1 /* HorizontalCodeController.swift */,
+				3C50ED2C23605138009E44B5 /* VerticalController.swift */,
 				3CB31F1323572BDF004726A1 /* Main.storyboard */,
 				3CB31F1623572BE1004726A1 /* Assets.xcassets */,
 				3CB31F1823572BE1004726A1 /* LaunchScreen.storyboard */,
@@ -194,6 +197,7 @@
 				3CB31F1223572BDF004726A1 /* ViewController.swift in Sources */,
 				3CB31F0E23572BDF004726A1 /* AppDelegate.swift in Sources */,
 				3CB31F3B23585C9A004726A1 /* HorizontalCodeController.swift in Sources */,
+				3C50ED2D23605138009E44B5 /* VerticalController.swift in Sources */,
 				3CB31F1023572BDF004726A1 /* SceneDelegate.swift in Sources */,
 				3CB31F2723572C1F004726A1 /* DescriptionTextLayer.swift in Sources */,
 				3CB31F2B23580BD1004726A1 /* EasyStepIndicator.swift in Sources */,
