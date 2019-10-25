@@ -40,6 +40,7 @@ class DescriptionTextLayer: CAShapeLayer {
     fileprivate func drawText() {
         self.tintTextLayer.removeFromSuperlayer()
         self.tintTextLayer.string = stepDescriptionText
+//        self.tintTextLayer.
         self.tintTextLayer.alignmentMode = .center
         self.tintTextLayer.font = UIFont.systemFont(ofSize: self.stepDescriptionTextFontSize)
         self.tintTextLayer.fontSize = self.stepDescriptionTextFontSize
@@ -47,6 +48,7 @@ class DescriptionTextLayer: CAShapeLayer {
         self.tintTextLayer.backgroundColor = UIColor.clear.cgColor
         self.tintTextLayer.frame = self.bounds.integral
         self.tintTextLayer.zPosition = 1000
+        self.tintTextLayer.isWrapped = true
     }
     
     func updateStatus() {
