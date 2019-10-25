@@ -1,8 +1,18 @@
 # EasyStepIndicator
 
-More attributes for a step indicator, indicates steps with a easy way
+给步骤指示器加入更多的属性,更多可定制的样式
+
+横向模式
 
 <img src="https://s2.ax1x.com/2019/10/23/KYvrFJ.gif" alt="KYvrFJ.gif" border="0" />
+
+纵向倒置文字适配模式
+
+<img src="https://s2.ax1x.com/2019/10/25/KwFHLF.gif" alt="KwFHLF.gif" border="0" />
+
+纵向正向长度相等模式
+
+<img src="https://s2.ax1x.com/2019/10/25/KwAV74.gif" alt="KwAV74.gif" border="0" />
 
 ## Background
 
@@ -12,13 +22,13 @@ More attributes for a step indicator, indicates steps with a easy way
 
 ## Install
 
-将EasyStepIndicator拖入工程文件夹,在Storyboard中相应的View
-
-<img src="https://s2.ax1x.com/2019/10/23/KYvweU.png" alt="KYvweU.png" border="0" />
+> pod 'EasyStepIndicator'
 
 ## Usage
 ### 基本使用
 #### 如果你使用Storyboard
+
+<img src="https://s2.ax1x.com/2019/10/23/KYvweU.png" alt="KYvweU.png" border="0" />
 
 > ```swift
 > IBOutlet weak var indicator: EasyStepIndicator!
@@ -84,22 +94,13 @@ let indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x
 | stepDescriptionTexts| 步骤描述文字|13处|
 | stepDescriptionTextMargin| Indicator和Description之间Margin|12|
 | stepDescriptionTextFontSize| 步骤描述文字的大小|13|
-
+| stepLineFitDescriptionText | Line是否适应文字的高度,如果文字过多,建议开启(文字多会溢出superview),如果关闭的,Line的高度是与SuperView关联,不会溢出superview |无|
 
 
 ## TODO
 欢迎大家提意见和建议
 
-- [ ] 上传到Cocoapods;
-- [ ] 描述文字适配垂直方向;
-- [ ] 垂直方向Demo
-
-
-
-[image-1]:	/Demo/1.gif
-[image-2]:	/Demo/Xnip2019-10-17_12-17-21.png
-[image-3]:      /Demo/2.png
-
-
-
+- [x] 上传到Cocoapods;
+- [x] 描述文字适配垂直方向;
+- [x] 垂直方向Demo
 

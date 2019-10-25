@@ -18,8 +18,8 @@ class VerticalController: UIViewController {
         super.viewDidLoad()
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
-//            indicator.stepLineFitDescriptionText = true
-        self.indicator.stepDescriptionTexts = ["Alarm\ntriggeredAlarm\ntriggeredAlarm\ntriggeredAlarm\ntriggered", "Dispatchna guardna guardna guardna guardna guardna guardna guardna guardna guardestigationFinisheestigationFinisheestigationFinishe", "Track\nprogress", "Finishes\ninvestigationFinishes\ninvestigationFinishes\ninvestigationFinishes\ninvestigationFinishes\ninvestigation"]//圆下的描述文字
+//        indicator.stepLineFitDescriptionText = true
+        self.indicator.stepDescriptionTexts = ["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.We shall be most grateful if you will introduce him to reliable manufacturers and give him any help or advice he may need.", "Track progress", "Finishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation\n"]//圆下的描述文字
     }
     
     fileprivate func setState(step: Int) {
