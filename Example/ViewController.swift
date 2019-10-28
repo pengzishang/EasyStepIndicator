@@ -24,9 +24,7 @@ class ViewController: UIViewController {
         
 //        indicator.stepCircleTexts = []
         indicator.stepCircleTexts = ["A","B","C","D"]
-        
         indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]
-        
     }
     
     fileprivate func setState(step: Int) {
