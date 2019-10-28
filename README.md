@@ -53,6 +53,7 @@ fork了https://github.com/chenyun122/StepIndicator
 如果你要设置步骤进度的方向
 
 ![K6nd0J.png](https://s2.ax1x.com/2019/10/28/K6nd0J.png)
+
 | Raw值 | 意义 | 描述  |
 |:--------------------:|:---------------------------:|:---------------------------:|
 |0|leftToRight|从左到右|
