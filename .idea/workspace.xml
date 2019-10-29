@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0665ee43-45f2-490a-938a-013267e50011" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/AnnularLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/AnnularLayer.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/LineLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/LineLayer.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/HorizontalCodeController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/HorizontalCodeController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/VerticalController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/VerticalController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/ViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/ViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,13 +12,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectId" id="1Ss1bwusLj3nwIyeVH5p5AIcnZv" />
   <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="CocoaPods" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -37,6 +34,17 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="EasyStepIndicator" type="AppleRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="EasyStepIndicator" TARGET_NAME="EasyStepIndicator" CONFIG_NAME="Debug" SCHEME_NAME="EasyStepIndicator" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" RUN_TARGET_PROJECT_NAME="EasyStepIndicator" RUN_TARGET_NAME="EasyStepIndicator" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
+      <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
+        <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
+      </EXTENSION>
+      <embedded_app_extension_list />
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
