@@ -51,8 +51,9 @@ Then set the text
 If you want to set the direction of the step progress
 
 ![K6nd0J.png](https://s2.ax1x.com/2019/10/28/K6nd0J.png)
+
 | Raw value | Meaning | Description |
-|:--------------------:|:------------------------- --:|:---------------------------:|
+|:--------------------:|:---------------------------:|:---------------------------:|
 |0|leftToRight|From left to right |
 |1|rightToLeft|From right to left|
 |2|topToBottom|From top to bottom|
