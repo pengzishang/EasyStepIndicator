@@ -313,7 +313,7 @@ public class EasyStepIndicator: UIView {
             assert(self.stepDescriptionTexts.count == self.numberOfSteps, "文字数组个数与步骤数不符合")
             #else
             if self.stepDescriptionTexts.count > self.numberOfSteps {
-                self.stepDescriptionTexts = self.stepDescriptionTexts.prefix(upTo: self.numberOfSteps)
+                self.stepDescriptionTexts = Array(self.stepDescriptionTexts.prefix(upTo: self.numberOfSteps))
             } else if self.stepDescriptionTexts.count < self.numberOfSteps{
                 self.stepDescriptionTexts.append(contentsOf: Array.init(repeating: "", count: self.numberOfSteps - self.stepDescriptionTexts.count))
             }
@@ -379,7 +379,7 @@ public class EasyStepIndicator: UIView {
             assert(self.stepDescriptionTexts.count == self.numberOfSteps, "文字数组个数与步骤数不符合")
             #else
             if self.stepDescriptionTexts.count > self.numberOfSteps {
-                self.stepDescriptionTexts = self.stepDescriptionTexts.prefix(upTo: self.numberOfSteps)
+                self.stepDescriptionTexts = Array(self.stepDescriptionTexts.prefix(upTo: self.numberOfSteps))
             } else if self.stepDescriptionTexts.count < self.numberOfSteps{
                 self.stepDescriptionTexts.append(contentsOf: Array.init(repeating: "", count: self.numberOfSteps - self.stepDescriptionTexts.count))
             }
