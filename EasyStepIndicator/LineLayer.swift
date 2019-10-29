@@ -14,17 +14,17 @@ class LineLayer: CAShapeLayer {
 
     // MARK: - Properties
     var tintColor: UIColor?
-    
+
     var defaultColor: UIColor?
-    
+
     var currentStepAsIncomplete = false
-    
+
     var isFinished: Bool = false
-    
+
     var isCurrent: Bool = false
-    
-    var isHorizontal: Bool = true 
-    
+
+    var isHorizontal: Bool = true
+
     var showAnimating = true
 
     // MARK: - Initialization
@@ -72,7 +72,7 @@ class LineLayer: CAShapeLayer {
         self.path = linePath.cgPath
     }
 
-    private func drawTintLineAnimated(didFinished:Bool) {
+    private func drawTintLineAnimated(didFinished: Bool) {
         let tintLinePath = UIBezierPath()
 
         if self.isHorizontal {
@@ -94,7 +94,7 @@ class LineLayer: CAShapeLayer {
         self.addSublayer(self.tintLineLayer)
 
     }
-    
+
     private func animateLine() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
