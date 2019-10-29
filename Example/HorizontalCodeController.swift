@@ -21,7 +21,7 @@ class HorizontalCodeController: UIViewController {
         indicator.showCircleText = true
         indicator.stepCircleTexts = ["A","B","C","D"]//框内的文字
         indicator.showStepDescriptionTexts = true
-        indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]//圆下的描述文字
+        indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation"]//圆下的描述文字
         indicator.direction = .leftToRight //方向
         //如果你使用纵向模式
         indicator.stepLineFitDescriptionText = true //连接线条长度适应文本
