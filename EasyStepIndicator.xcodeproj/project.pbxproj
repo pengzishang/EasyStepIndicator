@@ -26,6 +26,7 @@
 		3CB31F3F23586357004726A1 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F3D23586357004726A1 /* 1.gif */; };
 		3CB31F41235863E2004726A1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F40235863E2004726A1 /* README.md */; };
 		3CB31F4723587522004726A1 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F4623587519004726A1 /* 2.png */; };
+		3CF8C4A323696BE200275B81 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8C4A223696BE200275B81 /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		3CB31F3D23586357004726A1 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
 		3CB31F40235863E2004726A1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3CB31F4623587519004726A1 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		3CF8C4A223696BE200275B81 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				3CB31F2323572C1F004726A1 /* DescriptionTextLayer.swift */,
 				3CB31F2523572C1F004726A1 /* LineLayer.swift */,
 				3CB31F2A23580BD1004726A1 /* EasyStepIndicator.swift */,
+				3CF8C4A223696BE200275B81 /* Config.swift */,
 			);
 			path = EasyStepIndicator;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				3CB31F1023572BDF004726A1 /* SceneDelegate.swift in Sources */,
 				3CB31F2723572C1F004726A1 /* DescriptionTextLayer.swift in Sources */,
 				3CB31F2B23580BD1004726A1 /* EasyStepIndicator.swift in Sources */,
+				3CF8C4A323696BE200275B81 /* Config.swift in Sources */,
 				3CB31F2923572C1F004726A1 /* LineLayer.swift in Sources */,
 				3CB31F2623572C1F004726A1 /* AnnularLayer.swift in Sources */,
 			);

@@ -13,19 +13,12 @@ class LineLayer: CAShapeLayer {
     private let tintLineLayer = CAShapeLayer()
 
     // MARK: - Properties
-    var tintColor: UIColor?
-
-    var defaultColor: UIColor?
-
-    var currentStepAsIncomplete = false
-
-    var isFinished: Bool = false
-
-    var isCurrent: Bool = false
-
-    var isHorizontal: Bool = true
 
     var showAnimating = true
+    
+    public var indicator:EasyStepIndicator?
+    
+    public var config : LineConfig?
 
     // MARK: - Initialization
     override init() {
@@ -43,11 +36,17 @@ class LineLayer: CAShapeLayer {
     // MARK: - Functions
     func updateStatus() {
         tintLineLayer.removeFromSuperlayer()
+        
+        guard let indicator = indicator else {
+            assertionFailure("没有指定EasyStepIndicator")
+            return
+        }
+        
         self.drawLinePath()
-        if isFinished {
+        if config?.processIndex ?? 0 < indicator.currentStep - 1 {
             self.drawTintLineAnimated(didFinished: true)
-        } else if isCurrent {
-            self.drawTintLineAnimated(didFinished: !currentStepAsIncomplete)
+        } else if config?.processIndex == indicator.currentStep - 1 {
+            self.drawTintLineAnimated(didFinished: !indicator.currentStepAsIncomplete)
             if showAnimating {
                 self.animateLine()
             }
@@ -87,7 +86,7 @@ class LineLayer: CAShapeLayer {
 
         self.tintLineLayer.path = tintLinePath.cgPath
         self.tintLineLayer.frame = self.bounds
-        self.tintLineLayer.strokeColor = didFinished ? self.tintColor?.cgColor : self.defaultColor?.cgColor
+        self.tintLineLayer.strokeColor = didFinished ? config?.colors.complete?.cgColor : config?.colors.incomplete?.cgColor
         self.tintLineLayer.lineWidth = self.lineWidth
         self.tintLineLayer.backgroundColor = UIColor.clear.cgColor
         self.tintLineLayer.lineDashPattern = didFinished ? nil : self.lineDashPattern

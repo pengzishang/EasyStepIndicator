@@ -15,9 +15,18 @@ public enum EasyStepIndicatorDirection: UInt {
 @IBDesignable
 public class EasyStepIndicator: UIView {
 
+    weak var dataSource : EasyStepIndicatorDataSource? {
+        didSet {
+            
+        }
+    }
+    weak var delegate : EasyStepIndicatorDelegate? {
+        didSet {
+            
+        }
+    }
     // Variables
-    static let defaultColor = UIColor.red
-    static let defaultTintColor = UIColor.green
+
     private var annularLayers = [AnnularLayer]()
     private var lineLayers = [LineLayer]()
     private var descriptionTextLayers = [DescriptionTextLayer]()
@@ -62,72 +71,96 @@ public class EasyStepIndicator: UIView {
     //圆大小
     @IBInspectable public var circleRadius: CGFloat = 20.0 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.radius = circleRadius}
             self.updateSubLayers()
         }
     }
     //指示圆框未完成时候的颜色
-    @IBInspectable public var circleAnnularIncompleteColor: UIColor = defaultColor {
+    @IBInspectable public var circleAnnularIncompleteColor: UIColor = defaultIncompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.annular.colors.incomplete = circleAnnularIncompleteColor}
             self.updateSubLayers()
         }
     }
     //指示圆框完成时候的颜色
-    @IBInspectable public var circleAnnularCompleteColor: UIColor = defaultTintColor {
+    @IBInspectable public var circleAnnularCompleteColor: UIColor = defaultCompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.annular.colors.complete = circleAnnularCompleteColor}
             self.updateSubLayers()
         }
     }
     //指示圆框线条的宽度
     @IBInspectable public var circleStrokeWidth: CGFloat = 1.0 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.annular.strokeWidth = circleStrokeWidth}
             self.updateSubLayers()
         }
     }
     //指示圆框虚线长度
     @IBInspectable public var circleAnnularLineDashWidth: Float = 3 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.annular.dashPattern.width = circleAnnularLineDashWidth}
             self.updateSubLayers()
         }
     }
     //指示圆框虚线间隔
     @IBInspectable public var circleAnnularLineDashMargin: Float = 3 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.annular.dashPattern.margin = circleAnnularLineDashMargin}
             self.updateSubLayers()
         }
     }
     //圆内未完成时候的颜色
-    @IBInspectable public var circleTintIncompleteColor: UIColor = defaultColor {
+    @IBInspectable public var circleTintIncompleteColor: UIColor = defaultIncompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.tint.colors.incomplete = circleTintIncompleteColor}
             self.updateSubLayers()
         }
     }
     //圆内完成时候的颜色
-    @IBInspectable public var circleTintCompleteColor: UIColor = defaultTintColor {
+    @IBInspectable public var circleTintCompleteColor: UIColor = defaultCompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.tint.colors.complete = circleTintCompleteColor}
             self.updateSubLayers()
         }
     }
     //指向线条未完成的颜色
-    @IBInspectable public var lineIncompleteColor: UIColor = defaultColor {
+    @IBInspectable public var lineIncompleteColor: UIColor = defaultIncompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.lineLayers.forEach {$0.config?.colors.incomplete = lineIncompleteColor}
             self.updateSubLayers()
         }
     }
     //指向线条完成的颜色
-    @IBInspectable public var lineCompleteColor: UIColor = defaultTintColor {
+    @IBInspectable public var lineCompleteColor: UIColor = defaultCompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.lineLayers.forEach {$0.config?.colors.complete = lineCompleteColor}
             self.updateSubLayers()
         }
     }
-    //指向线条离圆形的距离
+    //指向线条离圆形的初始距离
     @IBInspectable public var lineMargin: CGFloat = 0.0 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.lineLayers.forEach {$0.config?.marginBetweenCircle = lineMargin}
             self.updateSubLayers()
         }
     }
     //指向线条宽度
     @IBInspectable public var lineStrokeWidth: CGFloat = 4.0 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.lineLayers.forEach {$0.config?.strokeWidth = lineStrokeWidth}
             self.updateSubLayers()
         }
     }
@@ -135,12 +168,16 @@ public class EasyStepIndicator: UIView {
     //指向线条虚线间隔
     @IBInspectable public var lineImaginaryMargin: Float = 1 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.lineLayers.forEach {$0.config?.dashPattern.margin = lineImaginaryMargin}
             self.updateSubLayers()
         }
     }
     //指向线条小虚线宽度
     @IBInspectable public var lineImaginaryWidth: Float = 5 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.lineLayers.forEach {$0.config?.dashPattern.width = lineImaginaryWidth}
             self.updateSubLayers()
         }
     }
@@ -148,6 +185,8 @@ public class EasyStepIndicator: UIView {
     //增长方向
     public var direction: EasyStepIndicatorDirection = .leftToRight {
         didSet {
+            guard let _ = dataSource else { return }
+            self.lineLayers.forEach { $0.config?.isHorizontal = (direction == .leftToRight||direction == .rightToLeft) }
             self.updateSubLayers()
         }
     }
@@ -174,23 +213,28 @@ public class EasyStepIndicator: UIView {
         }
     }
 
-    //圆形内描述文字,建议只输入一个数字
+//    //圆形内描述文字,建议只输入一个数字
     public var stepCircleTexts: [String] = [] {
         didSet {
+            
             self.updateSubLayers()
         }
     }
 
     //圆形内描述文字未完成时候颜色
-    @IBInspectable public var circleTextIncompleteColor: UIColor = defaultTintColor {
+    @IBInspectable public var circleTextIncompleteColor: UIColor = defaultIncompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.stepText.colors.incomplete = circleTextIncompleteColor }
             self.updateSubLayers()
         }
     }
 
     //圆形内描述文字完成时候颜色
-    @IBInspectable public var circleTextCompleteColor: UIColor = defaultColor {
+    @IBInspectable public var circleTextCompleteColor: UIColor = defaultCompleteColor {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.stepText.colors.complete = circleTextCompleteColor }
             self.updateSubLayers()
         }
     }
@@ -201,12 +245,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-    //步骤描述文字
-    public var stepDescriptionTexts: [String] = [] {
-        didSet {
-            self.updateSubLayers()
-        }
-    }
+
     //Line是否适应文字的高度,如果文字过多,建议开启,如果关闭的,Line的高度是与SuperView关联
     public var stepLineFitDescriptionText = false {
         didSet {
@@ -217,6 +256,8 @@ public class EasyStepIndicator: UIView {
     //步骤描述文字未完成时候颜色
     @IBInspectable public var stepDescriptionTextIncompleteColor: UIColor = UIColor.red {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.title.colors.incomplete = stepDescriptionTextIncompleteColor }
             self.updateSubLayers()
         }
     }
@@ -224,6 +265,8 @@ public class EasyStepIndicator: UIView {
     //步骤描述文字完成时候颜色
     @IBInspectable public var stepDescriptionTextCompleteColor: UIColor = UIColor.green {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.title.colors.complete = stepDescriptionTextCompleteColor }
             self.updateSubLayers()
         }
     }
@@ -231,6 +274,8 @@ public class EasyStepIndicator: UIView {
     //Indicator和Description之间Margin
     @IBInspectable public var stepDescriptionTextMargin: CGFloat = 3 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.titleMargin = stepDescriptionTextMargin }
             self.updateSubLayers()
         }
     }
@@ -238,6 +283,8 @@ public class EasyStepIndicator: UIView {
     //步骤描述文字的大小
     @IBInspectable public var stepDescriptionTextFontSize: CGFloat = 18 {
         didSet {
+            guard let _ = dataSource else { return }
+            self.annularLayers.forEach {$0.config?.title.fontSize = stepDescriptionTextFontSize }
             self.updateSubLayers()
         }
     }
@@ -249,7 +296,18 @@ public class EasyStepIndicator: UIView {
     private var showLineAnimating = true
 
     private var textSizes: [CGRect] = []
-
+    
+    // MARK: - Init
+//    required public override init(frame: CGRect,config: (CircleConfig)->(CircleConfig)) {
+//        let c = config(EasyStepIndicator.CircleConfig())
+//        super.init(frame: frame)
+//    }
+    
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     // MARK: - Functions
     private func createSteps() {
 

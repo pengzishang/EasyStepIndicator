@@ -14,6 +14,9 @@ class HorizontalCodeController: UIViewController {
         super.viewDidLoad()
 
         let indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: 300, height: 300)))
+        let s = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: 300, height: 300))) { (v: EasyStepIndicator.CircleConfig) -> (EasyStepIndicator.CircleConfig) in {
+        return v
+        } }
         self.view.addSubview(indicator)
         indicator.numberOfSteps = 4//如果需要调整步骤
         indicator.currentStep = 2 //如果需要调整目前进度
