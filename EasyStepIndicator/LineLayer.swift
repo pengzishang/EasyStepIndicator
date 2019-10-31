@@ -21,16 +21,14 @@ class LineLayer: CAShapeLayer {
     public var config : LineConfig?
 
     // MARK: - Initialization
-    override init() {
+    
+    required init(config:LineConfig) {
         super.init()
+        self.config = config
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-
-    override init(layer: Any) {
-        super.init(layer: layer)
     }
 
     // MARK: - Functions

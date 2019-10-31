@@ -9,21 +9,27 @@
 import Foundation
 import UIKit
 
+let defaultIncompleteColor = UIColor.red
+let defaultCompleteColor = UIColor.green
+
 protocol EasyStepIndicatorDataSource : class {
     func stepConfigForStep(indicator:EasyStepIndicator,index:Int) -> StepConfig
     func lineConfigForProcess(indicator:EasyStepIndicator,index:Int) -> LineConfig
     
     func viewForProcess(indicator:EasyStepIndicator, index:Int) -> UIView
     func characterForStep(indicator:EasyStepIndicator, index:Int) -> String
-    func titleForStep(indicator:EasyStepIndicator,index:Int)-> String
+    func titleForStep(indicator:EasyStepIndicator,index:Int)-> String!
 }
 
 protocol EasyStepIndicatorDelegate : class {
     func didChangeStep(indicator:EasyStepIndicator, index:Int)
 }
 
-let defaultIncompleteColor = UIColor.red
-let defaultCompleteColor = UIColor.green
+public enum FirstHeadingAligmentMode: UInt {
+    case top = 0,//每个标题和圆圈的起始对齐
+    center,//每个标题和起始和圆圈的中心对齐
+    centerWithAnnularTopStart//标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview
+}
 
 struct StatusColorPattern {
     var complete:UIColor? = defaultCompleteColor
@@ -37,9 +43,19 @@ struct LineDashPattern {
     public var margin: Float? = 2
 }
 
+struct Text {
+    public var fontSize : CGFloat = 18
+    public var colors = StatusColorPattern()
+    public var content : String?
+    public var style : NSMutableParagraphStyle? = {
+        let style = NSMutableParagraphStyle.init()
+        style.alignment = .center
+        return style
+    }()
+}
+
 struct StepConfig {
-    public var stepText = Text()
-    public var title = Text()
+    public var stepText : Text
     public var annular = Annular()
     public var tint = Tint()
     
@@ -47,11 +63,6 @@ struct StepConfig {
     public let stepIndex: Int
     public var titleMargin: CGFloat = 3
     
-    struct Text {
-        public var fontSize : CGFloat = 18
-        public var colors = StatusColorPattern()
-        public var content : String?
-    }
     struct Annular {
         public var colors = StatusColorPattern()
         public var dashPattern = LineDashPattern()
@@ -62,10 +73,11 @@ struct StepConfig {
         public var colors = StatusColorPattern()
     }
     
-//    init(radius:CGFloat , stepIndex:Int) {
-//        self.radius = radius
-//        self.stepIndex = stepIndex
-//    }
+    init(radius:CGFloat , stepIndex:Int , text:String?) {
+        self.radius = radius
+        self.stepIndex = stepIndex
+        self.stepText = Text.init(content: text)
+    }
 }
 
 
@@ -76,6 +88,21 @@ struct LineConfig {
     public var strokeWidth: CGFloat? = 4.0
     //指向线条离圆形的初始距离
     public var marginBetweenCircle : CGFloat? = 2.0
-    public var processIndex : Int = 0
+    public var processIndex : Int
     public var isHorizontal: Bool = true
+    public var processLength : CGFloat? = 0
 }
+
+
+struct TitleConfig {
+    public var title : Text
+    public var colors = StatusColorPattern()
+    public let stepIndex: Int
+    
+    init(stepIndex:Int ,title:String?) {
+        self.title = Text.init(content: title)
+        self.stepIndex = stepIndex
+    }
+}
+
+

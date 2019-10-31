@@ -25,17 +25,15 @@ class AnnularLayer: CAShapeLayer {
     public var config:StepConfig?
 
     // MARK: - Initialization
-    required override init() {
+    
+    required init(config:StepConfig) {
         super.init()
+        self.config = config
         self.fillColor = UIColor.clear.cgColor
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    override init(layer: Any) {
-        super.init(layer: layer)
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Functions
