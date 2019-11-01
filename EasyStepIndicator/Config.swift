@@ -12,20 +12,24 @@ import UIKit
 let defaultIncompleteColor = UIColor.red
 let defaultCompleteColor = UIColor.green
 
+
 protocol EasyStepIndicatorDataSource : class {
-    func stepConfigForStep(indicator:EasyStepIndicator,index:Int) -> StepConfig
-    func lineConfigForProcess(indicator:EasyStepIndicator,index:Int) -> LineConfig
-    
-    func viewForProcess(indicator:EasyStepIndicator, index:Int) -> UIView
-    func characterForStep(indicator:EasyStepIndicator, index:Int) -> String
-    func titleForStep(indicator:EasyStepIndicator,index:Int)-> String!
+    func characterForStep(indicator:EasyStepIndicator, index:Int) -> Character
+    func titleForStep(indicator:EasyStepIndicator,index:Int)-> String
 }
 
-protocol EasyStepIndicatorDelegate : class {
+protocol EasyStepIndicatorDelegate : NSObjectProtocol {
     func didChangeStep(indicator:EasyStepIndicator, index:Int)
+    func stepConfigForStep(indicator:EasyStepIndicator,index:Int,config:StepConfig)->StepConfig
+    func lineConfigForProcess(indicator:EasyStepIndicator,index:Int,config:LineConfig)->LineConfig
+    func titleConfigForStep(indicator:EasyStepIndicator,index:Int,config:TitleConfig)->TitleConfig
 }
 
-public enum FirstHeadingAligmentMode: UInt {
+extension EasyStepIndicator {
+
+}
+
+public enum FirstHeadingAlignmentMode: UInt {
     case top = 0,//每个标题和圆圈的起始对齐
     center,//每个标题和起始和圆圈的中心对齐
     centerWithAnnularTopStart//标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview
@@ -65,7 +69,8 @@ struct StepConfig {
     
     struct Annular {
         public var colors = StatusColorPattern()
-        public var dashPattern = LineDashPattern()
+        public var dashPatternComplete  = LineDashPattern()
+        public var dashPatternIncomplete  = LineDashPattern()
         //指示圆框线条的宽度
         public var strokeWidth: CGFloat? = 1.0
     }
@@ -73,23 +78,28 @@ struct StepConfig {
         public var colors = StatusColorPattern()
     }
     
-    init(radius:CGFloat , stepIndex:Int , text:String?) {
+    init(radius:CGFloat , stepIndex:Int , text:Character?) {
         self.radius = radius
         self.stepIndex = stepIndex
-        self.stepText = Text.init(content: text)
+        if let text = text {
+            self.stepText = Text.init(content: String(text))
+        } else {
+            self.stepText = Text.init(content:"\(stepIndex)")
+        }
+        
     }
 }
 
 
 struct LineConfig {
     public var colors = StatusColorPattern()
-    public var dashPattern  = LineDashPattern()
+    public var dashPatternComplete  = LineDashPattern()
+    public var dashPatternIncomplete  = LineDashPattern()
     //线条宽度
     public var strokeWidth: CGFloat? = 4.0
     //指向线条离圆形的初始距离
     public var marginBetweenCircle : CGFloat? = 2.0
     public var processIndex : Int
-    public var isHorizontal: Bool = true
     public var processLength : CGFloat? = 0
 }
 
@@ -106,3 +116,4 @@ struct TitleConfig {
 }
 
 
+//TODO:加入完成,当前,未完成三种状态

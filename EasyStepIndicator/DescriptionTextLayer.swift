@@ -11,19 +11,6 @@ import UIKit
 class DescriptionTextLayer: CAShapeLayer {
 
     private let tintTextLayer = CATextLayer()
-//    //步骤描述文字
-//    public var stepDescriptionText: String = ""
-//
-//    //步骤描述文字未完成时候颜色
-//    public var stepDescriptionTextIncompleteColor: UIColor = UIColor.red
-//
-//    //步骤描述文字完成时候颜色
-//    public var stepDescriptionTextCompleteColor: UIColor = UIColor.green
-//
-//    //步骤描述文字的大小
-//    public var stepDescriptionTextFontSize: CGFloat = 18
-
-//    var currentStepAsIncomplete = false
     
     public var titleConfig : TitleConfig?
     

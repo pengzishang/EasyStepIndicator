@@ -20,6 +20,7 @@ class LineLayer: CAShapeLayer {
     
     public var config : LineConfig?
 
+    public var isHorizontal: Bool = true
     // MARK: - Initialization
     
     required init(config:LineConfig) {
@@ -39,6 +40,8 @@ class LineLayer: CAShapeLayer {
             assertionFailure("没有指定EasyStepIndicator")
             return
         }
+        
+        self.isHorizontal = indicator.direction == .leftToRight || indicator.direction == .rightToLeft
         
         self.drawLinePath()
         if config?.processIndex ?? 0 < indicator.currentStep - 1 {
@@ -87,9 +90,10 @@ class LineLayer: CAShapeLayer {
         self.tintLineLayer.strokeColor = didFinished ? config?.colors.complete?.cgColor : config?.colors.incomplete?.cgColor
         self.tintLineLayer.lineWidth = self.lineWidth
         self.tintLineLayer.backgroundColor = UIColor.clear.cgColor
-        self.tintLineLayer.lineDashPattern = didFinished ? nil : self.lineDashPattern
+        self.tintLineLayer.lineDashPattern = didFinished ?
+            [NSNumber.init(value: config?.dashPatternComplete.width ?? 3), NSNumber.init(value: config?.dashPatternComplete.margin ?? 2)] :
+            [NSNumber.init(value: config?.dashPatternIncomplete.width ?? 3), NSNumber.init(value: config?.dashPatternIncomplete.margin ?? 2)]
         self.addSublayer(self.tintLineLayer)
-
     }
 
     private func animateLine() {
