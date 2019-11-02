@@ -224,7 +224,7 @@ public class EasyStepIndicator: UIView {
     //步骤描述文字未完成时候颜色
     @IBInspectable public var stepDescriptionTextIncompleteColor: UIColor = UIColor.red {
         didSet {
-            self.descriptionTextLayers.forEach {$0.titleConfig?.title.colors.incomplete = stepDescriptionTextIncompleteColor }
+            self.descriptionTextLayers.forEach {$0.config?.title.colors.incomplete = stepDescriptionTextIncompleteColor }
             self.updateSubLayers()
         }
     }
@@ -232,7 +232,7 @@ public class EasyStepIndicator: UIView {
     //步骤描述文字完成时候颜色
     @IBInspectable public var stepDescriptionTextCompleteColor: UIColor = UIColor.green {
         didSet {
-            self.descriptionTextLayers.forEach {$0.titleConfig?.title.colors.complete = stepDescriptionTextCompleteColor }
+            self.descriptionTextLayers.forEach {$0.config?.title.colors.complete = stepDescriptionTextCompleteColor }
             self.updateSubLayers()
         }
     }
@@ -248,12 +248,12 @@ public class EasyStepIndicator: UIView {
     //步骤描述文字的大小
     @IBInspectable public var stepDescriptionTextFontSize: CGFloat = 18 {
         didSet {
-            self.descriptionTextLayers.forEach {$0.titleConfig?.title.fontSize = stepDescriptionTextFontSize }
+            self.descriptionTextLayers.forEach {$0.config?.title.fontSize = stepDescriptionTextFontSize }
             self.updateSubLayers()
         }
     }
 
-    private var maxFontWidth: CGFloat = UIScreen.main.bounds.width / 3
+//    private var maxContentWidth: CGFloat = UIScreen.main.bounds.width / 3
 
     private var maxFontHeight = 0
 
@@ -269,6 +269,10 @@ public class EasyStepIndicator: UIView {
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     // MARK: - Functions
@@ -337,32 +341,41 @@ public class EasyStepIndicator: UIView {
         self.applyDirection()
     }
 
-    private func layoutHorizontal() {
-        maxFontWidth = UIScreen.main.bounds.width / 3
-        
-        var maxContentHeight: CGFloat = 0
-        
-        if let _dataSource = self.dataSource {
-            let oldTitles = titles
-            titles.removeAll()
-            for index in 0..<self.numberOfSteps {
-                
-                let title = _dataSource.titleForStep(indicator: self, index: index)
-                titles.append(title )
-            }
-            if oldTitles != titles {
-                titleTextSizes.removeAll()
-                for index in 0..<self.numberOfSteps {
-                    let size = self.getTextRect(withIndex: index, maxWidth: CGFloat.greatestFiniteMagnitude).size
-                    let stepConfig = self.annularLayers[index].config
-                    let fontMargin = stepConfig?.titleMargin
-                    maxContentHeight = max(size.height + (fontMargin ?? 3) ,maxContentHeight)
-                    titleTextSizes.append(size)
-                }
-            }
+    fileprivate func getTextSize(index:Int, maxContentWidth:CGFloat = CGFloat.greatestFiniteMagnitude ,maxContentHeight: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGSize {
+        guard let _dataSource = self.dataSource else {
+            return CGSize.zero
         }
-        
-        let startY = (self.containerLayer.frame.height - maxContentHeight) / 2  - self.circleRadius //整个图形的起始Y
+
+        let oldTitle = titles[index]
+        let newTitle = _dataSource.titleForStep(indicator: self, index: index)
+        guard oldTitle != newTitle else{
+            return CGSize.zero
+        }
+
+        let titleConfig = self.descriptionTextLayers[index].config
+
+        let font = UIFont.systemFont(ofSize: titleConfig?.title.fontSize ?? self.stepDescriptionTextFontSize)
+        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: titleConfig?.title.style! ]
+        let attributesText = NSAttributedString(string: (titleConfig?.title.content) ?? "", attributes: attributes)
+        let textSize = attributesText.boundingRect(with: CGSize.init(width: maxContentWidth, height: maxContentHeight), options: .usesLineFragmentOrigin, context: nil).size
+
+        return textSize
+    }
+
+    private func layoutHorizontal() {
+        let maxContentWidth = UIScreen.main.bounds.width / 3
+
+        for index in 0..<self.numberOfSteps {
+            let size = self.getTextSize(index: index, maxContentWidth: maxContentWidth)
+            self.titleTextSizes[index] = size
+        }
+
+        let titleMargins = self.annularLayers.map { $0.config?.titleMargin ?? self.stepDescriptionTextMargin }
+        let titleHeights = self.titleTextSizes.map {$0.height}
+        let radiuses = self.annularLayers.map {$0.config?.radius ?? self.circleRadius}
+        let maxContentHeight = zip(zip(titleMargins, titleHeights).map(+), radiuses).map(+).max() ?? 0
+
+        let startY = (self.containerLayer.frame.height - maxContentHeight) / 2 //整个图形的中轴Y
         
         var processLengths : [CGFloat] = {
             guard self.numberOfSteps > 1 else{
@@ -439,7 +452,7 @@ public class EasyStepIndicator: UIView {
                 }
                 return currentLength
             }()
-            let annularStartY = startY - self.circleRadius
+            let annularStartY = startY - (annularLayer.config?.radius ?? self.circleRadius)
             let diameter = (self.annularLayers[_index].config?.radius ?? self.circleRadius) * 2
             annularLayer.frame = CGRect(x: annularStartX, y: annularStartY, width: diameter, height: diameter)
             annularLayer.updateStatus()
@@ -447,12 +460,11 @@ public class EasyStepIndicator: UIView {
         }
         
         func layoutHorizontalLineLayer(_index: Int, annularPoint: CGPoint) {
-                let lineLayer = self.lineLayers[_index]
+            let lineLayer = self.lineLayers[_index]
             let lineStartX = annularPoint.x + (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
             let lineStartY = annularPoint.y - (lineLayer.config?.strokeWidth ?? self.lineStrokeWidth)/2
-                
-                lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: processLengths[_index], height: lineLayer.config?.strokeWidth ?? self.lineStrokeWidth)
-                lineLayer.updateStatus()
+            lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: processLengths[_index], height: lineLayer.config?.strokeWidth ?? self.lineStrokeWidth)
+            lineLayer.updateStatus()
         }
         
         func layoutHorizontalTitleLayer(_index: Int,annularPoint: CGPoint) {
@@ -466,111 +478,136 @@ public class EasyStepIndicator: UIView {
             }
     
             let descriptionStartY = annularPoint.y + 2 * (annularLayer.config?.radius ?? self.circleRadius)
-            descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: maxFontWidth, height: self.titleTextSizes[_index].height + 2)//修正2px
+            descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: maxContentWidth, height: self.titleTextSizes[_index].height + 2)//修正2px
             descriptionTextLayer.updateStatus()
         }
     
         for _index in 0..<self.numberOfSteps {
             let annularPoint = layoutHorizontalAnnularLayers(_index: _index)
-            layoutHorizontalTitleLayer(_index: _index, annularPoint: annularPoint)
             if _index < self.numberOfSteps - 1 {
                 layoutHorizontalLineLayer(_index: _index, annularPoint: annularPoint)
+            }
+            if let _ = self.dataSource {
+                layoutHorizontalTitleLayer(_index: _index, annularPoint: annularPoint)
             }
         }
     }
 
     private func layoutVertical() {
-        let diameter = self.circleRadius * 2
-        var stepHeights: [CGFloat] = []
-        let verticalFontMargin: CGFloat = 10
 
-        if showStepDescriptionTexts {
-            if self.stepDescriptionTexts.count == 0 {
-                return
-            }
-            #if DEBUG
-            assert(self.stepDescriptionTexts.count == self.numberOfSteps, "文字数组个数与步骤数不符合")
-            #else
-            if self.stepDescriptionTexts.count > self.numberOfSteps {
-                self.stepDescriptionTexts = Array(self.stepDescriptionTexts.prefix(upTo: self.numberOfSteps))
-            } else if self.stepDescriptionTexts.count < self.numberOfSteps {
-                self.stepDescriptionTexts.append(contentsOf: Array.init(repeating: "", count: self.numberOfSteps - self.stepDescriptionTexts.count))
-            }
-            #endif
-            maxFontWidth = self.containerLayer.frame.width - stepDescriptionTextMargin - diameter
-            textSizes = self.stepDescriptionTexts.compactMap { (target) -> CGRect in
-                let style = NSMutableParagraphStyle()
-                style.alignment = NSTextAlignment.center
-                return self.getTextRect(style, target)
-            }
+        let radiuses : [CGFloat] = self.annularLayers.map { ($0.config?.radius ?? self.circleRadius) }
+        let titleMargins :[CGFloat] = self.annularLayers.map { $0.config?.titleMargin ?? self.stepDescriptionTextMargin }
+        let maxContentWidths : [CGFloat] = zip(radiuses, titleMargins).map (+).map{self.containerLayer.frame.width - $0}
 
-            if stepLineFitDescriptionText {//每个步骤的高度不一样
-                var textHeights = titleTextSizes.map {
-                    $0.height
-                }
-                while textHeights.count >= 2 {
-                    let firstHeight = textHeights.removeFirst()
-                    let stepHeight = max(firstHeight / 2, self.circleRadius) + max((textHeights.first!) / 2, self.circleRadius) - self.lineMargin * 2 + verticalFontMargin - diameter // 线中间留10px空间,可以更改,看需求
-                    stepHeights.append(stepHeight)
-                }
-            } else {//每个步骤高度一样
-                var stepHeight: CGFloat = 0
-                let textHeights = titleTextSizes.map {
-                    $0.height
-                }
-                if self.numberOfSteps > 1 {
-                    let topContentPadding = textHeights.first! / 2 > self.circleRadius ? textHeights.first! / 2 - self.circleRadius : 0
-                    let bottomContentPadding = textHeights.last! / 2 > self.circleRadius ? textHeights.last! / 2 - self.circleRadius : 0
-
-                    let totalStepHeight = self.containerLayer.frame.height - topContentPadding - bottomContentPadding - self.lineMargin * 2 * CGFloat(self.numberOfSteps - 1) - diameter * CGFloat(self.numberOfSteps)
-                    stepHeight = totalStepHeight / CGFloat(self.numberOfSteps - 1)//单纯是线的长度
-                }
-                stepHeights = Array.init(repeating: stepHeight, count: self.numberOfSteps - 1)
-            }
-
-            for i in 0..<self.annularLayers.count {
-                var y: CGFloat = 0
-                if stepLineFitDescriptionText {
-                    var topContentPadding: CGFloat = 0
-                    let totalHeight = titleTextSizes.reduce(-verticalFontMargin) { (r, rect) -> CGFloat in
-                        let textHeight = rect.height
-                        return max(textHeight, diameter) + r + verticalFontMargin
-                    }
-                    topContentPadding = (self.containerLayer.frame.height - totalHeight) / 2 // 可以为负
-                    var firstAnnulayerStartY: CGFloat = 0
-                    if (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius > 0 {
-                        firstAnnulayerStartY = topContentPadding + (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius
-                    } else {
-                        firstAnnulayerStartY = topContentPadding
-                    }
-                    y = firstAnnulayerStartY + CGFloat(i) * diameter + 2 * CGFloat(i) * self.lineMargin + stepHeights.prefix(upTo: i).reduce(0, +)
-
-                    applyVerticalContentLayer(annularLayerY: y, index: i, stepHeights: stepHeights)//防止这里超界
-                } else {
-                    var firstAnnulayerStartY: CGFloat = 0
-                    if (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius > 0 {
-                        firstAnnulayerStartY = (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius
-                    } else {
-                        firstAnnulayerStartY = 0
-                    }
-                    let stepHeight = stepHeights.first!
-                    y = firstAnnulayerStartY + CGFloat(i) * (stepHeight + self.lineMargin * 2 + diameter)
-                    applyVerticalContentLayer(annularLayerY: y, index: i, stepHeights: stepHeights)//防止这里超界
-                }
-            }
-        } else {
-            let stepHeight = self.numberOfSteps <= 1 ?
-                0 : (self.containerLayer.frame.height - self.lineMargin * 2 * CGFloat(self.numberOfSteps - 1) - diameter * CGFloat(self.numberOfSteps)) / CGFloat(self.numberOfSteps - 1)//单纯是线的长度
-            stepHeights = Array.init(repeating: stepHeight, count: self.numberOfSteps - 1)
-            for i in 0..<self.annularLayers.count {
-
-                let y: CGFloat = self.numberOfSteps <= 1 ?
-                    self.containerLayer.frame.height / 2.0 - self.circleRadius :
-                    (diameter + stepHeight + 2 * lineMargin) * CGFloat(i)
-
-                applyVerticalContentLayer(annularLayerY: y, index: i, stepHeights: stepHeights)
-            }
+        for index in 0..<self.numberOfSteps {
+            let size = self.getTextSize(index: index, maxContentWidth: maxContentWidths[index])
+            self.titleTextSizes[index] = size
         }
+        
+        let startX : CGFloat = { //X中轴
+            if let _ = self.dataSource {
+                return self.containerLayer.frame.width / 2.0
+            } else {
+                return radiuses.max() ?? 0
+            }
+        }()
+        
+        let startY = {
+            
+        }
+
+
+//        let diameter = self.circleRadius * 2
+//        var stepHeights: [CGFloat] = []
+//        let verticalFontMargin: CGFloat = 10
+
+//        if showStepDescriptionTexts {
+//            if self.stepDescriptionTexts.count == 0 {
+//                return
+//            }
+//            #if DEBUG
+//            assert(self.stepDescriptionTexts.count == self.numberOfSteps, "文字数组个数与步骤数不符合")
+//            #else
+//            if self.stepDescriptionTexts.count > self.numberOfSteps {
+//                self.stepDescriptionTexts = Array(self.stepDescriptionTexts.prefix(upTo: self.numberOfSteps))
+//            } else if self.stepDescriptionTexts.count < self.numberOfSteps {
+//                self.stepDescriptionTexts.append(contentsOf: Array.init(repeating: "", count: self.numberOfSteps - self.stepDescriptionTexts.count))
+//            }
+//            #endif
+//            maxContentWidth = self.containerLayer.frame.width - stepDescriptionTextMargin - diameter
+//            textSizes = self.stepDescriptionTexts.compactMap { (target) -> CGRect in
+//                let style = NSMutableParagraphStyle()
+//                style.alignment = NSTextAlignment.center
+//                return self.getTextRect(style, target)
+//            }
+//
+//            if stepLineFitDescriptionText {//每个步骤的高度不一样
+//                var textHeights = titleTextSizes.map {
+//                    $0.height
+//                }
+//                while textHeights.count >= 2 {
+//                    let firstHeight = textHeights.removeFirst()
+//                    let stepHeight = max(firstHeight / 2, self.circleRadius) + max((textHeights.first!) / 2, self.circleRadius) - self.lineMargin * 2 + verticalFontMargin - diameter // 线中间留10px空间,可以更改,看需求
+//                    stepHeights.append(stepHeight)
+//                }
+//            } else {//每个步骤高度一样
+//                var stepHeight: CGFloat = 0
+//                let textHeights = titleTextSizes.map {
+//                    $0.height
+//                }
+//                if self.numberOfSteps > 1 {
+//                    let topContentPadding = textHeights.first! / 2 > self.circleRadius ? textHeights.first! / 2 - self.circleRadius : 0
+//                    let bottomContentPadding = textHeights.last! / 2 > self.circleRadius ? textHeights.last! / 2 - self.circleRadius : 0
+//
+//                    let totalStepHeight = self.containerLayer.frame.height - topContentPadding - bottomContentPadding - self.lineMargin * 2 * CGFloat(self.numberOfSteps - 1) - diameter * CGFloat(self.numberOfSteps)
+//                    stepHeight = totalStepHeight / CGFloat(self.numberOfSteps - 1)//单纯是线的长度
+//                }
+//                stepHeights = Array.init(repeating: stepHeight, count: self.numberOfSteps - 1)
+//            }
+//
+//            for i in 0..<self.annularLayers.count {
+//                var y: CGFloat = 0
+//                if stepLineFitDescriptionText {
+//                    var topContentPadding: CGFloat = 0
+//                    let totalHeight = titleTextSizes.reduce(-verticalFontMargin) { (r, rect) -> CGFloat in
+//                        let textHeight = rect.height
+//                        return max(textHeight, diameter) + r + verticalFontMargin
+//                    }
+//                    topContentPadding = (self.containerLayer.frame.height - totalHeight) / 2 // 可以为负
+//                    var firstAnnulayerStartY: CGFloat = 0
+//                    if (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius > 0 {
+//                        firstAnnulayerStartY = topContentPadding + (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius
+//                    } else {
+//                        firstAnnulayerStartY = topContentPadding
+//                    }
+//                    y = firstAnnulayerStartY + CGFloat(i) * diameter + 2 * CGFloat(i) * self.lineMargin + stepHeights.prefix(upTo: i).reduce(0, +)
+//
+//                    applyVerticalContentLayer(annularLayerY: y, index: i, stepHeights: stepHeights)//防止这里超界
+//                } else {
+//                    var firstAnnulayerStartY: CGFloat = 0
+//                    if (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius > 0 {
+//                        firstAnnulayerStartY = (titleTextSizes.first?.height ?? 0) / 2 - self.circleRadius
+//                    } else {
+//                        firstAnnulayerStartY = 0
+//                    }
+//                    let stepHeight = stepHeights.first!
+//                    y = firstAnnulayerStartY + CGFloat(i) * (stepHeight + self.lineMargin * 2 + diameter)
+//                    applyVerticalContentLayer(annularLayerY: y, index: i, stepHeights: stepHeights)//防止这里超界
+//                }
+//            }
+//        } else {
+//            let stepHeight = self.numberOfSteps <= 1 ?
+//                0 : (self.containerLayer.frame.height - self.lineMargin * 2 * CGFloat(self.numberOfSteps - 1) - diameter * CGFloat(self.numberOfSteps)) / CGFloat(self.numberOfSteps - 1)//单纯是线的长度
+//            stepHeights = Array.init(repeating: stepHeight, count: self.numberOfSteps - 1)
+//            for i in 0..<self.annularLayers.count {
+//
+//                let y: CGFloat = self.numberOfSteps <= 1 ?
+//                    self.containerLayer.frame.height / 2.0 - self.circleRadius :
+//                    (diameter + stepHeight + 2 * lineMargin) * CGFloat(i)
+//
+//                applyVerticalContentLayer(annularLayerY: y, index: i, stepHeights: stepHeights)
+//            }
+//        }
 
         //stepLineFitDescriptionText
         //1.高度弹性
@@ -584,53 +621,53 @@ public class EasyStepIndicator: UIView {
         //得出文字起始位置
     }
 
-    fileprivate func getTextRect(withIndex index:Int,maxWidth:CGFloat ) -> CGRect {
-        let index = titles.firstIndex(of: text)
-        
-        let font = UIFont.systemFont(ofSize: stepDescriptionTextFontSize)
-        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: style]
-        let attributesText = NSAttributedString(string: text, attributes: attributes)
-        let size = attributesText.boundingRect(with: CGSize.init(width: maxFontWidth, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, context: nil)
-        return size
-    }
+//    fileprivate func getTextRect(withIndex index:Int,maxWidth:CGFloat ) -> CGRect {
+//        let index = titles.firstIndex(of: text)
+//
+//        let font = UIFont.systemFont(ofSize: stepDescriptionTextFontSize)
+//        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: style]
+//        let attributesText = NSAttributedString(string: text, attributes: attributes)
+//        let size = attributesText.boundingRect(with: CGSize.init(width: maxContentWidth, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, context: nil)
+//        return size
+//    }
 
-    fileprivate func applyVerticalContentLayer(annularLayerY: CGFloat, index: Int, stepHeights: [CGFloat]) {
-        let startX = showStepDescriptionTexts ? self.circleRadius : self.containerLayer.frame.width / 2.0//综合加上字的长度
-        let diameter = self.circleRadius * 2
-        let annularLayer = self.annularLayers[index]
-        annularLayer.frame = CGRect(x: startX - self.circleRadius, y: annularLayerY, width: diameter, height: diameter)
-        self.applyAnnularStyle(annularLayer: annularLayer, index: index)
-        annularLayer.step = index + 1
-        annularLayer.updateStatus()
-
-        if index < self.numberOfSteps - 1 {
-            let lineLayer = self.lineLayers[index]
-            let lineBackgroundWidth: CGFloat = self.lineStrokeWidth
-            let lineX = showStepDescriptionTexts ? startX - self.lineStrokeWidth / 2 : self.containerLayer.frame.width / 2.0 - lineBackgroundWidth / 2.0
-            let lineY = annularLayerY + diameter + self.lineMargin
-            lineLayer.frame = CGRect(x: lineX, y: lineY, width: lineBackgroundWidth, height: stepHeights[index])
-            lineLayer.isHorizontal = false
-            self.applyLineStyle(lineLayer: lineLayer)
-        }
-
-        if showStepDescriptionTexts {
-            var descriptionStartY: CGFloat = 0.0
-            if stepLineFitDescriptionText {
-                descriptionStartY = annularLayerY + self.circleRadius - titleTextSizes[index].height / 2
-            } else {
-                let textHeights = titleTextSizes.map {
-                    $0.size.height
-                }
-                descriptionStartY = annularLayerY + self.circleRadius - textHeights[index] / 2
-            }
-
-            let descriptionStartX = startX + stepDescriptionTextMargin + self.circleRadius
-            let descriptionLayer = self.descriptionTextLayers[index]
-            self.applyDescriptionText(descriptionText: descriptionLayer, index: index)
-            descriptionLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: textSizes[index].size.width, height: textSizes[index].size.height)
-            descriptionLayer.updateStatus()
-        }
-    }
+//    fileprivate func applyVerticalContentLayer(annularLayerY: CGFloat, index: Int, stepHeights: [CGFloat]) {
+//        let startX = showStepDescriptionTexts ? self.circleRadius : self.containerLayer.frame.width / 2.0//综合加上字的长度
+//        let diameter = self.circleRadius * 2
+//        let annularLayer = self.annularLayers[index]
+//        annularLayer.frame = CGRect(x: startX - self.circleRadius, y: annularLayerY, width: diameter, height: diameter)
+//        self.applyAnnularStyle(annularLayer: annularLayer, index: index)
+//        annularLayer.step = index + 1
+//        annularLayer.updateStatus()
+//
+//        if index < self.numberOfSteps - 1 {
+//            let lineLayer = self.lineLayers[index]
+//            let lineBackgroundWidth: CGFloat = self.lineStrokeWidth
+//            let lineX = showStepDescriptionTexts ? startX - self.lineStrokeWidth / 2 : self.containerLayer.frame.width / 2.0 - lineBackgroundWidth / 2.0
+//            let lineY = annularLayerY + diameter + self.lineMargin
+//            lineLayer.frame = CGRect(x: lineX, y: lineY, width: lineBackgroundWidth, height: stepHeights[index])
+//            lineLayer.isHorizontal = false
+//            self.applyLineStyle(lineLayer: lineLayer)
+//        }
+//
+//        if showStepDescriptionTexts {
+//            var descriptionStartY: CGFloat = 0.0
+//            if stepLineFitDescriptionText {
+//                descriptionStartY = annularLayerY + self.circleRadius - titleTextSizes[index].height / 2
+//            } else {
+//                let textHeights = titleTextSizes.map {
+//                    $0.size.height
+//                }
+//                descriptionStartY = annularLayerY + self.circleRadius - textHeights[index] / 2
+//            }
+//
+//            let descriptionStartX = startX + stepDescriptionTextMargin + self.circleRadius
+//            let descriptionLayer = self.descriptionTextLayers[index]
+//            self.applyDescriptionText(descriptionText: descriptionLayer, index: index)
+//            descriptionLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: textSizes[index].size.width, height: textSizes[index].size.height)
+//            descriptionLayer.updateStatus()
+//        }
+//    }
 
     private func applyDirection() {
         switch self.direction {
@@ -640,7 +677,7 @@ public class EasyStepIndicator: UIView {
             for annularLayer in self.annularLayers {
                 annularLayer.transform = rotation180
             }
-            if showStepDescriptionTexts {
+            if self.dataSource != nil {
                 self.descriptionTextLayers.forEach {
                     $0.transform = rotation180
                 }
@@ -651,7 +688,7 @@ public class EasyStepIndicator: UIView {
             for annularLayer in self.annularLayers {
                 annularLayer.transform = rotation180
             }
-            if showStepDescriptionTexts {
+            if self.dataSource != nil {
                 self.descriptionTextLayers.forEach {
                     $0.transform = rotation180
                 }
@@ -665,7 +702,7 @@ public class EasyStepIndicator: UIView {
     }
 
     private func setCurrentStep(step: Int) {
-        for i in 0..<self.numberOfSteps {
+        for _ in 0..<self.numberOfSteps {
             self.annularLayers[step].updateStatus()
             if step >= 0 {
                 self.lineLayers[step].updateStatus()

@@ -12,7 +12,7 @@ class DescriptionTextLayer: CAShapeLayer {
 
     private let tintTextLayer = CATextLayer()
     
-    public var titleConfig : TitleConfig?
+    public var config: TitleConfig?
     
     public var indicator :EasyStepIndicator?
 
@@ -30,10 +30,10 @@ class DescriptionTextLayer: CAShapeLayer {
 
     fileprivate func drawText() {
         self.tintTextLayer.removeFromSuperlayer()
-        self.tintTextLayer.string = titleConfig?.title.content
+        self.tintTextLayer.string = config?.title.content
         self.tintTextLayer.alignmentMode = .center
-        self.tintTextLayer.font = UIFont.systemFont(ofSize: titleConfig?.title.fontSize ?? 18)
-        self.tintTextLayer.fontSize = titleConfig?.title.fontSize ?? 18
+        self.tintTextLayer.font = UIFont.systemFont(ofSize: config?.title.fontSize ?? 18)
+        self.tintTextLayer.fontSize = config?.title.fontSize ?? 18
         self.tintTextLayer.contentsScale = UIScreen.main.nativeScale
         self.tintTextLayer.backgroundColor = UIColor.clear.cgColor
         self.tintTextLayer.frame = self.bounds.integral
@@ -42,24 +42,24 @@ class DescriptionTextLayer: CAShapeLayer {
     }
 
     func updateStatus() {
-        guard titleConfig?.title.content?.count ?? 0 > 0 else {
+        guard config?.title.content?.count ?? 0 > 0 else {
             return
         }
         self.drawText()
         if isFinished {
-            self.tintTextLayer.foregroundColor = titleConfig?.colors.complete?.cgColor
+            self.tintTextLayer.foregroundColor = config?.colors.complete?.cgColor
         } else if isCurrent {
             self.tintTextLayer.foregroundColor = indicator?.currentStepAsIncomplete ?? false ?
-                titleConfig?.colors.incomplete?.cgColor : titleConfig?.colors.complete?.cgColor
+                config?.colors.incomplete?.cgColor : config?.colors.complete?.cgColor
         } else {
-            self.tintTextLayer.foregroundColor = titleConfig?.colors.incomplete?.cgColor
+            self.tintTextLayer.foregroundColor = config?.colors.incomplete?.cgColor
         }
         self.addSublayer(self.tintTextLayer)
     }
 
     required init(titleConfig:TitleConfig) {
         super.init()
-        self.titleConfig = titleConfig
+        self.config = titleConfig
         self.fillColor = UIColor.clear.cgColor
     }
 
