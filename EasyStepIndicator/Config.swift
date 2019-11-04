@@ -23,16 +23,17 @@ protocol EasyStepIndicatorDelegate : NSObjectProtocol {
     func stepConfigForStep(indicator:EasyStepIndicator,index:Int,config:StepConfig)->StepConfig
     func lineConfigForProcess(indicator:EasyStepIndicator,index:Int,config:LineConfig)->LineConfig
     func titleConfigForStep(indicator:EasyStepIndicator,index:Int,config:TitleConfig)->TitleConfig
+    func shouldStepLineFitDescriptionText() -> Bool
 }
 
 extension EasyStepIndicator {
 
 }
 
-public enum FirstHeadingAlignmentMode: UInt {
+public enum AlignmentMode: UInt {
     case top = 0,//每个标题和圆圈的起始对齐
-    center,//每个标题和起始和圆圈的中心对齐
-    centerWithAnnularTopStart//标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview
+         center,//每个标题和起始和圆圈的中心对齐
+         centerWithAnnularStartAndAnnularEnd//标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview
 }
 
 struct StatusColorPattern {
@@ -51,7 +52,7 @@ struct Text {
     public var fontSize : CGFloat = 18
     public var colors = StatusColorPattern()
     public var content : String?
-    public var style : NSMutableParagraphStyle? = {
+    public var style : NSMutableParagraphStyle = {
         let style = NSMutableParagraphStyle.init()
         style.alignment = .center
         return style
