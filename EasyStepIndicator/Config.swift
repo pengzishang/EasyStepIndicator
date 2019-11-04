@@ -60,7 +60,7 @@ struct Text {
 }
 
 struct StepConfig {
-    public var stepText : Text
+    public var stepText : Text?
     public var annular = Annular()
     public var tint = Tint()
     

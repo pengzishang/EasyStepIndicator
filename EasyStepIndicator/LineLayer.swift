@@ -88,11 +88,20 @@ class LineLayer: CAShapeLayer {
         self.tintLineLayer.path = tintLinePath.cgPath
         self.tintLineLayer.frame = self.bounds
         self.tintLineLayer.strokeColor = didFinished ? config?.colors.complete?.cgColor : config?.colors.incomplete?.cgColor
-        self.tintLineLayer.lineWidth = self.lineWidth
+        self.tintLineLayer.lineWidth = config?.strokeWidth ?? 4
         self.tintLineLayer.backgroundColor = UIColor.clear.cgColor
-        self.tintLineLayer.lineDashPattern = didFinished ?
-            [NSNumber.init(value: config?.dashPatternComplete.width ?? 3), NSNumber.init(value: config?.dashPatternComplete.margin ?? 2)] :
-            [NSNumber.init(value: config?.dashPatternIncomplete.width ?? 3), NSNumber.init(value: config?.dashPatternIncomplete.margin ?? 2)]
+        var dashPatternComplete : [NSNumber]?
+        var dashPatternIncomplete : [NSNumber]?
+        
+        if config?.dashPatternComplete.width ?? 3 != 0 || config?.dashPatternComplete.margin ?? 2 != 0 {
+            dashPatternComplete = [NSNumber.init(value: config?.dashPatternComplete.width ?? 3), NSNumber.init(value: config?.dashPatternComplete.margin ?? 2)]
+        }
+        
+        if config?.dashPatternIncomplete.width ?? 3 != 0 || config?.dashPatternIncomplete.margin ?? 2 != 0 {
+            dashPatternIncomplete = [NSNumber.init(value: config?.dashPatternIncomplete.width ?? 3), NSNumber.init(value: config?.dashPatternIncomplete.margin ?? 2)]
+        }
+        
+        self.tintLineLayer.lineDashPattern = didFinished ? dashPatternComplete : dashPatternIncomplete
         self.addSublayer(self.tintLineLayer)
     }
 

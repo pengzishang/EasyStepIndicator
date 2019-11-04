@@ -30,13 +30,17 @@ class AnnularLayer: CAShapeLayer {
         self.fillColor = UIColor.clear.cgColor
     }
     
+    override init(layer: Any) {
+        super.init(layer: layer)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Functions
     public func updateStatus() {
-        
+        self.centerTextLayer.removeFromSuperlayer()
         self.centerCircleLayer.removeFromSuperlayer()
         guard let indicator = indicator else {
             assertionFailure("没有指定EasyStepIndicator")
@@ -45,16 +49,16 @@ class AnnularLayer: CAShapeLayer {
         
         if indicator.currentStep > config?.stepIndex ?? 0{//已经完成的步骤
             self.path = nil
-            self.drawCenterCircleAnimated(didFinished: true)
+            self.drawCenterCircle(didFinished: true)
             self.drawText(didFinished: true)
         } else {
             self.drawAnnularPath()
             if indicator.currentStep == config?.stepIndex ?? 0 {//当前步骤
-                self.drawCenterCircleAnimated(didFinished: indicator.currentStepAsIncomplete)
+                self.drawCenterCircle(didFinished: !indicator.currentStepAsIncomplete)
                 self.animateCenter()
                 self.drawText(didFinished: !indicator.currentStepAsIncomplete)
             } else {
-                self.drawCenterCircleAnimated(didFinished: false)
+                self.drawCenterCircle(didFinished: false)
                 self.drawText(didFinished: false)
             }
         }
@@ -68,23 +72,29 @@ class AnnularLayer: CAShapeLayer {
     }
     
     private func drawText(didFinished: Bool) {
-        guard let stepCircleText = config?.stepText.content else {
+        guard let stepCircleText = config?.stepText?.content else {
             return
         }
-        let sideLength = fmin(self.frame.width, self.frame.height)
+        //TODO
+        let fontSize = self.config?.stepText?.fontSize ?? 18
+        let font = UIFont.boldSystemFont(ofSize:fontSize)
+        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: config?.stepText?.style ]
+        let attributesText = NSAttributedString(string: stepCircleText, attributes: attributes as [NSAttributedString.Key : Any])
+        let textSize = attributesText.boundingRect(with: CGSize.init(width: self.frame.width, height: self.frame.height), options: .usesLineFragmentOrigin, context: nil).size
+        
         self.centerTextLayer.string = stepCircleText
-        self.centerTextLayer.frame = self.bounds
-        self.centerTextLayer.position = CGPoint(x: self.bounds.midX, y: self.bounds.midY * 1.2)
+        self.centerTextLayer.frame = CGRect.init(origin: CGPoint.init(x: self.bounds.midX - textSize.width/2, y: self.bounds.midY - textSize.height/2), size: textSize)
         self.centerTextLayer.contentsScale = UIScreen.main.scale
         self.centerTextLayer.alignmentMode = CATextLayerAlignmentMode.center
-        let fontSize = self.config?.stepText.fontSize ?? sideLength * 0.65
-        self.centerTextLayer.font = UIFont.boldSystemFont(ofSize: fontSize) as CFTypeRef
+
+        self.centerTextLayer.font = font
         self.centerTextLayer.fontSize = fontSize
-        self.centerTextLayer.foregroundColor = didFinished ? config?.stepText.colors.complete?.cgColor : config?.stepText.colors.incomplete?.cgColor
+        //TODO
+        self.centerTextLayer.foregroundColor = didFinished ? config?.stepText?.colors.complete?.cgColor : config?.stepText?.colors.incomplete?.cgColor
         self.addSublayer(self.centerTextLayer)
     }
     
-    private func drawCenterCircleAnimated(didFinished: Bool) {
+    private func drawCenterCircle(didFinished: Bool) {
         let centerPath = UIBezierPath()
         let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - 1
         centerPath.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: circlesRadius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true)
@@ -95,12 +105,22 @@ class AnnularLayer: CAShapeLayer {
         self.centerCircleLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.centerCircleLayer.fillColor = didFinished ?
             config?.tint.colors.complete?.cgColor : config?.tint.colors.incomplete?.cgColor
-        self.centerCircleLayer.lineWidth = self.lineWidth
+        self.centerCircleLayer.lineWidth = config?.annular.strokeWidth ?? 3
         self.centerCircleLayer.strokeColor = didFinished ?
             config?.annular.colors.complete?.cgColor : config?.annular.colors.incomplete?.cgColor
-        self.centerCircleLayer.lineDashPattern = didFinished ?
-            [NSNumber.init(value: config?.annular.dashPatternComplete.width ?? 3), NSNumber.init(value: config?.annular.dashPatternComplete.margin ?? 2)] :
-            [NSNumber.init(value: config?.annular.dashPatternIncomplete.width ?? 3), NSNumber.init(value: config?.annular.dashPatternIncomplete.margin ?? 2)]
+        
+        var dashPatternComplete : [NSNumber]?
+        var dashPatternIncomplete : [NSNumber]?
+        
+        if config?.annular.dashPatternComplete.width ?? 3 != 0 || config?.annular.dashPatternComplete.margin ?? 2 != 0 {
+            dashPatternComplete = [NSNumber.init(value: config?.annular.dashPatternComplete.width ?? 3), NSNumber.init(value: config?.annular.dashPatternComplete.margin ?? 2)]
+        }
+        
+        if config?.annular.dashPatternIncomplete.width ?? 3 != 0 || config?.annular.dashPatternIncomplete.margin ?? 2 != 0 {
+            dashPatternIncomplete = [NSNumber.init(value: config?.annular.dashPatternIncomplete.width ?? 3), NSNumber.init(value: config?.annular.dashPatternIncomplete.margin ?? 2)]
+        }
+        
+        self.centerCircleLayer.lineDashPattern = didFinished ? dashPatternComplete:dashPatternIncomplete
         self.addSublayer(self.centerCircleLayer)
     }
     
