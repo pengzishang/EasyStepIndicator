@@ -32,6 +32,10 @@ class DescriptionTextLayer: CAShapeLayer {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override init(layer: Any) {
+        super.init(layer: layer)
+    }
+    
     fileprivate func drawText() {
         guard let config = self.config else {
             assertionFailure("没有指定config")

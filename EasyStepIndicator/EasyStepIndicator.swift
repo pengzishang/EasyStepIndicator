@@ -22,7 +22,6 @@ public class EasyStepIndicator: UIView {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-//        self.setCurrentStep(step: self.currentStep)
         self.updateSubLayers()
     }
 
@@ -334,19 +333,6 @@ public class EasyStepIndicator: UIView {
         }
         
         let newTitle = _dataSource.titleForStep(indicator: self, index: index)
-
-        var oldTitle : String?
-        if titles.count > index {
-            oldTitle = titles[index]
-        } else {
-            titles.append(newTitle)
-        }
-        
-        guard oldTitle != newTitle else{
-            return self.titleTextSizes[index]
-        }
-        
-        titles[index] = newTitle
         let titleConfig = self.descriptionTextLayers[index].config
 
         let font = UIFont.systemFont(ofSize: titleConfig?.title.fontSize ?? self.stepDescriptionTextFontSize)

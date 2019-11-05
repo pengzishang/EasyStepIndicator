@@ -33,6 +33,10 @@ class LineLayer: CAShapeLayer {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override init(layer: Any) {
+        super.init(layer: layer)
+    }
+    
     // MARK: - Functions
     func updateStatus() {
         tintLineLayer.removeFromSuperlayer()
