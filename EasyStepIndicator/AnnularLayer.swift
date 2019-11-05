@@ -88,7 +88,6 @@ class AnnularLayer: CAShapeLayer {
         self.centerTextLayer.frame = CGRect.init(origin: CGPoint.init(x: self.bounds.midX - textSize.width/2, y: self.bounds.midY - textSize.height/2), size: textSize)
         self.centerTextLayer.contentsScale = UIScreen.main.scale
         self.centerTextLayer.alignmentMode = CATextLayerAlignmentMode.center
-
         self.centerTextLayer.font = font
         self.centerTextLayer.fontSize = fontSize
         //TODO

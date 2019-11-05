@@ -8,7 +8,35 @@
 
 import UIKit
 
-class VerticalController: UIViewController,EasyStepIndicatorDataSource {
+class VerticalController: UIViewController,EasyStepIndicatorDataSource ,EasyStepIndicatorDelegate{
+    func didChangeStep(indicator: EasyStepIndicator, index: Int) {
+        
+    }
+    
+    func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig) -> StepConfig {
+        if index == 2{
+            config.radius = 30
+        }
+        if index == 3 {
+            config.titleMargin = 20
+            config.stepText.fontSize = 30
+        }
+        return config
+    }
+    
+    func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig) -> LineConfig {
+        return config
+    }
+    
+    func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig) -> TitleConfig {
+        return config
+    }
+    
+    func shouldStepLineFitDescriptionText() -> Bool {
+        false
+    }
+    
+    
     
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
         return "a"
@@ -28,6 +56,7 @@ class VerticalController: UIViewController,EasyStepIndicatorDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.indicator.dataSource = self
+        self.indicator.delegate = self
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
 //        indicator.stepLineFitDescriptionText = true

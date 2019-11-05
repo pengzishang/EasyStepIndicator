@@ -503,15 +503,12 @@ public class EasyStepIndicator: UIView {
         
         let startY : CGFloat = {
             let firstAnnularLayer = self.annularLayers.first
-            switch self.alignmentMode {
-            case .top, .centerWithAnnularStartAndAnnularEnd:
-                return 0
-            case .center:
+            if self.alignmentMode == .center {
                 if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
                     return (self.titleTextSizes.first?.height ?? 0)/2 - circleRadius(firstAnnularLayer)
                 }
-                return 0
             }
+            return 0
         }()
         
         var processLengths : [CGFloat] = {
@@ -576,21 +573,16 @@ public class EasyStepIndicator: UIView {
         func layoutVerticalAnnularLayers(_index: Int) -> CGPoint{
             let annularLayer = self.annularLayers[_index]
             let annularStartY: CGFloat = {
+                let firstAnnularLayer = self.annularLayers.first
                 guard self.numberOfSteps > 1 else {
                     return self.containerLayer.frame.height / 2.0 - circleDiameter(self.annularLayers[0])
                 }
                 
                 var currentLength : CGFloat = 0
-                switch self.alignmentMode  {
-                case .top , .centerWithAnnularStartAndAnnularEnd:
-                    if _index == 0 { return 0 }
-                case .center:
-                    if _index == 0 {
-                        let firstAnnularLayer = self.annularLayers.first
-                        if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
-                            return (self.titleTextSizes.first?.height ?? 0)/2 - circleRadius(firstAnnularLayer)
-                        }
-                        return 0
+                
+                if self.alignmentMode == .center {
+                    if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
+                        currentLength += (self.titleTextSizes.first?.height ?? 0)/2 - circleRadius(firstAnnularLayer)
                     }
                 }
             
@@ -606,11 +598,11 @@ public class EasyStepIndicator: UIView {
                     let firstAnnularLayer = self.annularLayers.first
                     return self.containerLayer.frame.width / 2.0 - circleRadius(firstAnnularLayer)
                 }
+                
                 if let _ = self.dataSource {
-                    let maxRadius =  self.annularLayers.max { circleRadius($0) > circleRadius($1)}?.config?.radius ?? self.circleRadius
-                    return maxRadius - circleRadius(self.annularLayers[_index])
+                    return startX - circleRadius(self.annularLayers[_index])
                 } else { // Storyboard
-                    return startX - self.circleRadius
+                    return 0
                 }
             }()
             
