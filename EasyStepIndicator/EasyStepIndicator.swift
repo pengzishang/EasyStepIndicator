@@ -26,11 +26,6 @@ public class EasyStepIndicator: UIView {
     }
 
     // MARK: - Properties
-//    override public var frame: CGRect {
-//        didSet {
-//            self.updateSubLayers()
-//        }
-//    }
 
     //总步骤数量
     @IBInspectable public var numberOfSteps: Int = 5 {
@@ -251,6 +246,11 @@ public class EasyStepIndicator: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+    
+    required init(frame: CGRect,numberOfSteps:Int) {
+        super.init(frame: frame)
+        self.numberOfSteps = numberOfSteps
     }
     
     // MARK: - Functions

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 let defaultIncompleteColor = UIColor.red
-let defaultCompleteColor = UIColor.green
+let defaultCompleteColor = UIColor.white
 
 
 protocol EasyStepIndicatorDataSource : class {
