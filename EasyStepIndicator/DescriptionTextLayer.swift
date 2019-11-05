@@ -16,24 +16,29 @@ class DescriptionTextLayer: CAShapeLayer {
     
     public var indicator :EasyStepIndicator?
 
-    var isCurrent: Bool = false {
-        didSet {
-            self.updateStatus()
-        }
+    init(titleConfig:TitleConfig,target:EasyStepIndicator) {
+        super.init()
+        self.config = titleConfig
+        self.fillColor = UIColor.clear.cgColor
+        self.indicator = target
     }
+    
 
-    var isFinished: Bool = false {
-        didSet {
-            self.updateStatus()
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
     fileprivate func drawText() {
+        guard let config = self.config else {
+            assertionFailure("没有指定config")
+            return
+        }
+        
         self.tintTextLayer.removeFromSuperlayer()
-        self.tintTextLayer.string = config?.title.content
+        self.tintTextLayer.string = config.title.content
         self.tintTextLayer.alignmentMode = .center
-        self.tintTextLayer.font = UIFont.systemFont(ofSize: config?.title.fontSize ?? 18)
-        self.tintTextLayer.fontSize = config?.title.fontSize ?? 18
+        self.tintTextLayer.font = UIFont.systemFont(ofSize: config.title.fontSize )
+        self.tintTextLayer.fontSize = config.title.fontSize
         self.tintTextLayer.contentsScale = UIScreen.main.nativeScale
         self.tintTextLayer.backgroundColor = UIColor.clear.cgColor
         self.tintTextLayer.frame = self.bounds.integral
@@ -42,29 +47,32 @@ class DescriptionTextLayer: CAShapeLayer {
     }
 
     func updateStatus() {
-        guard config?.title.content?.count ?? 0 > 0 else {
+
+        guard let indicator = indicator else {
+            assertionFailure("没有指定EasyStepIndicator")
             return
         }
+        
+        guard let config = self.config else {
+            assertionFailure("没有指定config")
+            return
+        }
+        
+        guard let _ = config.title.content else {
+            return
+        }
+        
         self.drawText()
-        if isFinished {
-            self.tintTextLayer.foregroundColor = config?.colors.complete?.cgColor
-        } else if isCurrent {
-            self.tintTextLayer.foregroundColor = indicator?.currentStepAsIncomplete ?? false ?
-                config?.colors.incomplete?.cgColor : config?.colors.complete?.cgColor
+        if indicator.currentStep > config.stepIndex {
+            self.tintTextLayer.foregroundColor = config.colors.complete?.cgColor
+        } else if indicator.currentStep == config.stepIndex {
+            self.tintTextLayer.foregroundColor = indicator.currentStepAsIncomplete ?
+                config.colors.incomplete?.cgColor : config.colors.complete?.cgColor
         } else {
-            self.tintTextLayer.foregroundColor = config?.colors.incomplete?.cgColor
+            self.tintTextLayer.foregroundColor = config.colors.incomplete?.cgColor
         }
         self.addSublayer(self.tintTextLayer)
     }
 
-    required init(titleConfig:TitleConfig) {
-        super.init()
-        self.config = titleConfig
-        self.fillColor = UIColor.clear.cgColor
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
 }

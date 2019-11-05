@@ -14,7 +14,7 @@ let defaultCompleteColor = UIColor.green
 
 
 protocol EasyStepIndicatorDataSource : class {
-    func characterForStep(indicator:EasyStepIndicator, index:Int) -> Character
+    func characterForStep(indicator:EasyStepIndicator, index:Int) -> String
     func titleForStep(indicator:EasyStepIndicator,index:Int)-> String
 }
 
@@ -60,7 +60,7 @@ struct Text {
 }
 
 struct StepConfig {
-    public var stepText : Text?
+    public var stepText = Text()
     public var annular = Annular()
     public var tint = Tint()
     
@@ -79,15 +79,9 @@ struct StepConfig {
         public var colors = StatusColorPattern()
     }
     
-    init(radius:CGFloat , stepIndex:Int , text:Character?) {
+    init(radius:CGFloat , stepIndex:Int) {
         self.radius = radius
         self.stepIndex = stepIndex
-        if let text = text {
-            self.stepText = Text.init(content: String(text))
-        } else {
-            self.stepText = Text.init(content:"\(stepIndex)")
-        }
-        
     }
 }
 
@@ -106,12 +100,11 @@ struct LineConfig {
 
 
 struct TitleConfig {
-    public var title : Text
+    public var title : Text = Text()
     public var colors = StatusColorPattern()
     public let stepIndex: Int
     
-    init(stepIndex:Int ,title:String?) {
-        self.title = Text.init(content: title)
+    init(stepIndex:Int) {
         self.stepIndex = stepIndex
     }
 }

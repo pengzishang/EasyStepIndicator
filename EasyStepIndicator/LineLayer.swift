@@ -23,15 +23,16 @@ class LineLayer: CAShapeLayer {
     public var isHorizontal: Bool = true
     // MARK: - Initialization
     
-    required init(config:LineConfig) {
+    init(config:LineConfig,target:EasyStepIndicator) {
         super.init()
         self.config = config
+        self.indicator = target
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Functions
     func updateStatus() {
         tintLineLayer.removeFromSuperlayer()
@@ -41,12 +42,17 @@ class LineLayer: CAShapeLayer {
             return
         }
         
+        guard let config = self.config else {
+            assertionFailure("没有指定config")
+            return
+        }
+        
         self.isHorizontal = indicator.direction == .leftToRight || indicator.direction == .rightToLeft
         
         self.drawLinePath()
-        if config?.processIndex ?? 0 < indicator.currentStep - 1 {
+        if config.processIndex < indicator.currentStep - 1 {
             self.drawTintLineAnimated(didFinished: true)
-        } else if config?.processIndex == indicator.currentStep - 1 {
+        } else if config.processIndex == indicator.currentStep - 1 {
             self.drawTintLineAnimated(didFinished: !indicator.currentStepAsIncomplete)
             if showAnimating {
                 self.animateLine()
@@ -73,6 +79,11 @@ class LineLayer: CAShapeLayer {
     }
 
     private func drawTintLineAnimated(didFinished: Bool) {
+        guard let config = self.config else {
+            assertionFailure("没有指定config")
+            return
+        }
+        
         let tintLinePath = UIBezierPath()
 
         if self.isHorizontal {
@@ -87,18 +98,18 @@ class LineLayer: CAShapeLayer {
 
         self.tintLineLayer.path = tintLinePath.cgPath
         self.tintLineLayer.frame = self.bounds
-        self.tintLineLayer.strokeColor = didFinished ? config?.colors.complete?.cgColor : config?.colors.incomplete?.cgColor
-        self.tintLineLayer.lineWidth = config?.strokeWidth ?? 4
+        self.tintLineLayer.strokeColor = didFinished ? config.colors.complete?.cgColor : config.colors.incomplete?.cgColor
+        self.tintLineLayer.lineWidth = config.strokeWidth ?? 4
         self.tintLineLayer.backgroundColor = UIColor.clear.cgColor
         var dashPatternComplete : [NSNumber]?
         var dashPatternIncomplete : [NSNumber]?
         
-        if config?.dashPatternComplete.width ?? 3 != 0 || config?.dashPatternComplete.margin ?? 2 != 0 {
-            dashPatternComplete = [NSNumber.init(value: config?.dashPatternComplete.width ?? 3), NSNumber.init(value: config?.dashPatternComplete.margin ?? 2)]
+        if config.dashPatternComplete.width ?? 3 != 0 || config.dashPatternComplete.margin ?? 2 != 0 {
+            dashPatternComplete = [NSNumber.init(value: config.dashPatternComplete.width ?? 3), NSNumber.init(value: config.dashPatternComplete.margin ?? 2)]
         }
         
-        if config?.dashPatternIncomplete.width ?? 3 != 0 || config?.dashPatternIncomplete.margin ?? 2 != 0 {
-            dashPatternIncomplete = [NSNumber.init(value: config?.dashPatternIncomplete.width ?? 3), NSNumber.init(value: config?.dashPatternIncomplete.margin ?? 2)]
+        if config.dashPatternIncomplete.width ?? 3 != 0 || config.dashPatternIncomplete.margin ?? 2 != 0 {
+            dashPatternIncomplete = [NSNumber.init(value: config.dashPatternIncomplete.width ?? 3), NSNumber.init(value: config.dashPatternIncomplete.margin ?? 2)]
         }
         
         self.tintLineLayer.lineDashPattern = didFinished ? dashPatternComplete : dashPatternIncomplete

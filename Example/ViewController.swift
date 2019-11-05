@@ -9,7 +9,15 @@
 import UIKit
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController , EasyStepIndicatorDataSource {
+    func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        return "a"
+    }
+    
+    func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        return ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
+    }
+    
 
 
     @IBOutlet weak var stepper: UIStepper!
@@ -19,6 +27,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.indicator.dataSource = self
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
 
