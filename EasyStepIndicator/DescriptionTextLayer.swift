@@ -9,7 +9,7 @@
 import UIKit
 
 class DescriptionTextLayer: CAShapeLayer {
-
+    
     private let tintTextLayer = CATextLayer()
     
     public var config: TitleConfig?
@@ -19,7 +19,7 @@ class DescriptionTextLayer: CAShapeLayer {
     public var isHorizontal: Bool = true
     
     public var titleSize : CGSize?
-
+    
     init(titleConfig:TitleConfig,target:EasyStepIndicator) {
         super.init()
         self.config = titleConfig
@@ -27,7 +27,7 @@ class DescriptionTextLayer: CAShapeLayer {
         self.indicator = target
     }
     
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,9 +51,9 @@ class DescriptionTextLayer: CAShapeLayer {
         self.tintTextLayer.frame = self.bounds.integral
         self.tintTextLayer.isWrapped = true
     }
-
+    
     func updateStatus() {
-
+        
         guard let indicator = indicator else {
             assertionFailure("没有指定EasyStepIndicator")
             return
@@ -81,6 +81,6 @@ class DescriptionTextLayer: CAShapeLayer {
         }
         self.addSublayer(self.tintTextLayer)
     }
-
-
+    
+    
 }

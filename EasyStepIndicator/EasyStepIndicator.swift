@@ -10,23 +10,23 @@ import UIKit
 
 @IBDesignable
 public class EasyStepIndicator: UIView {
-
+    
     weak var dataSource : EasyStepIndicatorDataSource?
     weak var delegate : EasyStepIndicatorDelegate?
+    
     // Variables
-
     private var annularLayers = [AnnularLayer]()
     private var lineLayers = [LineLayer]()
     private var descriptionTextLayers = [DescriptionTextLayer]()
     private let containerLayer = CALayer()
-
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.updateSubLayers()
     }
-
+    
     // MARK: - Properties
-
+    
     //总步骤数量
     @IBInspectable public var numberOfSteps: Int = 5 {
         didSet {
@@ -49,7 +49,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    
     //圆大小
     @IBInspectable public var circleRadius: CGFloat = 20.0 {
         didSet {
@@ -136,7 +136,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    
     //指向线条虚线间隔
     @IBInspectable public var lineImaginaryMargin: Float = 1 {
         didSet {
@@ -153,7 +153,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    
     //增长方向
     public var direction: Direction = .leftToRight {
         didSet {
@@ -170,13 +170,7 @@ public class EasyStepIndicator: UIView {
             self.direction = Direction(rawValue: value)!
         }
     }
-    //是否显示起始圆框
-    @IBInspectable public var showInitialStep: Bool = true {
-        didSet {
-            self.updateSubLayers()
-        }
-    }
-
+    
     //圆形内描述文字未完成时候颜色
     @IBInspectable public var circleTextIncompleteColor: UIColor = defaultIncompleteColor {
         didSet {
@@ -184,7 +178,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    
     //圆形内描述文字完成时候颜色
     @IBInspectable public var circleTextCompleteColor: UIColor = defaultCompleteColor {
         didSet {
@@ -195,7 +189,7 @@ public class EasyStepIndicator: UIView {
     
     /// 对齐模式
     public var alignmentMode:AlignmentMode = .center
-
+    
     //步骤描述文字未完成时候颜色
     @IBInspectable public var stepDescriptionTextIncompleteColor: UIColor = UIColor.red {
         didSet {
@@ -203,7 +197,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    
     //步骤描述文字完成时候颜色
     @IBInspectable public var stepDescriptionTextCompleteColor: UIColor = UIColor.green {
         didSet {
@@ -211,7 +205,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    
     //Indicator和Description之间Margin
     @IBInspectable public var stepDescriptionTextMargin: CGFloat = 3 {
         didSet {
@@ -219,7 +213,7 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
+    
     //步骤描述文字的大小
     @IBInspectable public var stepDescriptionTextFontSize: CGFloat = 18 {
         didSet {
@@ -227,16 +221,10 @@ public class EasyStepIndicator: UIView {
             self.updateSubLayers()
         }
     }
-
-    private var maxFontHeight = 0
-
+    
     private var showLineAnimating = true
-
+    
     private var titleTextSizes: [CGSize] = []
-    
-    private var titles : [String] = []
-    
-    private var stepTexts: [String] = []
     
     // MARK: - Init
     
@@ -260,16 +248,16 @@ public class EasyStepIndicator: UIView {
     }
     
     private func createSteps() {
-
+        
         self.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
         self.containerLayer.sublayers?.forEach({ $0.removeFromSuperlayer() })
-
+        
         self.annularLayers.removeAll()
         self.lineLayers.removeAll()
         self.descriptionTextLayers.removeAll()
-
+        
         assert(self.numberOfSteps > 0, "步骤数必须大于0")
-
+        
         for index in 0..<self.numberOfSteps {
             
             let stepConfig = StepConfig.init(radius: self.circleRadius, stepIndex: index)
@@ -277,7 +265,7 @@ public class EasyStepIndicator: UIView {
             annularLayer.indicator = self
             self.containerLayer.addSublayer(annularLayer)
             self.annularLayers.append(annularLayer)
-
+            
             if (index < self.numberOfSteps - 1) {
                 let lineConfig = LineConfig.init(processIndex: index)
                 let lineLayer = LineLayer.init(config: lineConfig, target: self)
@@ -289,7 +277,7 @@ public class EasyStepIndicator: UIView {
             self.containerLayer.addSublayer(descriptionLayer)
             self.descriptionTextLayers.append(descriptionLayer)
         }
-
+        
         self.layer.addSublayer(self.containerLayer)
         self.updateSubLayers()
     }
@@ -315,7 +303,7 @@ public class EasyStepIndicator: UIView {
             self.descriptionTextLayers[index].config?.title.content = title
         }
     }
-
+    
     private func updateSubLayers() {
         self.containerLayer.frame = self.layer.bounds
         self.updateData()
@@ -326,7 +314,7 @@ public class EasyStepIndicator: UIView {
         }
         self.applyDirection()
     }
-
+    
     fileprivate func getTextSize(index:Int, maxContentWidth:CGFloat = CGFloat.greatestFiniteMagnitude ,maxContentHeight: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGSize {
         guard let _dataSource = self.dataSource else {
             return CGSize.zero
@@ -334,12 +322,12 @@ public class EasyStepIndicator: UIView {
         
         let newTitle = _dataSource.titleForStep(indicator: self, index: index)
         let titleConfig = self.descriptionTextLayers[index].config
-
+        
         let font = UIFont.systemFont(ofSize: titleConfig?.title.fontSize ?? self.stepDescriptionTextFontSize)
         let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: titleConfig?.title.style ]
         let attributesText = NSAttributedString(string: newTitle, attributes: attributes as [NSAttributedString.Key : Any])
         let textSize = attributesText.boundingRect(with: CGSize.init(width: maxContentWidth, height: maxContentHeight), options: .usesLineFragmentOrigin, context: nil).size
-
+        
         return textSize
     }
     
@@ -350,7 +338,7 @@ public class EasyStepIndicator: UIView {
     fileprivate func circleDiameter(_ annularLayer:AnnularLayer?) -> CGFloat {
         self.circleRadius(annularLayer) * 2
     }
-
+    
     private func layoutHorizontal() {
         let maxContentWidth = UIScreen.main.bounds.width / 3
         var maxContentHeight : CGFloat = 0
@@ -361,13 +349,13 @@ public class EasyStepIndicator: UIView {
                 self.titleTextSizes.append(size)
                 self.descriptionTextLayers[index].titleSize = size
             }
-
+            
             let titleMargins = self.annularLayers.map { $0.config?.titleMargin ?? self.stepDescriptionTextMargin }
             let titleHeights = self.titleTextSizes.map {$0.height}
             let radiuses = self.annularLayers.map {circleRadius($0)}
             maxContentHeight = zip(zip(titleMargins, titleHeights).map(+), radiuses).map(+).max() ?? 0
         }
-
+        
         let startY = (self.containerLayer.frame.height - maxContentHeight) / 2 //整个图形的中轴Y
         
         var processLengths : [CGFloat] = {
@@ -425,7 +413,7 @@ public class EasyStepIndicator: UIView {
                         currentLength += (self.titleTextSizes.first?.width ?? 0)/2 - circleRadius(firstAnnularLayer)
                     }
                 }
-        
+                
                 for __index in 0..<_index {
                     let _annularLayer = self.annularLayers[__index]
                     currentLength += circleDiameter(_annularLayer)
@@ -465,12 +453,12 @@ public class EasyStepIndicator: UIView {
                 descriptionStartX += circleRadius(annularLayer)
                 descriptionStartX -= (self.titleTextSizes[_index].width )/2
             }
-    
+            
             let descriptionStartY = annularPoint.y + circleDiameter(annularLayer) + (annularLayer.config?.titleMargin ?? self.stepDescriptionTextMargin)
             descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height)
             descriptionTextLayer.updateStatus()
         }
-    
+        
         for _index in 0..<self.numberOfSteps {
             let annularPoint = layoutHorizontalAnnularLayers(_index: _index)
             if _index < self.numberOfSteps - 1 {
@@ -481,7 +469,7 @@ public class EasyStepIndicator: UIView {
             }
         }
     }
-
+    
     private func layoutVertical() {
         let diameters : [CGFloat] = self.annularLayers.map { circleDiameter($0) }
         let maxDiameter = diameters.max() ?? self.circleRadius * 2
@@ -494,7 +482,7 @@ public class EasyStepIndicator: UIView {
                 self.titleTextSizes.append(size)
             }
         }
-
+        
         let startX : CGFloat = { //X中轴
             if let _ = self.dataSource {//靠左对齐
                 return maxDiameter/2
@@ -522,7 +510,7 @@ public class EasyStepIndicator: UIView {
             var processLength : CGFloat = 0
             if let _dataSource = self.dataSource {
                 var totalLengthWithoutLine : CGFloat = 0
-    
+                
                 if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
                     let verticalFontMargin : CGFloat = 10
                     var textHeights = titleTextSizes.map {$0.height}
@@ -536,7 +524,7 @@ public class EasyStepIndicator: UIView {
                         }
                     }
                     let heightPairs = zip(comparedHeights.prefix(upTo: comparedHeights.count - 1), comparedHeights.suffix(from: 1)).map { ( $0,$1)}
-    
+                    
                     var processLengths : [CGFloat] = []
                     for index in 0..<self.numberOfSteps - 1 {
                         processLengths.append((heightPairs[index].0 + heightPairs[index].1)/2 - (self.lineLayers[index].config?.marginBetweenCircle ?? self.lineMargin) * 2 + verticalFontMargin)
@@ -546,7 +534,7 @@ public class EasyStepIndicator: UIView {
                     if self.alignmentMode == .center {
                         let firstAnnularLayer = self.annularLayers.first
                         let lastAnnularLayer = self.annularLayers.last
-
+                        
                         var topContentPadding : CGFloat = 0
                         var bottomContentPadding : CGFloat = 0
                         if self.titleTextSizes.first?.height ?? 0 > circleDiameter(firstAnnularLayer)  {
@@ -559,7 +547,7 @@ public class EasyStepIndicator: UIView {
                     }
                     for index in 0..<self.numberOfSteps {
                         let annularLayer = self.annularLayers[index]
-
+                        
                         totalLengthWithoutLine += circleDiameter(annularLayer)
                         if index < self.numberOfSteps - 1 {
                             let lineConfig = self.lineLayers[index].config
@@ -573,7 +561,7 @@ public class EasyStepIndicator: UIView {
             }
             return Array.init(repeating: processLength, count: self.numberOfSteps - 1)
         }()
-    
+        
         func layoutVerticalAnnularLayers(_index: Int) -> CGPoint{
             let annularLayer = self.annularLayers[_index]
             let annularStartY: CGFloat = {
@@ -589,7 +577,7 @@ public class EasyStepIndicator: UIView {
                         currentLength += (self.titleTextSizes.first?.height ?? 0)/2 - circleRadius(firstAnnularLayer)
                     }
                 }
-            
+                
                 for __index in 0..<_index {
                     currentLength += circleDiameter(self.annularLayers[__index])
                     currentLength += (self.lineLayers[__index].config?.marginBetweenCircle ?? self.lineMargin)*2
@@ -614,7 +602,7 @@ public class EasyStepIndicator: UIView {
             annularLayer.updateStatus()
             return CGPoint.init(x: annularStartX, y: annularStartY)
         }
-    
+        
         func layoutVerticalLineLayer(_index: Int, annularPoint: CGPoint) {
             let annularLayer = self.annularLayers[_index]
             let lineLayer = self.lineLayers[_index]
@@ -623,7 +611,7 @@ public class EasyStepIndicator: UIView {
             lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: lineLayer.config?.strokeWidth ?? self.lineStrokeWidth, height: processLengths[_index])
             lineLayer.updateStatus()
         }
-    
+        
         func layoutVerticalTitleLayer(_index: Int,annularPoint: CGPoint) {
             let descriptionTextLayer = self.descriptionTextLayers[_index]
             let annularLayer = self.annularLayers[_index]
@@ -632,13 +620,13 @@ public class EasyStepIndicator: UIView {
                 descriptionStartY += circleRadius(annularLayer)
                 descriptionStartY -= (self.titleTextSizes[_index].height )/2
             }
-        
+            
             let descriptionStartX = annularPoint.x + circleDiameter(annularLayer) + (annularLayer.config?.titleMargin ?? self.stepDescriptionTextMargin)
             descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height)//修正2px
             descriptionTextLayer.updateStatus()
         }
-    
-    
+        
+        
         for _index in 0..<self.numberOfSteps {
             let annularPoint = layoutVerticalAnnularLayers(_index: _index)
             if _index < self.numberOfSteps - 1 {
@@ -648,7 +636,7 @@ public class EasyStepIndicator: UIView {
                 layoutVerticalTitleLayer(_index: _index, annularPoint: annularPoint)
             }
         }
-
+        
         //stepLineFitDescriptionText
         //1.高度弹性
         //先得出数组整组文字的长和高
@@ -660,7 +648,7 @@ public class EasyStepIndicator: UIView {
         //先得出数组整组文字的长和高
         //得出文字起始位置
     }
-
+    
     private func applyDirection() {
         switch self.direction {
         case .rightToLeft:
@@ -692,7 +680,7 @@ public class EasyStepIndicator: UIView {
             }
         }
     }
-
+    
     private func setCurrentStep(step: Int) {
         self.delegate?.didChangeStep(indicator: self, index: step)
         for index in 0..<self.numberOfSteps {
