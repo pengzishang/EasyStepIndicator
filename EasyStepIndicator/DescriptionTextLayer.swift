@@ -39,10 +39,8 @@ class DescriptionTextLayer: CAShapeLayer {
         self.tintTextLayer.alignmentMode = .center
         self.tintTextLayer.font = UIFont.systemFont(ofSize: config.title.fontSize )
         self.tintTextLayer.fontSize = config.title.fontSize
-        self.tintTextLayer.contentsScale = UIScreen.main.nativeScale
-        self.tintTextLayer.backgroundColor = UIColor.clear.cgColor
+        self.tintTextLayer.contentsScale = UIScreen.main.scale
         self.tintTextLayer.frame = self.bounds.integral
-        self.tintTextLayer.zPosition = 1000
         self.tintTextLayer.isWrapped = true
     }
 

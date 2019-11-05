@@ -461,16 +461,9 @@ public class EasyStepIndicator: UIView {
                 }
                 
                 var currentLength : CGFloat = 0
-        
-                switch self.alignmentMode  {
-                case .top , .centerWithAnnularStartAndAnnularEnd:
-                    if _index == 0 { return 0 }
-                case .center:
-                    if _index == 0 {
-                        if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.width ?? 0 {
-                            return (self.titleTextSizes.first?.width ?? 0)/2 - circleRadius(firstAnnularLayer)
-                        }
-                        return 0
+                if self.alignmentMode == .center {
+                    if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.width ?? 0 {
+                        currentLength += (self.titleTextSizes.first?.width ?? 0)/2 - circleRadius(firstAnnularLayer)
                     }
                 }
         
@@ -515,7 +508,7 @@ public class EasyStepIndicator: UIView {
             }
     
             let descriptionStartY = annularPoint.y + circleDiameter(annularLayer) + (annularLayer.config?.titleMargin ?? self.stepDescriptionTextMargin)
-            descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: maxContentWidth, height: self.titleTextSizes[_index].height + 2)//修正2px
+            descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height)
             descriptionTextLayer.updateStatus()
         }
     
