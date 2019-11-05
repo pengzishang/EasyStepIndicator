@@ -15,6 +15,10 @@ class DescriptionTextLayer: CAShapeLayer {
     public var config: TitleConfig?
     
     public var indicator :EasyStepIndicator?
+    
+    public var isHorizontal: Bool = true
+    
+    public var titleSize : CGSize?
 
     init(titleConfig:TitleConfig,target:EasyStepIndicator) {
         super.init()
@@ -59,6 +63,8 @@ class DescriptionTextLayer: CAShapeLayer {
         guard let _ = config.title.content else {
             return
         }
+        
+        self.isHorizontal = indicator.direction == .leftToRight || indicator.direction == .rightToLeft
         
         self.drawText()
         if indicator.currentStep > config.stepIndex {

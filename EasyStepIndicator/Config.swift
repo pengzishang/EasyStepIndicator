@@ -107,6 +107,7 @@ struct TitleConfig {
     init(stepIndex:Int) {
         self.stepIndex = stepIndex
     }
+    
 }
 
 

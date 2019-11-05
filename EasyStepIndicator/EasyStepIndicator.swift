@@ -395,10 +395,10 @@ public class EasyStepIndicator: UIView {
             for index in 0..<self.numberOfSteps {
                 let size = self.getTextSize(index: index, maxContentWidth: maxContentWidth)
                 self.titleTextSizes.append(size)
+                self.descriptionTextLayers[index].titleSize = size
             }
 
             let titleMargins = self.annularLayers.map { $0.config?.titleMargin ?? self.stepDescriptionTextMargin }
-
             let titleHeights = self.titleTextSizes.map {$0.height}
             let radiuses = self.annularLayers.map {circleRadius($0)}
             maxContentHeight = zip(zip(titleMargins, titleHeights).map(+), radiuses).map(+).max() ?? 0
@@ -524,9 +524,9 @@ public class EasyStepIndicator: UIView {
     }
 
     private func layoutVertical() {
-        let radiuses : [CGFloat] = self.annularLayers.map { circleRadius($0) }
+        let diameters : [CGFloat] = self.annularLayers.map { circleDiameter($0) }
         let titleMargins :[CGFloat] = self.annularLayers.map { $0.config?.titleMargin ?? self.stepDescriptionTextMargin }
-        let maxContentWidths : [CGFloat] = zip(radiuses, titleMargins).map (+).map{self.containerLayer.frame.width - $0}
+        let maxContentWidths : [CGFloat] = zip(diameters, titleMargins).map (+).map{self.containerLayer.frame.width - $0}
         if let _ = self.dataSource {
             self.titleTextSizes.removeAll()
             for index in 0..<self.numberOfSteps {
@@ -537,7 +537,7 @@ public class EasyStepIndicator: UIView {
 
         let startX : CGFloat = { //X中轴
             if let _ = self.dataSource {//靠左对齐
-                return radiuses.max() ?? 0
+                return (diameters.max() ?? self.circleRadius * 2)/2
             } else {
                 return self.containerLayer.frame.width / 2.0
             }
@@ -680,7 +680,7 @@ public class EasyStepIndicator: UIView {
             }
         
             let descriptionStartX = annularPoint.x + circleDiameter(annularLayer) + (annularLayer.config?.titleMargin ?? self.stepDescriptionTextMargin)
-            descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: maxContentWidths[_index], height: self.titleTextSizes[_index].height)//修正2px
+            descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height)//修正2px
             descriptionTextLayer.updateStatus()
         }
     

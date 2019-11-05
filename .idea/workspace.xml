@@ -3,13 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0665ee43-45f2-490a-938a-013267e50011" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/AnnularLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/AnnularLayer.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EasyStepIndicator/Config.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/Config.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/LineLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/LineLayer.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/Example/Base.lproj/Main.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/ViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/ViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/VerticalController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/VerticalController.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +72,7 @@
       <workItem from="1572691276091" duration="863000" />
       <workItem from="1572692173753" duration="5373000" />
       <workItem from="1572838401679" duration="10255000" />
-      <workItem from="1572921942884" duration="2622000" />
+      <workItem from="1572921942884" duration="2923000" />
     </task>
     <servers />
   </component>
