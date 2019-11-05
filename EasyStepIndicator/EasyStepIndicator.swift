@@ -377,6 +377,7 @@ public class EasyStepIndicator: UIView {
             
             var processLength : CGFloat = 0
             if let _dataSource = self.dataSource {
+                //TODO : shouldStepLineFitDescriptionText
                 var totalLengthWithoutLine : CGFloat = 0
                 for index in 0..<self.numberOfSteps {
                     let annularLayer = self.annularLayers[index]
@@ -483,8 +484,9 @@ public class EasyStepIndicator: UIView {
 
     private func layoutVertical() {
         let diameters : [CGFloat] = self.annularLayers.map { circleDiameter($0) }
+        let maxDiameter = diameters.max() ?? self.circleRadius * 2
         let titleMargins :[CGFloat] = self.annularLayers.map { $0.config?.titleMargin ?? self.stepDescriptionTextMargin }
-        let maxContentWidths : [CGFloat] = zip(diameters, titleMargins).map (+).map{self.containerLayer.frame.width - $0}
+        let maxContentWidths : [CGFloat] = titleMargins.map{$0 + maxDiameter}.map{self.containerLayer.frame.width - $0}
         if let _ = self.dataSource {
             self.titleTextSizes.removeAll()
             for index in 0..<self.numberOfSteps {
@@ -495,7 +497,7 @@ public class EasyStepIndicator: UIView {
 
         let startX : CGFloat = { //X中轴
             if let _ = self.dataSource {//靠左对齐
-                return (diameters.max() ?? self.circleRadius * 2)/2
+                return maxDiameter/2
             } else {
                 return self.containerLayer.frame.width / 2.0
             }

@@ -311,14 +311,12 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineMargin">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showCircleText" value="YES"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTextIncompleteColor">
                                         <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTextCompleteColor">
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showStepDescriptionTexts" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="stepDescriptionTextFontSize">
                                         <real key="value" value="14"/>
                                     </userDefinedRuntimeAttribute>

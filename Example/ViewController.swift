@@ -34,7 +34,7 @@ class ViewController: UIViewController , EasyStepIndicatorDataSource ,EasyStepIn
     }
     
     func shouldStepLineFitDescriptionText() -> Bool {
-        false
+        true
     }
     
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
