@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0665ee43-45f2-490a-938a-013267e50011" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EasyStepIndicator/Config.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/Config.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/Example/Base.lproj/Main.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/VerticalController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/VerticalController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/ViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/ViewController.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +12,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_D6D992F7-A13F-41F4-8298-0D9F6E4A0B42" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_00008030-001569893480802E" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -72,7 +69,7 @@
       <workItem from="1572691276091" duration="863000" />
       <workItem from="1572692173753" duration="5373000" />
       <workItem from="1572838401679" duration="10255000" />
-      <workItem from="1572921942884" duration="2923000" />
+      <workItem from="1572921942884" duration="3289000" />
     </task>
     <servers />
   </component>

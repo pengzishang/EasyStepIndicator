@@ -20,14 +20,14 @@ protocol EasyStepIndicatorDataSource : class {
 
 protocol EasyStepIndicatorDelegate : NSObjectProtocol {
     func didChangeStep(indicator:EasyStepIndicator, index:Int)
-    func stepConfigForStep(indicator:EasyStepIndicator,index:Int,config:StepConfig)->StepConfig
-    func lineConfigForProcess(indicator:EasyStepIndicator,index:Int,config:LineConfig)->LineConfig
-    func titleConfigForStep(indicator:EasyStepIndicator,index:Int,config:TitleConfig)->TitleConfig
+    func stepConfigForStep(indicator:EasyStepIndicator,index:Int,config:inout StepConfig)->StepConfig
+    func lineConfigForProcess(indicator:EasyStepIndicator,index:Int,config:inout LineConfig)->LineConfig
+    func titleConfigForStep(indicator:EasyStepIndicator,index:Int,config:inout TitleConfig)->TitleConfig
     func shouldStepLineFitDescriptionText() -> Bool
 }
 
-extension EasyStepIndicator {
-
+public enum Direction: UInt {
+    case leftToRight = 0, rightToLeft, topToBottom, bottomToTop
 }
 
 public enum AlignmentMode: UInt {
@@ -95,7 +95,6 @@ struct LineConfig {
     //指向线条离圆形的初始距离
     public var marginBetweenCircle : CGFloat? = 2.0
     public var processIndex : Int
-    public var processLength : CGFloat? = 0
 }
 
 
@@ -109,6 +108,5 @@ struct TitleConfig {
     }
     
 }
-
 
 //TODO:加入完成,当前,未完成三种状态

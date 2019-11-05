@@ -9,16 +9,42 @@
 import UIKit
 
 
-class ViewController: UIViewController , EasyStepIndicatorDataSource {
+class ViewController: UIViewController , EasyStepIndicatorDataSource ,EasyStepIndicatorDelegate{
+    func didChangeStep(indicator: EasyStepIndicator, index: Int) {
+        
+    }
+    
+    func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig) -> StepConfig {
+        if index == 2{
+            config.radius = 30
+        }
+        if index == 3 {
+            config.titleMargin = 20
+            config.stepText.fontSize = 30
+        }
+        return config
+    }
+    
+    func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig) -> LineConfig {
+        return config
+    }
+    
+    func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig) -> TitleConfig {
+        return config
+    }
+    
+    func shouldStepLineFitDescriptionText() -> Bool {
+        false
+    }
+    
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
-        return "a"
+        return "abc"
     }
     
     func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
+//        return["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.We shall be most grateful if you will introduce him to reliable manufacturers and give him any help or advice he may need.", "Track progress", "Finishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation"][index]
         return ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
     }
-    
-
 
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var indicator: EasyStepIndicator!
@@ -28,12 +54,10 @@ class ViewController: UIViewController , EasyStepIndicatorDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.indicator.dataSource = self
+        self.indicator.delegate = self
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
 
-//        indicator.stepCircleTexts = []
-//        indicator.stepCircleTexts = ["A", "B", "C", "D"]
-//        indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation"]
     }
 
     fileprivate func setState(step: Int) {
