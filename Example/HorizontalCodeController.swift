@@ -15,13 +15,20 @@ class HorizontalCodeController: UIViewController, EasyStepIndicatorDataSource ,E
         }
         
         func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig) -> StepConfig {
-            if index == 2{
-                //代码文字没有其效果
-                config.radius = 30
-                config.stepText.colors.complete = UIColor.white
-                config.stepText.colors.incomplete = UIColor.black
-            }
+            config.radius = 30
+            config.stepText.colors.complete = UIColor.white
+            config.stepText.colors.incomplete = UIColor.black
+            config.tint.colors.complete = UIColor.systemBlue
+            config.tint.colors.incomplete = UIColor.gray
+            config.annular.dashPatternComplete.margin = 0
+            config.annular.dashPatternComplete.width = 0
+            config.annular.dashPatternIncomplete.margin = 0
+            config.annular.dashPatternIncomplete.width = 0
+            config.annular.colors.complete = UIColor.brown
+            config.annular.colors.incomplete = UIColor.orange
+            config.annular.strokeWidth = 3
             if index == 3 {
+                config.radius = 20
                 config.titleMargin = 20
                 config.stepText.fontSize = 30
             }
@@ -29,12 +36,19 @@ class HorizontalCodeController: UIViewController, EasyStepIndicatorDataSource ,E
         }
         
         func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig) -> LineConfig {
+            config.colors.complete = UIColor.brown
+            config.colors.incomplete = UIColor.orange
+            config.dashPatternComplete.margin = 0
+            config.dashPatternComplete.width = 0
             return config
         }
         
         func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig) -> TitleConfig {
-            config.colors.complete = UIColor.white
-            config.colors.incomplete = UIColor.black
+            if index == 0 {
+                config.title.fontSize = 12
+                config.colors.complete = UIColor.brown
+                config.colors.incomplete = UIColor.systemRed
+            }
             return config
         }
         
@@ -43,7 +57,7 @@ class HorizontalCodeController: UIViewController, EasyStepIndicatorDataSource ,E
         }
         
         func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
-            return "abc"
+            return "ab"
         }
         
         func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
@@ -51,27 +65,33 @@ class HorizontalCodeController: UIViewController, EasyStepIndicatorDataSource ,E
             return ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
         }
     
+    var stepper: UIStepper?
+    var indicator: EasyStepIndicator?
+    var currentStep: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: 300, height: 300)))
-        indicator.delegate = self
-        indicator.dataSource = self
-        self.view.addSubview(indicator)
-        indicator.numberOfSteps = 4//如果需要调整步骤
-        indicator.currentStep = 2 //如果需要调整目前进度
-//        indicator.circleRadius = 15 //圆圈大小
-//        indicator.showCircleText = true
-//        indicator.stepCircleTexts = ["A", "B", "C", "D"]//框内的文字
-//        indicator.showStepDescriptionTexts = true
-//        indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation"]//圆下的描述文字
-//        indicator.direction = .leftToRight //方向
-//        //如果你使用纵向模式
-//        indicator.stepLineFitDescriptionText = true //连接线条长度适应文本
-        // Do any additional setup after loading the view.
+        self.indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 200), size: CGSize.init(width: self.view.bounds.width, height: self.view.bounds.width)))
+        indicator?.delegate = self
+        indicator?.dataSource = self
+        self.view.addSubview(indicator!)
+        indicator?.numberOfSteps = 4//如果需要调整步骤
+        indicator?.currentStep = 0 //如果需要调整目前进度
+        
+        self.stepper = UIStepper.init(frame: CGRect.init(origin: CGPoint.init(x: self.view.bounds.midX - 15, y: 500), size: CGSize.init(width: 30, height: 20)))
+        self.view.addSubview((stepper!))
+        stepper?.maximumValue = 4
+        stepper?.minimumValue = 0
+        stepper?.stepValue = 1
+        stepper?.value = 0
+        stepper?.addTarget(self, action: #selector(valueChange), for: .valueChanged)
     }
 
+    @objc func valueChange() {
+        indicator?.currentStep = Int(self.stepper?.value ?? 0)
+    }
 
     /*
     // MARK: - Navigation

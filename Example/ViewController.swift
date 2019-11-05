@@ -55,6 +55,7 @@ class ViewController: UIViewController , EasyStepIndicatorDataSource ,EasyStepIn
         super.viewDidLoad()
         self.indicator.dataSource = self
         self.indicator.delegate = self
+        self.indicator.alignmentMode = .center
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
 

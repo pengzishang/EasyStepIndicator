@@ -514,6 +514,8 @@ public class EasyStepIndicator: UIView {
         }()
         
         var processLengths : [CGFloat] = {
+            //TODO : Top和fit模式下,线长问题,圆圈坐标问题
+            
             guard self.numberOfSteps > 1 else{
                 return Array.init(repeating: 0, count: self.numberOfSteps - 1)
             }

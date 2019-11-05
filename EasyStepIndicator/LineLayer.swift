@@ -23,7 +23,7 @@ class LineLayer: CAShapeLayer {
     public var isHorizontal: Bool = true
     // MARK: - Initialization
     
-    init(config:LineConfig,target:EasyStepIndicator) {
+    public init(config:LineConfig,target:EasyStepIndicator) {
         super.init()
         self.config = config
         self.indicator = target

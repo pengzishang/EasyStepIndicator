@@ -36,8 +36,6 @@ class VerticalController: UIViewController,EasyStepIndicatorDataSource ,EasyStep
         true
     }
     
-    
-    
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
         return "a"
     }
@@ -57,6 +55,7 @@ class VerticalController: UIViewController,EasyStepIndicatorDataSource ,EasyStep
         super.viewDidLoad()
         self.indicator.dataSource = self
         self.indicator.delegate = self
+        self.indicator.alignmentMode = .top
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
 //        indicator.stepLineFitDescriptionText = true
