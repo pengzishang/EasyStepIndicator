@@ -13,7 +13,7 @@ class VerticalController: UIViewController,EasyStepIndicatorDataSource ,EasyStep
         
     }
     
-    func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig) -> StepConfig {
+    func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig){
         if index == 2{
             config.radius = 30
         }
@@ -21,15 +21,13 @@ class VerticalController: UIViewController,EasyStepIndicatorDataSource ,EasyStep
             config.titleMargin = 20
             config.stepText.fontSize = 30
         }
-        return config
     }
     
-    func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig) -> LineConfig {
-        return config
+    func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig){
+        
     }
     
-    func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig) -> TitleConfig {
-        return config
+    func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig){
     }
     
     func shouldStepLineFitDescriptionText() -> Bool {

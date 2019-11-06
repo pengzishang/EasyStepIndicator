@@ -14,7 +14,7 @@ class HorizontalCodeController: UIViewController, EasyStepIndicatorDataSource ,E
             
         }
         
-        func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig) -> StepConfig {
+        func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig){
             config.radius = 30
             config.stepText.colors.complete = UIColor.white
             config.stepText.colors.incomplete = UIColor.black
@@ -32,24 +32,21 @@ class HorizontalCodeController: UIViewController, EasyStepIndicatorDataSource ,E
                 config.titleMargin = 20
                 config.stepText.fontSize = 30
             }
-            return config
         }
         
-        func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig) -> LineConfig {
+        func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig){
             config.colors.complete = UIColor.brown
             config.colors.incomplete = UIColor.orange
             config.dashPatternComplete.margin = 0
             config.dashPatternComplete.width = 0
-            return config
         }
         
-        func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig) -> TitleConfig {
+        func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig){
             if index == 0 {
                 config.title.fontSize = 12
                 config.colors.complete = UIColor.brown
                 config.colors.incomplete = UIColor.systemRed
             }
-            return config
         }
         
         func shouldStepLineFitDescriptionText() -> Bool {

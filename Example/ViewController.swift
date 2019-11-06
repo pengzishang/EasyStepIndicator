@@ -14,7 +14,7 @@ class ViewController: UIViewController , EasyStepIndicatorDataSource ,EasyStepIn
         
     }
     
-    func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig) -> StepConfig {
+    func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig){
         if index == 2{
             config.radius = 30
         }
@@ -22,15 +22,12 @@ class ViewController: UIViewController , EasyStepIndicatorDataSource ,EasyStepIn
             config.titleMargin = 20
             config.stepText.fontSize = 30
         }
-        return config
     }
     
-    func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig) -> LineConfig {
-        return config
+    func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig){
     }
     
-    func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig) -> TitleConfig {
-        return config
+    func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig){
     }
     
     func shouldStepLineFitDescriptionText() -> Bool {
@@ -42,7 +39,7 @@ class ViewController: UIViewController , EasyStepIndicatorDataSource ,EasyStepIn
     }
     
     func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
-//        return["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.We shall be most grateful if you will introduce him to reliable manufacturers and give him any help or advice he may need.", "Track progress", "Finishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation"][index]
+        return["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.We shall be most grateful if you will introduce him to reliable manufacturers and give him any help or advice he may need.", "Track progress", "Finishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation\nFinishes\ninvestigation"][index]
         return ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
     }
 
@@ -55,7 +52,7 @@ class ViewController: UIViewController , EasyStepIndicatorDataSource ,EasyStepIn
         super.viewDidLoad()
         self.indicator.dataSource = self
         self.indicator.delegate = self
-        self.indicator.alignmentMode = .center
+        self.indicator.alignmentMode = .top
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
 

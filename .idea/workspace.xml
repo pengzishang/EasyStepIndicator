@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0665ee43-45f2-490a-938a-013267e50011" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/AnnularLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/AnnularLayer.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EasyStepIndicator/Config.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/Config.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/DescriptionTextLayer.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/LineLayer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/LineLayer.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/HorizontalCodeController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/HorizontalCodeController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/VerticalController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/VerticalController.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/ViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/ViewController.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,6 +28,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="OBJC.PRESERVED_TARGET_SELECTION" value="EasyStepIndicator" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -30,6 +37,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys" />
   </component>
   <component name="RunDashboard">
@@ -69,7 +77,7 @@
       <workItem from="1572691276091" duration="863000" />
       <workItem from="1572692173753" duration="5373000" />
       <workItem from="1572838401679" duration="10255000" />
-      <workItem from="1572921942884" duration="3289000" />
+      <workItem from="1572921942884" duration="10173000" />
     </task>
     <servers />
   </component>
@@ -91,5 +99,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift</url>
+          <line>418</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
