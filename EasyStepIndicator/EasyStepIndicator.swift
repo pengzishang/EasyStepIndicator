@@ -27,8 +27,16 @@ public class EasyStepIndicator: UIView {
 	
 	// MARK: - Properties
 	
+    public override var frame: CGRect {
+        didSet {
+            if self.numberOfSteps > 0 {
+                self.updateSubLayers()
+            }
+        }
+    }
+    
 	//总步骤数量
-	@IBInspectable public var numberOfSteps: Int = 5 {
+	@IBInspectable public var numberOfSteps: Int = 0 {
 		didSet {
 			self.createSteps()
 		}
@@ -36,9 +44,9 @@ public class EasyStepIndicator: UIView {
 	//当前步骤
 	@IBInspectable public var currentStep: Int = 0 {
 		didSet {
-			if self.annularLayers.count <= 0 {
-				return
-			}
+            if self.annularLayers.count <= 0 {
+                return
+            }
 			self.showLineAnimating = currentStep > oldValue
 			self.setCurrentStep(step: self.currentStep)
 		}
@@ -281,21 +289,12 @@ public class EasyStepIndicator: UIView {
 	public required init?(coder: NSCoder) {
 		super.init(coder: coder)
 	}
-	
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-	
-	required init(frame: CGRect, numberOfSteps: Int) {
-		super.init(frame: frame)
-		self.numberOfSteps = numberOfSteps
-	}
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
 	
 	// MARK: - Functions
-	
-	public func reload() {
-		self.createSteps()
-	}
 	
 	private func createSteps() {
 		
@@ -763,7 +762,7 @@ public class EasyStepIndicator: UIView {
 	}
 	
 	private func applyDirection() {
-		let rotation180:CATransform3D = CATransform3DIdentity
+		var rotation180:CATransform3D = CATransform3DIdentity
 		if self.direction == .rightToLeft{
 			rotation180 = CATransform3DMakeRotation(CGFloat.pi, 0.0, 1.0, 0.0)
 		} else if self.direction == .bottomToTop {

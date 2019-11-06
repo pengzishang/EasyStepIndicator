@@ -12,7 +12,6 @@ import UIKit
 let defaultIncompleteColor = UIColor.red
 let defaultCompleteColor = UIColor.green
 
-
 protocol EasyStepIndicatorDataSource: class {
 	func characterForStep(indicator: EasyStepIndicator, index: Int) -> String
 	func titleForStep(indicator: EasyStepIndicator, index: Int) -> String

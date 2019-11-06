@@ -1,18 +1,19 @@
 //
-//  VerticalController.swift
+//  HorizontalController.swift
 //  EasyStepIndicator
 //
-//  Created by pengzishang on 2019/10/23.
+//  Created by pengzishang on 2019/11/6.
 //  Copyright © 2019 pengzishang. All rights reserved.
 //
 
 import UIKit
 
-class VerticalController: UIViewController {
+class HorizontalController: UIViewController {
     
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var indicator: EasyStepIndicator!
     @IBOutlet weak var currentStep: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,7 @@ class VerticalController: UIViewController {
         self.indicator.alignmentMode = .center
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
+        
     }
     
     fileprivate func setState(step: Int) {
@@ -28,36 +30,33 @@ class VerticalController: UIViewController {
         indicator.currentStep = step
     }
     
-    func randomColor() -> UIColor {
-        return UIColor.init(red:CGFloat(arc4random_uniform(255))/CGFloat(255.0), green:CGFloat(arc4random_uniform(255))/CGFloat(255.0), blue:CGFloat(arc4random_uniform(255))/CGFloat(255.0) , alpha: 1)
-    }
-    
     @IBAction func didChangeValue(_ sender: UIStepper) {
         setState(step: Int(sender.value))
     }
+    
+    func randomColor() -> UIColor {
+        return UIColor.init(red:CGFloat(arc4random_uniform(255))/CGFloat(255.0), green:CGFloat(arc4random_uniform(255))/CGFloat(255.0), blue:CGFloat(arc4random_uniform(255))/CGFloat(255.0) , alpha: 1)
+    }
 }
 
-extension VerticalController:EasyStepIndicatorDataSource {
+extension HorizontalController:EasyStepIndicatorDataSource {
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
-        ["1","B","2","D"][index]
+        ["A","B","C","D"][index]
     }
     
     func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
-        //        return ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
-        ["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.", "Track progress", "Finishes\ninvestigation"][index]
-    }
-}
-
-extension VerticalController :EasyStepIndicatorDelegate {
-    func didChangeStep(indicator: EasyStepIndicator, index: Int) {
-        
+        ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
     }
     
+}
+
+extension HorizontalController:EasyStepIndicatorDelegate {
     func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig){
         if index == 2{
             config.radius = 30
         }
         if index == 3 {
+            config.titleMargin = 20
             config.stepText.fontSize = 30
         }
         config.stepText.colors.complete = randomColor()
@@ -81,4 +80,10 @@ extension VerticalController :EasyStepIndicatorDelegate {
     func shouldStepLineFitDescriptionText() -> Bool {
         false
     }
+    
+    func didChangeStep(indicator: EasyStepIndicator, index: Int) {
+        
+    }
+    
 }
+

@@ -135,7 +135,7 @@
         <!--横向显示(Storyboard)-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EasyStepIndicator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HorizontalController" customModule="EasyStepIndicator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -145,7 +145,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rnz-22-Crw" secondAttribute="height" id="HKm-zA-1oe"/>
-                                    <constraint firstAttribute="width" secondItem="rnz-22-Crw" secondAttribute="height" multiplier="4" id="n1o-3s-kXQ"/>
+                                    <constraint firstAttribute="width" secondItem="rnz-22-Crw" secondAttribute="height" multiplier="4:1" id="YcE-3F-PKj"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="numberOfSteps">
@@ -215,14 +215,21 @@
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <variation key="heightClass=compact-widthClass=regular">
+                                <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="HKm-zA-1oe"/>
                                     </mask>
                                 </variation>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="HKm-zA-1oe"/>
+                                        <include reference="YcE-3F-PKj"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <exclude reference="n1o-3s-kXQ"/>
+                                        <include reference="HKm-zA-1oe"/>
+                                        <exclude reference="YcE-3F-PKj"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -242,12 +249,13 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="AXk-OI-Srz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8lf-Qg-hhe"/>
+                            <constraint firstItem="dsG-fm-BWK" firstAttribute="centerX" secondItem="rnz-22-Crw" secondAttribute="centerX" id="BU0-ty-u56"/>
                             <constraint firstItem="dsG-fm-BWK" firstAttribute="top" secondItem="rnz-22-Crw" secondAttribute="bottom" constant="10" id="NHU-Z3-i2Z"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="top" secondItem="AXk-OI-Srz" secondAttribute="bottom" constant="10" id="TAd-GS-4cp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rnz-22-Crw" secondAttribute="trailing" constant="40" id="XhU-WC-36m"/>
-                            <constraint firstItem="dsG-fm-BWK" firstAttribute="centerX" secondItem="rnz-22-Crw" secondAttribute="centerX" id="adZ-kl-f4d"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gwd-Iq-T1e"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="kYA-aj-KnG"/>
+                            <constraint firstItem="rnz-22-Crw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qCz-OV-ahO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
