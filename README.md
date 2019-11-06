@@ -11,13 +11,11 @@
 
 <img src="https://s2.ax1x.com/2019/11/06/MiCEE6.gif" alt="MiCEE6.gif" border="0" />
 
-### 纵向正向
+纵向模式
 
-<img src="https://s2.ax1x.com/2019/11/06/MiCsaV.gif" alt="MiCsaV.gif" border="0" />
-
-### 纵向逆向
-
-<img src="https://s2.ax1x.com/2019/11/06/MiPiRg.gif" alt="MiPiRg.gif" border="0" />
+|纵向逆向|纵向正向|
+|:--------------------:|:---------------------------:|
+|<img src="https://s2.ax1x.com/2019/11/06/MiCsaV.gif" alt="MiCsaV.gif" border="0" />|<img src="https://s2.ax1x.com/2019/11/06/MiPiRg.gif" alt="MiPiRg.gif" border="0" />|
 
 ## 背景
 
@@ -116,11 +114,12 @@ extension VerticalController :EasyStepIndicatorDelegate {
 
 ## 属性列表
 
+### Storyboard可用属性
 <img src="https://s2.ax1x.com/2019/10/23/KYvUyV.png" alt="KYvUyV.png" border="0" />
 
 | 属性名 | 描述  | 图中位置 |
 |:--------------------:|:---------------------------:|:----------------------------:|
-| numberOfSteps | 总步骤数量 ||
+| numberOfSteps(必须的) | 总步骤数量(必须大于1) ||
 | currentStep | 当前步骤 |①|
 | currentStepAsIncomplete| 当前步骤视为未完成|①|
 | circleRadius| 圆大小|③|
@@ -141,10 +140,56 @@ extension VerticalController :EasyStepIndicatorDelegate {
 | directionRaw|进度方向的Int值,用Storyboard中选择方向|无|
 | circleTextIncompleteColor| 圆形内文字未完成时候颜色|C的颜色|
 | circleTextCompleteColor| 圆形内文字完成时候颜色|A的颜色|
+| stepDescriptionTextIncompleteColor|描述文字未完成时候的颜色|11|
+| stepDescriptionTextCompleteColor|描述文字完成时候的颜色|13|
 | stepDescriptionTextMargin| Indicator和Description之间Margin|12|
 | stepDescriptionTextFontSize| 步骤描述文字的大小|13|
 
+### 可代码配置属性
 
+| 类名 |属性| 描述 | 
+|:--------------------:|:---------------------------:|:----------------------------:|
+|StepConfig|stepText|圈内文字相关属性|
+|StepConfig|annular|圆环相关属性|
+|StepConfig|tint|圆圈内的相关属性|
+|StepConfig|radius|圆圈半径|
+|StepConfig|stepIndex|步骤序号|
+|StepConfig|titleMargin|描述文字和圆圈底部的距离|
+|-|-|-|
+|LineConfig|colors|线的颜色相关属性|
+|LineConfig|dashPatternComplete|已完成线的虚线相关属性|
+|LineConfig|dashPatternIncomplete|未完成线的虚线相关属性|
+|LineConfig|strokeWidth|线宽度|
+|LineConfig|marginBetweenCircle|线条离圆形的初始距离|
+|LineConfig|processIndex|线条序号|
+|-|-|-|
+|TitleConfig|title|描述标题相关属性|
+|TitleConfig|colors|描述标题颜色相关属性|
+|TitleConfig|stepIndex|描述标题序号|
+
+### 关于 alignmentMode 这个属性
+>public var alignmentMode: AlignmentMode = .center
+
+| 值 | 描述  |
+|:---------------------------:|:---------------------------:|
+|top|每个标题和圆圈的起始对齐|
+|center|每个标题和起始和圆圈的中心对齐,|
+|centerWithAnnularStartAndAnnularEnd|标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview|
+
+<img src="https://s2.ax1x.com/2019/11/07/MiXIu6.gif" alt="MiXIu6.gif" border="0" />
+
+### 关于shouldStepLineFitDescriptionText
+```swift
+    func shouldStepLineFitDescriptionText() -> Bool {
+        false
+    }
+```
+
+>true:整个指示器的长度随着描述内容的多少而变化
+>
+>false:整个指示器的长度固定为superview长度
+
+<img src="https://s2.ax1x.com/2019/11/07/MiXvvt.gif" alt="MiXvvt.gif" border="0" />
 ## TODO
 欢迎大家提意见和建议
 

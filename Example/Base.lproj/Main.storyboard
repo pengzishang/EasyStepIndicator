@@ -347,7 +347,7 @@
                                         <color key="value" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="directionRaw">
-                                        <integer key="value" value="3"/>
+                                        <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <variation key="heightClass=compact-widthClass=regular">
@@ -361,27 +361,61 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="g8C-gp-vKE">
-                                <rect key="frame" x="160" y="696.5" width="94" height="32"/>
-                                <connections>
-                                    <action selector="didChangeValue:" destination="Cij-yo-usf" eventType="valueChanged" id="WaJ-eG-KEn"/>
-                                </connections>
-                            </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tl9-Ad-qF6">
-                                <rect key="frame" x="148.5" y="139.5" width="117" height="60"/>
+                                <rect key="frame" x="148.5" y="119.5" width="117" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="eiS-rz-PWp">
+                                <rect key="frame" x="30" y="696.5" width="354" height="122"/>
+                                <subviews>
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="g8C-gp-vKE">
+                                        <rect key="frame" x="130" y="0.0" width="94" height="32"/>
+                                        <connections>
+                                            <action selector="didChangeValue:" destination="Cij-yo-usf" eventType="valueChanged" id="WaJ-eG-KEn"/>
+                                        </connections>
+                                    </stepper>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OwO-3a-fNa">
+                                        <rect key="frame" x="0.0" y="46" width="354" height="32"/>
+                                        <segments>
+                                            <segment title="top"/>
+                                            <segment title="center"/>
+                                            <segment title="centerWithAnnularStartAndAnnularEnd"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="changeSegmentValue:" destination="Cij-yo-usf" eventType="valueChanged" id="5T3-bC-t0K"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="LZN-R2-B4O">
+                                        <rect key="frame" x="37" y="91" width="280" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shouldStepLineFitDescriptionText" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QhV-BO-ub6">
+                                                <rect key="frame" x="0.0" y="0.0" width="203" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pvL-Oz-adJ">
+                                                <rect key="frame" x="231" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="changeSwitchValue:" destination="Cij-yo-usf" eventType="valueChanged" id="bBB-l0-PQ8"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fml-x6-zBM" firstAttribute="trailing" secondItem="H3T-pM-BZD" secondAttribute="trailing" constant="40" id="Hsp-TZ-byk"/>
                             <constraint firstItem="H3T-pM-BZD" firstAttribute="centerY" secondItem="Qsm-5i-9VB" secondAttribute="centerY" id="LfU-pR-lYs"/>
-                            <constraint firstItem="H3T-pM-BZD" firstAttribute="top" secondItem="tl9-Ad-qF6" secondAttribute="bottom" constant="10" id="Ma5-3H-gD2"/>
-                            <constraint firstItem="g8C-gp-vKE" firstAttribute="centerX" secondItem="H3T-pM-BZD" secondAttribute="centerX" id="QMz-uW-Y6S"/>
+                            <constraint firstItem="eiS-rz-PWp" firstAttribute="leading" secondItem="Qsm-5i-9VB" secondAttribute="leading" constant="30" id="MRT-JJ-j4P"/>
+                            <constraint firstItem="H3T-pM-BZD" firstAttribute="top" secondItem="tl9-Ad-qF6" secondAttribute="bottom" constant="30" id="Ma5-3H-gD2"/>
+                            <constraint firstItem="eiS-rz-PWp" firstAttribute="centerX" secondItem="Qsm-5i-9VB" secondAttribute="centerX" id="QnL-Yj-bQQ"/>
                             <constraint firstItem="H3T-pM-BZD" firstAttribute="leading" secondItem="fml-x6-zBM" secondAttribute="leading" constant="40" id="SdV-K1-92M"/>
-                            <constraint firstItem="g8C-gp-vKE" firstAttribute="top" secondItem="H3T-pM-BZD" secondAttribute="bottom" constant="10" id="cvj-Eh-l0f"/>
+                            <constraint firstItem="eiS-rz-PWp" firstAttribute="top" secondItem="H3T-pM-BZD" secondAttribute="bottom" constant="10" id="qL9-5B-oxX"/>
                             <constraint firstItem="tl9-Ad-qF6" firstAttribute="centerX" secondItem="Qsm-5i-9VB" secondAttribute="centerX" id="wjM-nF-LwK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fml-x6-zBM"/>
