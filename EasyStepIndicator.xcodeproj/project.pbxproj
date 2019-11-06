@@ -14,7 +14,6 @@
 		3C7BB73023668EB700BFF4BD /* README_EN.md in Resources */ = {isa = PBXBuildFile; fileRef = 3C7BB72F23668EB700BFF4BD /* README_EN.md */; };
 		3CB31F0E23572BDF004726A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F0D23572BDF004726A1 /* AppDelegate.swift */; };
 		3CB31F1023572BDF004726A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */; };
-		3CB31F1223572BDF004726A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB31F1123572BDF004726A1 /* ViewController.swift */; };
 		3CB31F1523572BDF004726A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F1323572BDF004726A1 /* Main.storyboard */; };
 		3CB31F1723572BE1004726A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F1623572BE1004726A1 /* Assets.xcassets */; };
 		3CB31F1A23572BE1004726A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F1823572BE1004726A1 /* LaunchScreen.storyboard */; };
@@ -26,6 +25,8 @@
 		3CB31F3F23586357004726A1 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F3D23586357004726A1 /* 1.gif */; };
 		3CB31F41235863E2004726A1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F40235863E2004726A1 /* README.md */; };
 		3CB31F4723587522004726A1 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB31F4623587519004726A1 /* 2.png */; };
+		3CF8C4A323696BE200275B81 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8C4A223696BE200275B81 /* Config.swift */; };
+		3CFB1D742372CCD800A7AB57 /* HorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB1D732372CCD800A7AB57 /* HorizontalController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +38,6 @@
 		3CB31F0A23572BDF004726A1 /* EasyStepIndicator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyStepIndicator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB31F0D23572BDF004726A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3CB31F1123572BDF004726A1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3CB31F1423572BDF004726A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3CB31F1623572BE1004726A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CB31F1923572BE1004726A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +51,8 @@
 		3CB31F3D23586357004726A1 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
 		3CB31F40235863E2004726A1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3CB31F4623587519004726A1 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		3CF8C4A223696BE200275B81 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		3CFB1D732372CCD800A7AB57 /* HorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +93,7 @@
 				3CB31F2C23581055004726A1 /* EasyStepIndicator.entitlements */,
 				3CB31F0D23572BDF004726A1 /* AppDelegate.swift */,
 				3CB31F0F23572BDF004726A1 /* SceneDelegate.swift */,
-				3CB31F1123572BDF004726A1 /* ViewController.swift */,
+				3CFB1D732372CCD800A7AB57 /* HorizontalController.swift */,
 				3CB31F3A23585C9A004726A1 /* HorizontalCodeController.swift */,
 				3C50ED2C23605138009E44B5 /* VerticalController.swift */,
 				3CB31F1323572BDF004726A1 /* Main.storyboard */,
@@ -109,6 +111,7 @@
 				3CB31F2323572C1F004726A1 /* DescriptionTextLayer.swift */,
 				3CB31F2523572C1F004726A1 /* LineLayer.swift */,
 				3CB31F2A23580BD1004726A1 /* EasyStepIndicator.swift */,
+				3CF8C4A223696BE200275B81 /* Config.swift */,
 			);
 			path = EasyStepIndicator;
 			sourceTree = "<group>";
@@ -202,13 +205,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CB31F1223572BDF004726A1 /* ViewController.swift in Sources */,
 				3CB31F0E23572BDF004726A1 /* AppDelegate.swift in Sources */,
 				3CB31F3B23585C9A004726A1 /* HorizontalCodeController.swift in Sources */,
 				3C50ED2D23605138009E44B5 /* VerticalController.swift in Sources */,
 				3CB31F1023572BDF004726A1 /* SceneDelegate.swift in Sources */,
 				3CB31F2723572C1F004726A1 /* DescriptionTextLayer.swift in Sources */,
+				3CFB1D742372CCD800A7AB57 /* HorizontalController.swift in Sources */,
 				3CB31F2B23580BD1004726A1 /* EasyStepIndicator.swift in Sources */,
+				3CF8C4A323696BE200275B81 /* Config.swift in Sources */,
 				3CB31F2923572C1F004726A1 /* LineLayer.swift in Sources */,
 				3CB31F2623572C1F004726A1 /* AnnularLayer.swift in Sources */,
 			);
@@ -364,7 +368,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pengzishang.EasyStepIndicator.EasyStepIndicator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pengzishang.EasyStepIndicator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -386,7 +390,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pengzishang.EasyStepIndicator.EasyStepIndicator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pengzishang.EasyStepIndicator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
