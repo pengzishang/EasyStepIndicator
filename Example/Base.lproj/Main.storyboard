@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mY5-O4-MCN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mY5-O4-MCN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -135,17 +135,17 @@
         <!--横向显示(Storyboard)-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EasyStepIndicator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HorizontalController" customModule="EasyStepIndicator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnz-22-Crw" customClass="EasyStepIndicator" customModule="EasyStepIndicator" customModuleProvider="target">
                                 <rect key="frame" x="40" y="281" width="334" height="334"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rnz-22-Crw" secondAttribute="height" id="HKm-zA-1oe"/>
-                                    <constraint firstAttribute="width" secondItem="rnz-22-Crw" secondAttribute="height" multiplier="4" id="n1o-3s-kXQ"/>
+                                    <constraint firstAttribute="width" secondItem="rnz-22-Crw" secondAttribute="height" multiplier="4:1" id="YcE-3F-PKj"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="numberOfSteps">
@@ -164,31 +164,29 @@
                                         <color key="value" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="circleStrokeWidth">
-                                        <real key="value" value="3"/>
+                                        <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTintIncompleteColor">
-                                        <color key="value" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTintCompleteColor">
                                         <color key="value" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineImaginaryMargin">
-                                        <real key="value" value="3"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineImaginaryWidth">
-                                        <real key="value" value="4"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineMargin">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showCircleText" value="YES"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTextIncompleteColor">
                                         <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTextCompleteColor">
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showStepDescriptionTexts" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="stepDescriptionTextFontSize">
                                         <real key="value" value="14"/>
                                     </userDefinedRuntimeAttribute>
@@ -202,23 +200,36 @@
                                         <color key="value" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineStrokeWidth">
-                                        <real key="value" value="4"/>
+                                        <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="stepDescriptionTextIncompleteColor">
-                                        <color key="value" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="stepDescriptionTextCompleteColor">
                                         <color key="value" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="circleAnnularLineDashWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="circleAnnularLineDashMargin">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <variation key="heightClass=compact-widthClass=regular">
+                                <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="HKm-zA-1oe"/>
                                     </mask>
                                 </variation>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="HKm-zA-1oe"/>
+                                        <include reference="YcE-3F-PKj"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <exclude reference="n1o-3s-kXQ"/>
+                                        <include reference="HKm-zA-1oe"/>
+                                        <exclude reference="YcE-3F-PKj"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -238,12 +249,13 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="AXk-OI-Srz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8lf-Qg-hhe"/>
+                            <constraint firstItem="dsG-fm-BWK" firstAttribute="centerX" secondItem="rnz-22-Crw" secondAttribute="centerX" id="BU0-ty-u56"/>
                             <constraint firstItem="dsG-fm-BWK" firstAttribute="top" secondItem="rnz-22-Crw" secondAttribute="bottom" constant="10" id="NHU-Z3-i2Z"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="top" secondItem="AXk-OI-Srz" secondAttribute="bottom" constant="10" id="TAd-GS-4cp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rnz-22-Crw" secondAttribute="trailing" constant="40" id="XhU-WC-36m"/>
-                            <constraint firstItem="dsG-fm-BWK" firstAttribute="centerX" secondItem="rnz-22-Crw" secondAttribute="centerX" id="adZ-kl-f4d"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gwd-Iq-T1e"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="kYA-aj-KnG"/>
+                            <constraint firstItem="rnz-22-Crw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qCz-OV-ahO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -268,7 +280,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3T-pM-BZD" customClass="EasyStepIndicator" customModule="EasyStepIndicator" customModuleProvider="target">
                                 <rect key="frame" x="40" y="209.5" width="334" height="477"/>
-                                <color key="backgroundColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="H3T-pM-BZD" secondAttribute="height" multiplier="4" id="Qh3-NZ-ILd"/>
                                     <constraint firstAttribute="width" secondItem="H3T-pM-BZD" secondAttribute="height" multiplier="0.7" id="XbW-YF-cPq"/>
@@ -307,14 +319,12 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineMargin">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showCircleText" value="YES"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTextIncompleteColor">
                                         <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTextCompleteColor">
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showStepDescriptionTexts" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="stepDescriptionTextFontSize">
                                         <real key="value" value="14"/>
                                     </userDefinedRuntimeAttribute>

@@ -3,17 +3,28 @@
   <component name="ChangeListManager">
     <list default="true" id="0665ee43-45f2-490a-938a-013267e50011" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/VerticalController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/VerticalController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/ViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Example/ViewController.swift" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_0B9E1582-5FD8-4F98-BF3B-9199744BB4FE" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1Ss1bwusLj3nwIyeVH5p5AIcnZv" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="OBJC.PRESERVED_TARGET_SELECTION" value="EasyStepIndicator" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -21,7 +32,8 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="CocoaPods" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -50,17 +62,48 @@
     <configuration />
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0665ee43-45f2-490a-938a-013267e50011" name="Default Changelist" comment="" />
+      <created>1572404229055</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572404229055</updated>
+      <workItem from="1572404234525" duration="15703000" />
+      <workItem from="1572691276091" duration="863000" />
+      <workItem from="1572692173753" duration="5373000" />
+      <workItem from="1572838401679" duration="10255000" />
+      <workItem from="1572921942884" duration="11269000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/EasyStepIndicator/EasyStepIndicator.swift</url>
+          <line>418</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
