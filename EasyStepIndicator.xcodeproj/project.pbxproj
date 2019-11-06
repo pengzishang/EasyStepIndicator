@@ -53,6 +53,7 @@
 		3CB31F4623587519004726A1 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		3CF8C4A223696BE200275B81 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		3CFB1D732372CCD800A7AB57 /* HorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalController.swift; sourceTree = "<group>"; };
+		3CFB1D762372D6BE00A7AB57 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +226,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3CB31F1423572BDF004726A1 /* Base */,
+				3CFB1D762372D6BE00A7AB57 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

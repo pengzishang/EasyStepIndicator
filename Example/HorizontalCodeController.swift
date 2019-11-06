@@ -20,10 +20,11 @@ class HorizontalCodeController: UIViewController {
         
         self.indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: self.view.bounds.width, height: self.view.bounds.width/2)))
         self.indicator?.center = self.view.center
-        indicator?.numberOfSteps = 4
+        indicator?.numberOfSteps = 4 // 必须第一时间赋予
+        self.view.addSubview(indicator!)
+        
         indicator?.delegate = self
         indicator?.dataSource = self
-        self.view.addSubview(indicator!)
         indicator?.currentStep = 0 //如果需要调整目前进度
         
         self.stepper = UIStepper.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 20)))
