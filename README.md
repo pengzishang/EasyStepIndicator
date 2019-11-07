@@ -7,17 +7,15 @@
 
 给步骤指示器加入更多的属性,更多可定制的样式
 
-横向模式
+### 横向模式
 
-<img src="https://s2.ax1x.com/2019/10/23/KYvrFJ.gif" alt="KYvrFJ.gif" border="0" />
+<img src="https://s2.ax1x.com/2019/11/06/MiCEE6.gif" alt="MiCEE6.gif" border="0" />
 
-纵向倒置文字适配模式
+### 纵向模式
 
-<img src="https://s2.ax1x.com/2019/10/25/KwFHLF.gif" alt="KwFHLF.gif" border="0" />
-
-纵向正向长度相等模式
-
-<img src="https://s2.ax1x.com/2019/10/25/KwAV74.gif" alt="KwAV74.gif" border="0" />
+|纵向逆向|纵向正向|
+|:--------------------:|:---------------------------:|
+|<img src="https://s2.ax1x.com/2019/11/06/MiCsaV.gif" alt="MiCsaV.gif" border="0" />|<img src="https://s2.ax1x.com/2019/11/06/MiPiRg.gif" alt="MiPiRg.gif" border="0" />|
 
 ## 背景
 
@@ -35,22 +33,11 @@ fork了https://github.com/chenyun122/StepIndicator
 
 <img src="https://s2.ax1x.com/2019/10/23/KYvweU.png" alt="KYvweU.png" border="0" />
 
-> ```swift
-> IBOutlet weak var indicator: EasyStepIndicator!
-> ```
- 如果你要设置圈内文字和描述文字
- 打开在Storyboard中的选项
+```swift
+@IBOutlet weak var indicator: EasyStepIndicator!
+```
 
-![K6mjW6.jpg](https://s2.ax1x.com/2019/10/28/K6mjW6.jpg)
-
-然后设置相应文字
-
-> ```swift
-> indicator.stepCircleTexts = ["A","B","C","D"]
-> indicator.stepDescriptionTexts = \["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]
-> ```
-
-如果你要设置步骤进度的方向
+#### 如果你要设置步骤进度的方向
 
 ![K6nd0J.png](https://s2.ax1x.com/2019/10/28/K6nd0J.png)
 
@@ -61,31 +48,78 @@ fork了https://github.com/chenyun122/StepIndicator
 |2|topToBottom|从顶到底|
 |3|bottomToTop|从底到顶|
 
+#### 如果要在Storyboard完成所有的工作
+图中属性在下面有介绍
+
+<img src="https://s2.ax1x.com/2019/11/06/MiFJ56.png" alt="MiFJ56.png" border="0" />
+
 
 ### 如果你用代码
 ```swift
-let indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width:300, height: 300)))
-self.view.addSubview(indicator)
-indicator.numberOfSteps = 4//如果需要调整步骤
-indicator.currentStep = 2 //如果需要调整目前进度
-indicator.circleRadius = 15 //圆圈大小
-indicator.showCircleText = true
-indicator.stepCircleTexts = ["A","B","C","D"]//框内的文字
-indicator.showStepDescriptionTexts = true
-indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]//圆下的描述文字
-indicator.direction = .leftToRight //方向
-//如果你使用纵向模式
-indicator.stepLineFitDescriptionText = true //连接线条长度适应文本
+    self.indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: self.view.bounds.width, height: self.view.bounds.width/2)))
+    self.indicator?.center = self.view.center
+    indicator?.numberOfSteps = 4 // 必须第一时间赋予
+    self.view.addSubview(indicator!)
 ```
+### Storyboard和代码的公共部分
+#### 如果你要设置圈内文字和描述文字
+>self.indicator.dataSource = self
+
+```swift
+extension VerticalController:EasyStepIndicatorDataSource {
+    func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        ["1","B","2","D"][index]
+    }
+    
+    func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        ["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.", "Track progress", "Finishes\ninvestigation"][index]
+    }
+}
+ ```
+
+#### 如果你要单独设置每个圈
+>self.indicator.delegate = self
+```swift
+extension VerticalController :EasyStepIndicatorDelegate {
+
+     func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig){
+         if index == 2{
+             config.radius = 30
+         }
+         if index == 3 {
+             config.stepText.fontSize = 30
+         }
+         config.stepText.colors.complete = randomColor()
+         config.stepText.colors.incomplete = randomColor()
+         config.annular.colors.complete = randomColor()
+         config.annular.colors.incomplete = randomColor()
+         config.tint.colors.complete = randomColor()
+         config.tint.colors.incomplete = randomColor()
+     }
+     
+     func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig){
+         config.colors.complete = randomColor()
+         config.colors.incomplete = randomColor()
+     }
+     
+     func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig){
+         config.colors.complete = randomColor()
+         config.colors.incomplete = randomColor()
+     }
+ }
+```
+
+你可以对每一个元素的每个属性做出自己的定制 
 
 
 ## 属性列表
 
+### Storyboard可用属性
 <img src="https://s2.ax1x.com/2019/10/23/KYvUyV.png" alt="KYvUyV.png" border="0" />
 
 | 属性名 | 描述  | 图中位置 |
 |:--------------------:|:---------------------------:|:----------------------------:|
-| numberOfSteps | 总步骤数量 ||
+| numberOfSteps(必须的) | 总步骤数量(必须大于1) ||
 | currentStep | 当前步骤 |①|
 | currentStepAsIncomplete| 当前步骤视为未完成|①|
 | circleRadius| 圆大小|③|
@@ -104,17 +138,58 @@ indicator.stepLineFitDescriptionText = true //连接线条长度适应文本
 | lineImaginaryWidth| 指向线条小虚线宽度|⑥|
 | direction|进度方向,写代码时候可以设置,在枚举值中选择|a-b-c-d|
 | directionRaw|进度方向的Int值,用Storyboard中选择方向|无|
-| showInitialStep| 是否显示起始圆框|⑦|
-| showCircleText| 是否显示框内文字|ABCD|
-| stepCircleTexts| 圆形内描述文字,建议只输入一个数字|ABCD或者1234任何不超过一位的字符|
 | circleTextIncompleteColor| 圆形内文字未完成时候颜色|C的颜色|
 | circleTextCompleteColor| 圆形内文字完成时候颜色|A的颜色|
-| showStepDescriptionTexts| 是否显示步骤描述文字|下方13处|
-| stepDescriptionTexts| 步骤描述文字|13处|
+| stepDescriptionTextIncompleteColor|描述文字未完成时候的颜色|11|
+| stepDescriptionTextCompleteColor|描述文字完成时候的颜色|13|
 | stepDescriptionTextMargin| Indicator和Description之间Margin|12|
 | stepDescriptionTextFontSize| 步骤描述文字的大小|13|
-| stepLineFitDescriptionText | Line是否适应文字的高度,如果文字过多,建议开启(文字多会溢出superview),如果关闭的,Line的高度是与SuperView关联,不会溢出superview |无|
 
+### 可代码配置属性
+
+| 类名 |属性| 描述 | 
+|:--------------------:|:---------------------------:|:----------------------------:|
+|StepConfig|stepText|圈内文字相关属性|
+|StepConfig|annular|圆环相关属性|
+|StepConfig|tint|圆圈内的相关属性|
+|StepConfig|radius|圆圈半径|
+|StepConfig|stepIndex|步骤序号|
+|StepConfig|titleMargin|描述文字和圆圈底部的距离|
+|-|-|-|
+|LineConfig|colors|线的颜色相关属性|
+|LineConfig|dashPatternComplete|已完成线的虚线相关属性|
+|LineConfig|dashPatternIncomplete|未完成线的虚线相关属性|
+|LineConfig|strokeWidth|线宽度|
+|LineConfig|marginBetweenCircle|线条离圆形的距离|
+|LineConfig|processIndex|线条序号|
+|-|-|-|
+|TitleConfig|title|描述标题相关属性|
+|TitleConfig|colors|描述标题颜色相关属性|
+|TitleConfig|stepIndex|描述标题序号|
+
+### 关于 alignmentMode
+>public var alignmentMode: AlignmentMode = .center
+
+| 值 | 描述  |
+|:---------------------------:|:---------------------------:|
+|top|每个标题和圆圈的起始对齐|
+|center|每个标题和起始和圆圈的中心对齐,|
+|centerWithAnnularStartAndAnnularEnd|标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview|
+
+<img src="https://s2.ax1x.com/2019/11/07/MiXIu6.gif" alt="MiXIu6.gif" border="0" />
+
+### 关于shouldStepLineFitDescriptionText
+```swift
+    func shouldStepLineFitDescriptionText() -> Bool {
+        false
+    }
+```
+
+>true:整个指示器的长度随着描述内容的多少而变化
+>
+>false:整个指示器的长度固定为superview长度
+
+<img src="https://s2.ax1x.com/2019/11/07/MiXvvt.gif" alt="MiXvvt.gif" border="0" />
 
 ## TODO
 欢迎大家提意见和建议
@@ -122,5 +197,7 @@ indicator.stepLineFitDescriptionText = true //连接线条长度适应文本
 - [x] 上传到Cocoapods;
 - [x] 描述文字适配垂直方向;
 - [x] 垂直方向Demo
-- [ ] 代码描述
+- [x] 代码描述
+- [ ] 将超出部分显示为 "..."
+- [ ] 自适应超出部分设置为滚动
 - [ ] 自定义描述部分的View,不限于文字
