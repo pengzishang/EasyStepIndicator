@@ -200,4 +200,6 @@ extension VerticalController :EasyStepIndicatorDelegate {
 - [x] 代码描述
 - [ ] 将超出部分显示为 "..."
 - [ ] 自适应超出部分设置为滚动
+- [ ] 添加一个冰冻区域,冰冻区域无内容,作为留白
+- [ ] 添加一个整体对齐模式,用于内容部分与整体对齐的区分
 - [ ] 自定义描述部分的View,不限于文字
