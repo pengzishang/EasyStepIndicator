@@ -11,7 +11,7 @@
 
 <img src="https://s2.ax1x.com/2019/11/06/MiCEE6.gif" alt="MiCEE6.gif" border="0" />
 
-纵向模式
+### 纵向模式
 
 |纵向逆向|纵向正向|
 |:--------------------:|:---------------------------:|
@@ -61,8 +61,8 @@ fork了https://github.com/chenyun122/StepIndicator
     indicator?.numberOfSteps = 4 // 必须第一时间赋予
     self.view.addSubview(indicator!)
 ```
-## 公共部分
-### 如果你要设置圈内文字和描述文字
+### Storyboard和代码的公共部分
+#### 如果你要设置圈内文字和描述文字
 >self.indicator.dataSource = self
 
 ```swift
@@ -77,7 +77,7 @@ extension VerticalController:EasyStepIndicatorDataSource {
 }
  ```
 
-### 如果你要单独设置每个圈
+#### 如果你要单独设置每个圈
 >self.indicator.delegate = self
 ```swift
 extension VerticalController :EasyStepIndicatorDelegate {
@@ -160,14 +160,14 @@ extension VerticalController :EasyStepIndicatorDelegate {
 |LineConfig|dashPatternComplete|已完成线的虚线相关属性|
 |LineConfig|dashPatternIncomplete|未完成线的虚线相关属性|
 |LineConfig|strokeWidth|线宽度|
-|LineConfig|marginBetweenCircle|线条离圆形的初始距离|
+|LineConfig|marginBetweenCircle|线条离圆形的距离|
 |LineConfig|processIndex|线条序号|
 |-|-|-|
 |TitleConfig|title|描述标题相关属性|
 |TitleConfig|colors|描述标题颜色相关属性|
 |TitleConfig|stepIndex|描述标题序号|
 
-### 关于 alignmentMode 这个属性
+### 关于 alignmentMode
 >public var alignmentMode: AlignmentMode = .center
 
 | 值 | 描述  |
@@ -190,6 +190,7 @@ extension VerticalController :EasyStepIndicatorDelegate {
 >false:整个指示器的长度固定为superview长度
 
 <img src="https://s2.ax1x.com/2019/11/07/MiXvvt.gif" alt="MiXvvt.gif" border="0" />
+
 ## TODO
 欢迎大家提意见和建议
 
@@ -197,6 +198,6 @@ extension VerticalController :EasyStepIndicatorDelegate {
 - [x] 描述文字适配垂直方向;
 - [x] 垂直方向Demo
 - [x] 代码描述
-- [ ] 将超出部分显示为...
+- [ ] 将超出部分显示为 "..."
 - [ ] 自适应超出部分设置为滚动
 - [ ] 自定义描述部分的View,不限于文字
