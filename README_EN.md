@@ -5,17 +5,16 @@ Welcome everyone to give advice ,giveStar
 
 Add more attributes to the step indicator, more customizable styles
 
-Landscape mode
+### Landscape mode
 
-<img src="https://s2.ax1x.com/2019/10/23/KYvrFJ.gif" alt="KYvrFJ.gif" border="0" />
+<img src="https://s2.ax1x.com/2019/11/06/MiCEE6.gif" alt="MiCEE6.gif" border="0" />
 
-Vertical inverted text adaptation mode
+### Portrait mode
 
-<img src="https://s2.ax1x.com/2019/10/25/KwFHLF.gif" alt="KwFHLF.gif" border="0" />
+|Vertical Reverse | Vertical Forward |
+|:--------------------:|:---------------------------:|
+|<img src="https://s2.ax1x.com/2019/11/06/MiCsaV.gif" alt="MiCsaV.gif" border="0" />|<img src="https://s2.ax1x.com/2019/11/06/MiPiRg.gif" alt="MiPiRg.gif" border="0" />|
 
-Longitudinal forward length equal mode
-
-<img src="https://s2.ax1x.com/2019/10/25/KwAV74.gif" alt="KwAV74.gif" border="0" />
 
 ## Background
 
@@ -24,7 +23,7 @@ fork the project https://github.com/chenyun122/StepIndicator
 Made some improvements,This step indicator provides more properties, such as dashed lines, dashed borders, in-character text, step description text
 Will continue to do more styles in the future
 
-## Installation method
+## Install
 
 > pod 'EasyStepIndicator'
 
@@ -48,7 +47,7 @@ Then set the text
 > indicator.stepDescriptionTexts = \["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]
 > ```
 
-If you want to set the direction of the step progress
+#### If you want to set the direction of the step progress
 
 ![K6nd0J.png](https://s2.ax1x.com/2019/10/28/K6nd0J.png)
 
@@ -59,23 +58,70 @@ If you want to set the direction of the step progress
 |2|topToBottom|From top to bottom|
 |3|bottomToTop|From bottom to top|
 
+#### If you want to do all the work on the Storyboard
+The properties in the figure are described below.
+
+<img src="https://s2.ax1x.com/2019/11/06/MiFJ56.png" alt="MiFJ56.png" border="0" />
+
 
 ### Code
 ```swift
-let indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width:300, height: 300)))
-self.view.addSubview(indicator)
-indicator.numberOfSteps = 4//If you need to adjust the steps
-indicator.currentStep = 2 //If you need to adjust the current progress
-indicator.circleRadius = 15 //Circle size
-indicator.showCircleText = true
-indicator.stepCircleTexts = ["A","B","C","D"]//Text inside the box
-indicator.showStepDescriptionTexts = true
-indicator.stepDescriptionTexts = ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation", "Site\nsecured"]//Descriptive text under the circle
-indicator.direction = .leftToRight //direction
-//If you use portrait mode
-indicator.stepLineFitDescriptionText = true //Connect line length to fit text
+    self.indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: self.view.bounds.width, height: self.view.bounds.width/2)))
+    self.indicator?.center = self.view.center
+    indicator?.numberOfSteps = 4 // must be given the first time
+    self.view.addSubview(indicator!)
 ```
 
+### Storyboard and the public part of the code
+#### If you want to set the circle internal text and description text
+>self.indicator.dataSource = self
+
+
+```swift
+extension VerticalController:EasyStepIndicatorDataSource {
+    func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        ["1","B","2","D"][index]
+    }
+    
+    func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        ["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.", "Track progress", "Finishes\ninvestigation"][index]
+    }
+}
+ ```
+
+#### If you want to set each circle separately
+>self.indicator.delegate = self
+```swift
+extension VerticalController :EasyStepIndicatorDelegate {
+
+     func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig){
+         if index == 2{
+             config.radius = 30
+         }
+         if index == 3 {
+             config.stepText.fontSize = 30
+         }
+         config.stepText.colors.complete = randomColor()
+         config.stepText.colors.incomplete = randomColor()
+         config.annular.colors.complete = randomColor()
+         config.annular.colors.incomplete = randomColor()
+         config.tint.colors.complete = randomColor()
+         config.tint.colors.incomplete = randomColor()
+     }
+     
+     func lineConfigForProcess(indicator: EasyStepIndicator, index: Int, config:inout LineConfig){
+         config.colors.complete = randomColor()
+         config.colors.incomplete = randomColor()
+     }
+     
+     func titleConfigForStep(indicator: EasyStepIndicator, index: Int, config:inout TitleConfig){
+         config.colors.complete = randomColor()
+         config.colors.incomplete = randomColor()
+     }
+ }
+```
+
+You can make your own customizations for each attribute of each element.
 
 ## Attributes
 
@@ -101,18 +147,59 @@ indicator.stepLineFitDescriptionText = true //Connect line length to fit text
 | lineImaginaryMargin| points to the dotted line spacing |⑥|
 | lineImaginaryWidth| points to the line with a small dashed width |⑥|
 | direction|Progress direction, you can set when writing code, select value in the enumeration value |a-b-c-d|
-| directionRaw|Int value of progress direction, select direction with Storyboard|None|
-| showInitialStep| Whether to display the starting circle|⑦|
-| showCircleText| Whether to display the text in the circle|ABCD|
-| stepCircleTexts| Descriptive text inside the circle, it is recommended to enter only one number||
 | circleTextIncompleteColor| Color inside the circle when the text is not completed| C's color|
 | circleTextCompleteColor| Color inside the circle when the text is finished |A's color|
-| showStepDescriptionTexts| Whether to display step description text | below 13|
-| stepDescriptionTexts| Step Description Text |13|
+| stepDescriptionTextIncompleteColor|Describe the color when the text is not completed|11|
+| stepDescriptionTextCompleteColor|Describe the color when the text is completed|13|
 | stepDescriptionTextMargin| Margin between Indicator and Description|12|
 | stepDescriptionTextFontSize| Step Description Text Size |13|
 | stepLineFitDescriptionText | Line adapts to the height of the text. If there is too much text, it is recommended to open (more text will overflow superview). If it is closed, the height of Line is associated with SuperView, it will not overflow superview |无|
 
+### Codeable Attributes
+
+| Class | Attribute | Description |
+|:--------------------:|:---------------------------:|:----------------------------:|
+|StepConfig|stepText|Circle related attributes|
+|StepConfig|annular|annular related properties|
+|StepConfig|tint| Related properties in circles |
+|StepConfig|radius|Circle Radius|
+|StepConfig|stepIndex|Step No.|
+|StepConfig|titleMargin|Describe the distance between the text and the bottom of the circle|
+|-|-|-|
+|LineConfig|colors|Line color related properties|
+|LineConfig|dashPatternComplete|The dotted line related properties of the completed line|
+|LineConfig|dashPatternIncomplete|Dash line related properties of unfinished lines|
+|LineConfig|strokeWidth|Line Width|
+|LineConfig|marginBetweenCircle|The distance from the line to the circle|
+|LineConfig|processIndex|Line index|
+|-|-|-|
+|TitleConfig|title|Describe title related attributes|
+|TitleConfig|colors|Describe title color related properties|
+|TitleConfig|stepIndex|Description title index|
+
+### About alignmentMode
+>public var alignmentMode: AlignmentMode = .center
+
+| Value | Description |
+|:---------------------------:|:---------------------------:|
+|top|The starting alignment of each title and circle|
+|center|Each title and start are aligned with the center of the circle, |
+|centerWithAnnularStartAndAnnularEnd|The title is aligned with the center of the circle, and the top of the first circle is forced to be the starting point of the layer, which may exceed superview|
+
+<img src="https://s2.ax1x.com/2019/11/07/MiXIu6.gif" alt="MiXIu6.gif" border="0" />
+
+### About shouldStepLineFitDescriptionText
+```swift
+    func shouldStepLineFitDescriptionText() -> Bool {
+        false
+    }
+```
+
+>true: the length of the entire indicator varies with the amount of description
+>
+>false: the length of the entire indicator is fixed to the length of the superview
+
+<img src="https://s2.ax1x.com/2019/11/07/MiXvvt.gif" alt="MiXvvt.gif" border="0" />
 
 ## TODO
 Welcome everyone to provide comments and suggestions
@@ -120,6 +207,7 @@ Welcome everyone to provide comments and suggestions
 - [x] uploaded to Cocoapods;
 - [x] describes the text adaptation to the vertical direction;
 - [x] Vertical Direction Demo
-- [ ] Code Description
-- [ ] Custom description section of View,Welcome everyone to provide comments and suggestions
-
+- [x] code description
+- [ ] displays the excess as "..."
+- [ ] Adaptive excess is set to scroll
+- [ ] View of the custom description section, not limited to text

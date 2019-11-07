@@ -14,22 +14,22 @@ class HorizontalCodeController: UIViewController {
     var indicator: EasyStepIndicator?
     var currentStep: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.indicator = EasyStepIndicator.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: self.view.bounds.width, height: self.view.bounds.width/2)))
         self.indicator?.center = self.view.center
-        indicator?.numberOfSteps = 4
+        indicator?.numberOfSteps = 4 // 必须第一时间赋予
+        self.view.addSubview(indicator!)
+        
         indicator?.delegate = self
         indicator?.dataSource = self
-        self.view.addSubview(indicator!)
         indicator?.currentStep = 0 //如果需要调整目前进度
         
         self.stepper = UIStepper.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 20)))
         self.stepper?.center = CGPoint.init(x: (indicator?.frame.midX ?? 0), y: (indicator?.frame.maxY ?? 400))
         self.view.addSubview((stepper!))
-        stepper?.maximumValue = 4
+        stepper?.maximumValue = Double(indicator?.numberOfSteps ?? 0)
         stepper?.minimumValue = 0
         stepper?.stepValue = 1
         stepper?.value = 0

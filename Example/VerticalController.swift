@@ -14,11 +14,13 @@ class VerticalController: UIViewController {
     @IBOutlet weak var indicator: EasyStepIndicator!
     @IBOutlet weak var currentStep: UILabel!
     
+    var shouldStepLineFitText = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.indicator.dataSource = self
         self.indicator.delegate = self
-        self.indicator.alignmentMode = .center
+        self.indicator.alignmentMode = .top
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
     }
@@ -35,6 +37,16 @@ class VerticalController: UIViewController {
     @IBAction func didChangeValue(_ sender: UIStepper) {
         setState(step: Int(sender.value))
     }
+    
+    @IBAction func changeSegmentValue(_ sender: UISegmentedControl) {
+        indicator.alignmentMode = [AlignmentMode.top,AlignmentMode.center,AlignmentMode.centerWithAnnularStartAndAnnularEnd][sender.selectedSegmentIndex]
+    }
+    
+    @IBAction func changeSwitchValue(_ sender: UISwitch) {
+        self.shouldStepLineFitText = sender.isOn
+        indicator.reload()
+    }
+
 }
 
 extension VerticalController:EasyStepIndicatorDataSource {
@@ -44,7 +56,7 @@ extension VerticalController:EasyStepIndicatorDataSource {
     
     func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
         //        return ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
-        ["Yours faithfully", " This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. Mr. Wang is spending three weeks in your city to develop our business with chief manufactures and to make purchases of decorative fabrics for the coming season.", "Track progress", "Finishes\ninvestigation"][index]
+        [ "This is to introduce Mr. Frank Jones, our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. ","Yours faithfully", "Track progress", "Finishes\ninvestigation,in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang"][index]
     }
 }
 
@@ -79,6 +91,6 @@ extension VerticalController :EasyStepIndicatorDelegate {
     }
     
     func shouldStepLineFitDescriptionText() -> Bool {
-        false
+        return self.shouldStepLineFitText
     }
 }

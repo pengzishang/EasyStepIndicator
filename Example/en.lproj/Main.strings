@@ -1,0 +1,33 @@
+
+/* Class = "UINavigationItem"; title = "横向显示(Storyboard)"; ObjectID = "4m3-UD-06t"; */
+"4m3-UD-06t.title" = "Horizontal(Storyboard)";
+
+/* Class = "UILabel"; text = "纵向显示(Storyboard)"; ObjectID = "6RC-Xf-fjR"; */
+"6RC-Xf-fjR.text" = "Vertical(Storyboard)";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "AXk-OI-Srz"; */
+"AXk-OI-Srz.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "横向显示(Code)"; ObjectID = "BgK-gK-gxR"; */
+"BgK-gK-gxR.title" = "Horizontal(Code)";
+
+/* Class = "UINavigationItem"; title = "纵向显示(Storyboard)"; ObjectID = "JBH-bJ-HoF"; */
+"JBH-bJ-HoF.title" = "Vertical(Storyboard)";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "JFc-cE-BJK"; */
+"JFc-cE-BJK.title" = " ";
+
+/* Class = "UILabel"; text = "横向显示(Code)"; ObjectID = "R7N-mC-FGV"; */
+"R7N-mC-FGV.text" = "Horizontal(Code)";
+
+/* Class = "UIViewController"; title = "横向显示(Code)"; ObjectID = "eUL-NA-AYK"; */
+"eUL-NA-AYK.title" = "Horizontal(Code)";
+
+/* Class = "UINavigationItem"; title = "EasyStepIndicator"; ObjectID = "pUY-FH-cHE"; */
+"pUY-FH-cHE.title" = "EasyStepIndicator";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tl9-Ad-qF6"; */
+"tl9-Ad-qF6.text" = "Label";
+
+/* Class = "UILabel"; text = "横向显示(Storyboard)"; ObjectID = "udb-gL-h3q"; */
+"udb-gL-h3q.text" = "Horizontal(Storyboard)";

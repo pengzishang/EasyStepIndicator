@@ -236,7 +236,11 @@ public class EasyStepIndicator: UIView {
 	}
 	
 	/// 对齐模式
-	public var alignmentMode: AlignmentMode = .center
+  public var alignmentMode: AlignmentMode = .center {
+      didSet {
+          self.updateSubLayers()
+      }
+  }
 	
 	//步骤描述文字未完成时候颜色
 	@IBInspectable public var stepDescriptionTextIncompleteColor: UIColor = UIColor.red {
@@ -330,6 +334,10 @@ public class EasyStepIndicator: UIView {
 		self.layer.addSublayer(self.containerLayer)
 		self.updateSubLayers()
 	}
+
+  public func reload() {
+      self.updateSubLayers()
+  }
 	
 	private func updateData() {
 		for index in 0..<self.numberOfSteps {
@@ -709,8 +717,7 @@ public class EasyStepIndicator: UIView {
 			}()
 			let annularStartX: CGFloat = {
 				guard self.numberOfSteps > 1 else {
-					let firstAnnularLayer = self.annularLayers.first
-					return self.containerLayer.frame.width / 2.0 - circleRadius(firstAnnularLayer)
+					return 0
 				}
 				
 				if let _ = self.dataSource {
