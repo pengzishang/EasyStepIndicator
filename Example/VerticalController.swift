@@ -46,8 +46,7 @@ class VerticalController: UIViewController {
         self.shouldStepLineFitText = sender.isOn
         indicator.reload()
     }
-    
-    
+
 }
 
 extension VerticalController:EasyStepIndicatorDataSource {
