@@ -14,7 +14,6 @@ class HorizontalCodeController: UIViewController {
     var indicator: EasyStepIndicator?
     var currentStep: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +29,7 @@ class HorizontalCodeController: UIViewController {
         self.stepper = UIStepper.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 20)))
         self.stepper?.center = CGPoint.init(x: (indicator?.frame.midX ?? 0), y: (indicator?.frame.maxY ?? 400))
         self.view.addSubview((stepper!))
-        stepper?.maximumValue = 4
+        stepper?.maximumValue = Double(indicator?.numberOfSteps ?? 0)
         stepper?.minimumValue = 0
         stepper?.stepValue = 1
         stepper?.value = 0

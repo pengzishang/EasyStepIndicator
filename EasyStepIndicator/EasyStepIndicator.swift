@@ -717,8 +717,7 @@ public class EasyStepIndicator: UIView {
 			}()
 			let annularStartX: CGFloat = {
 				guard self.numberOfSteps > 1 else {
-					let firstAnnularLayer = self.annularLayers.first
-					return self.containerLayer.frame.width / 2.0 - circleRadius(firstAnnularLayer)
+					return 0
 				}
 				
 				if let _ = self.dataSource {
