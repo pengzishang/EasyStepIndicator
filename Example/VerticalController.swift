@@ -20,7 +20,8 @@ class VerticalController: UIViewController {
         super.viewDidLoad()
         self.indicator.dataSource = self
         self.indicator.delegate = self
-        self.indicator.alignmentMode = .top
+        self.indicator.alignmentMode = .center
+        self.indicator.freezeZone = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
     }

@@ -281,12 +281,18 @@ public class EasyStepIndicator: UIView {
 			self.updateSubLayers()
 		}
 	}
+    
+    @IBInspectable public var freezeZone : UIEdgeInsets = UIEdgeInsets.zero
 	
 	private var showLineAnimating = true
 	
 	private var titleTextSizes: [CGSize] = []
 	
 	private var titleCharacterSizes: [CGSize] = []
+	
+	private var minContentMargin : CGFloat = 10
+	
+	private var scrollView = UIScrollView()
 	
 	// MARK: - Init
 	
@@ -301,7 +307,7 @@ public class EasyStepIndicator: UIView {
 	// MARK: - Functions
 	
 	private func createSteps() {
-		
+        self.scrollView.removeFromSuperview()
 		self.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
 		self.containerLayer.sublayers?.forEach({ $0.removeFromSuperlayer() })
 		
@@ -310,6 +316,8 @@ public class EasyStepIndicator: UIView {
 		self.descriptionTextLayers.removeAll()
 		
 		assert(self.numberOfSteps > 0, "步骤数必须大于0")
+//        assert(self.freezeZone.left+self.freezeZone.right > self.bounds.width,"freeze太大了")
+//        assert(self.freezeZone.top+self.freezeZone.bottom > self.bounds.height,"freeze太大了")
 		
 		for index in 0..<self.numberOfSteps {
 			
@@ -328,40 +336,136 @@ public class EasyStepIndicator: UIView {
 			let titleConfig = TitleConfig.init(stepIndex: index)
 			let descriptionLayer = DescriptionTextLayer.init(titleConfig: titleConfig, target: self)
 			self.containerLayer.addSublayer(descriptionLayer)
-			self.descriptionTextLayers.append(descriptionLayer)
-		}
-		
-		self.layer.addSublayer(self.containerLayer)
-		self.updateSubLayers()
-	}
-
-  public func reload() {
-      self.updateSubLayers()
-  }
-	
-	private func updateData() {
-		for index in 0..<self.numberOfSteps {
-			let character = self.dataSource?.characterForStep(indicator: self, index: index)
-			let title = self.dataSource?.titleForStep(indicator: self, index: index)
-			self.delegate?.stepConfigForStep(indicator: self, index: index, config: &self.annularLayers[index].config!)
-			self.annularLayers[index].config?.stepText.content = character
-			if (index < self.numberOfSteps - 1) {
-				self.delegate?.lineConfigForProcess(indicator: self, index: index, config: &self.lineLayers[index].config!)
-			}
+            self.descriptionTextLayers.append(descriptionLayer)
+        }
+        self.addSubview(self.scrollView)
+        self.scrollView.layer.addSublayer(self.containerLayer)
+        self.updateSubLayers()
+    }
+    
+    public func reload() {
+        self.updateSubLayers()
+    }
+    
+    private func updateData() {
+        for index in 0..<self.numberOfSteps {
+            let character = self.dataSource?.characterForStep(indicator: self, index: index)
+            let title = self.dataSource?.titleForStep(indicator: self, index: index)
+            self.delegate?.stepConfigForStep(indicator: self, index: index, config: &self.annularLayers[index].config!)
+            self.annularLayers[index].config?.stepText.content = character
+            if (index < self.numberOfSteps - 1) {
+                self.delegate?.lineConfigForProcess(indicator: self, index: index, config: &self.lineLayers[index].config!)
+            }
 			self.delegate?.titleConfigForStep(indicator: self, index: index, config: &self.descriptionTextLayers[index].config!)
 			self.descriptionTextLayers[index].config?.title.content = title
 		}
 	}
 	
 	private func updateSubLayers() {
-		self.containerLayer.frame = self.layer.bounds
 		self.updateData()
+        self.scrollView.frame = self.layer.bounds
+		if self.direction == .leftToRight || self.direction == .rightToLeft {
+            let contentWidth = self.getTotalWidth()
+            self.scrollView.contentSize = CGSize.init(width: contentWidth, height: self.bounds.height)//Todo
+		} else {
+            let contentHeight = self.getTotalHeight() + self.freezeZone.top + self.freezeZone.bottom
+			self.scrollView.contentSize = CGSize.init(width: self.bounds.width, height: contentHeight)
+		}
+        self.containerLayer.frame = CGRect.init(origin: self.bounds.origin, size: self.scrollView.contentSize)
 		if self.direction == .leftToRight || self.direction == .rightToLeft {
 			self.layoutHorizontal()
 		} else {
 			self.layoutVertical()
 		}
 		self.applyDirection()
+	}
+	
+	func getTotalWidth()-> CGFloat{
+		if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
+			self.titleTextSizes.removeAll()
+			self.titleCharacterSizes.removeAll()
+			var totalWidth : CGFloat = 0
+			for index in 0..<self.numberOfSteps {
+				let annularLayer = self.annularLayers[index]
+				let size = self.getTextSize(index: index)
+				self.titleTextSizes.append(size.textSize)
+				self.titleCharacterSizes.append(size.characterSize)
+				switch self.alignmentMode {
+				case .top:
+					if size.textSize.width - size.characterSize.width/2 < circleRadius(annularLayer) {
+						totalWidth += circleRadius(annularLayer)
+					}
+					totalWidth += minContentMargin
+				case .center:
+					totalWidth += max(size.textSize.width,circleDiameter(annularLayer))
+					if index < self.numberOfSteps - 1 {
+						totalWidth += minContentMargin
+					}
+				case .centerWithAnnularStartAndAnnularEnd:
+					totalWidth += max(size.textSize.width,circleDiameter(annularLayer))
+					if index < self.numberOfSteps - 1 {
+						totalWidth += minContentMargin
+					}
+					let firstAnnularLayer = self.annularLayers.first
+					let lastAnnularLayer = self.annularLayers.last
+					if circleDiameter(firstAnnularLayer) < size.textSize.width {
+						totalWidth -= (size.textSize.width - circleDiameter(firstAnnularLayer))/2
+					}
+					if circleDiameter(lastAnnularLayer) < size.textSize.width {
+						totalWidth -= (size.textSize.width - circleDiameter(lastAnnularLayer))/2
+					}
+				}
+			}
+            return totalWidth
+		} else {
+            return self.layer.bounds.width
+		}
+	}
+	
+	func getTotalHeight()-> CGFloat{
+		if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
+			let maxContentWidths = self.getVerticalMaxContentWidths()
+			self.titleTextSizes.removeAll()
+			self.titleCharacterSizes.removeAll()
+			var totalHeight: CGFloat = 0
+			for index in 0..<self.numberOfSteps {
+				let annularLayer = self.annularLayers[index]
+				let size = self.getTextSize(index: index ,maxContentWidth: maxContentWidths[index])
+				self.titleTextSizes.append(size.textSize)
+				self.titleCharacterSizes.append(size.characterSize)
+                self.descriptionTextLayers[index].titleSize = size.textSize
+				switch self.alignmentMode {
+				case .top:
+					if size.textSize.height - size.characterSize.height/2 < circleRadius(annularLayer) {
+						totalHeight += circleDiameter(annularLayer)
+                    } else {
+                        totalHeight += circleRadius(annularLayer) + size.textSize.height - size.characterSize.height/2
+                    }
+					totalHeight += minContentMargin
+				case .center:
+					totalHeight += max(size.textSize.height,circleDiameter(annularLayer))
+					if index < self.numberOfSteps - 1 {
+						totalHeight += minContentMargin
+					}
+				case .centerWithAnnularStartAndAnnularEnd:
+					totalHeight += max(size.textSize.height,circleDiameter(annularLayer))
+					if index < self.numberOfSteps - 1 {
+						totalHeight += minContentMargin
+					}
+					let firstAnnularLayer = self.annularLayers.first
+					let lastAnnularLayer = self.annularLayers.last
+					if circleDiameter(firstAnnularLayer) < size.textSize.height {
+						totalHeight -= (size.textSize.height - circleDiameter(firstAnnularLayer))/2
+					}
+					if circleDiameter(lastAnnularLayer) < size.textSize.height {
+						totalHeight -= (size.textSize.height - circleDiameter(lastAnnularLayer))/2
+					}
+				}
+			}
+            return totalHeight
+		} else {
+            return self.layer.bounds.height - self.freezeZone.top - self.freezeZone.bottom
+		}
 	}
 	
 	fileprivate func getTextSize(index: Int, maxContentWidth: CGFloat = CGFloat.greatestFiniteMagnitude, maxContentHeight: CGFloat = CGFloat.greatestFiniteMagnitude) -> (textSize: CGSize, characterSize: CGSize) {
@@ -567,7 +671,7 @@ public class EasyStepIndicator: UIView {
 		}
 	}
 	
-	private func layoutVertical() {
+	private func getVerticalMaxContentWidths() -> [CGFloat] {
 		let diameters: [CGFloat] = self.annularLayers.map {
 			circleDiameter($0)
 		}
@@ -578,24 +682,34 @@ public class EasyStepIndicator: UIView {
 		let maxContentWidths: [CGFloat] = titleMargins.map {
 			$0 + maxDiameter
 		}.map {
-			self.containerLayer.frame.width - $0
+            self.containerLayer.frame.width - $0 - self.freezeZone.left - self.freezeZone.right
 		}
-		if let _ = self.dataSource {
-			self.titleTextSizes.removeAll()
-			self.titleCharacterSizes.removeAll()
-			for index in 0..<self.numberOfSteps {
-				let size = self.getTextSize(index: index, maxContentWidth: maxContentWidths[index])
-				self.titleTextSizes.append(size.textSize)
-				self.titleCharacterSizes.append(size.characterSize)
-				self.descriptionTextLayers[index].titleSize = size.textSize
-			}
-		}
+//        assert(maxContentWidths.min() ?? 0 < 0, "freeze参数过大,请重新设置")
+		return maxContentWidths
+	}
+	
+	private func layoutVertical() {
+		let maxContentWidths = self.getVerticalMaxContentWidths()
+//		if let _ = self.dataSource {
+//			self.titleTextSizes.removeAll()
+//			self.titleCharacterSizes.removeAll()
+//			for index in 0..<self.numberOfSteps {
+//				let size = self.getTextSize(index: index, maxContentWidth: maxContentWidths[index])
+//				self.titleTextSizes.append(size.textSize)
+//				self.titleCharacterSizes.append(size.characterSize)
+//				self.descriptionTextLayers[index].titleSize = size.textSize
+//			}
+//		}
 		
 		let startX: CGFloat = { //X中轴
 			if let _ = self.dataSource {//靠左对齐
-				return maxDiameter / 2
+				let diameters: [CGFloat] = self.annularLayers.map {
+					circleDiameter($0)
+				}
+				let maxDiameter = diameters.max() ?? self.circleRadius * 2
+                return maxDiameter / 2 + freezeZone.left
 			} else {
-				return self.containerLayer.frame.width / 2.0
+                return (self.containerLayer.frame.width - freezeZone.left - freezeZone.right) / 2.0
 			}
 		}()
 		
@@ -683,11 +797,11 @@ public class EasyStepIndicator: UIView {
 							bottomContentPadding += (self.titleCharacterSizes.last?.height ?? 0) / 2
 						}
 					}
-					
+                    totalLengthWithoutLine += self.freezeZone.top + self.freezeZone.bottom
 					processLength = (self.containerLayer.frame.height - totalLengthWithoutLine) / CGFloat(self.numberOfSteps - 1)
 				}
 			} else {//Storyboard
-				processLength = (self.containerLayer.frame.height - self.lineMargin * 2 * CGFloat(self.numberOfSteps - 1) - 2 * self.circleRadius * CGFloat(self.numberOfSteps)) / CGFloat(self.numberOfSteps - 1)//每个步骤(一个圈加一整条线的宽度)
+				processLength = (self.containerLayer.frame.height - self.lineMargin * 2 * CGFloat(self.numberOfSteps - 1) - 2 * self.circleRadius * CGFloat(self.numberOfSteps) - self.freezeZone.top - self.freezeZone.bottom) / CGFloat(self.numberOfSteps - 1)//每个步骤(一个圈加一整条线的宽度)
 			}
 			return Array.init(repeating: processLength, count: self.numberOfSteps - 1)
 		}()
@@ -697,7 +811,7 @@ public class EasyStepIndicator: UIView {
 			let annularStartY: CGFloat = {
 				let firstAnnularLayer = self.annularLayers.first
 				guard self.numberOfSteps > 1 else {
-					return self.containerLayer.frame.height / 2.0 - circleDiameter(self.annularLayers[0])
+                    return (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom) / 2.0 - circleDiameter(self.annularLayers[0])
 				}
 				
 				var currentLength: CGFloat = 0
@@ -717,13 +831,13 @@ public class EasyStepIndicator: UIView {
 			}()
 			let annularStartX: CGFloat = {
 				guard self.numberOfSteps > 1 else {
-					return 0
+                    return (self.containerLayer.frame.width - self.freezeZone.left - self.freezeZone.right)/2
 				}
 				
 				if let _ = self.dataSource {
 					return startX - circleRadius(self.annularLayers[_index])
 				} else { // Storyboard
-					return 0
+					return self.freezeZone.left
 				}
 			}()
 			
