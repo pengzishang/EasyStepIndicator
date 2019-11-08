@@ -256,7 +256,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var stepDescriptionTextCompleteColor: UIColor = UIColor.green {
 		didSet {
 			self.descriptionTextLayers.forEach {
-				$0.config?.title.colors.complete = stepDescriptionTextCompleteColor
+                $0.config?.title.colors.complete = stepDescriptionTextCompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -294,6 +294,8 @@ public class EasyStepIndicator: UIView {
                 _freezeZone.top = newValue.bottom
                 _freezeZone.left = newValue.left
                 _freezeZone.right = newValue.right
+            } else {
+                _freezeZone = newValue
             }
             self.updateSubLayers()
         }
