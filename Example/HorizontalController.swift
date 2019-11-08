@@ -20,7 +20,7 @@ class HorizontalController: UIViewController {
         self.indicator.dataSource = self
         self.indicator.delegate = self
         self.indicator.alignmentMode = .center
-        self.indicator.freezeZone = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
+//        self.indicator.freezeZone = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 20)
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
         

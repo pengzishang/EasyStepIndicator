@@ -282,11 +282,27 @@ public class EasyStepIndicator: UIView {
 		}
 	}
     
-    @IBInspectable public var freezeZone : UIEdgeInsets = UIEdgeInsets.zero {
-        didSet {
+    @IBInspectable public var freezeZone : UIEdgeInsets {
+        set {
+            if self.direction == .rightToLeft {
+                _freezeZone.bottom = newValue.bottom
+                _freezeZone.top = newValue.top
+                _freezeZone.left = newValue.right
+                _freezeZone.right = newValue.left
+            } else if self.direction == .bottomToTop{
+                _freezeZone.bottom = newValue.top
+                _freezeZone.top = newValue.bottom
+                _freezeZone.left = newValue.left
+                _freezeZone.right = newValue.right
+            }
             self.updateSubLayers()
         }
+        get {
+            _freezeZone
+        }
     }
+    
+    private var _freezeZone : UIEdgeInsets = UIEdgeInsets.zero
 	
 	private var showLineAnimating = true
 	
@@ -623,9 +639,9 @@ public class EasyStepIndicator: UIView {
 		func layoutHorizontalAnnularLayers(_index: Int) -> CGPoint {
 			let annularStartX: CGFloat = {
 				let firstAnnularLayer = self.annularLayers.first
-				guard self.numberOfSteps > 1 else {
-					return (self.containerLayer.frame.width - self.freezeZone.left - self.freezeZone.right) / 2.0 - circleDiameter(firstAnnularLayer)
-				}
+                guard self.numberOfSteps > 1 else {
+                    return (self.containerLayer.frame.width - self.freezeZone.left - self.freezeZone.right) / 2.0 - circleRadius(firstAnnularLayer)
+                }
 				
                 var currentLength: CGFloat = self.freezeZone.left
 				if self.alignmentMode == .center {
@@ -687,7 +703,7 @@ public class EasyStepIndicator: UIView {
 	}
 	
 	private func layoutVertical() {
-		let startX: CGFloat = { //X中轴
+		let circleCenterX: CGFloat = { //X中轴
 			if let _ = self.dataSource {//靠左对齐
 				let diameters: [CGFloat] = self.annularLayers.map {
 					circleDiameter($0)
@@ -699,7 +715,7 @@ public class EasyStepIndicator: UIView {
 			}
 		}()
 		
-		let startY: CGFloat = {
+		let startY: CGFloat = {//整个图形起始Y
 			let firstAnnularLayer = self.annularLayers.first
 			if self.alignmentMode == .center {
 				if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
@@ -801,11 +817,10 @@ public class EasyStepIndicator: UIView {
 			let annularStartY: CGFloat = {
 				let firstAnnularLayer = self.annularLayers.first
 				guard self.numberOfSteps > 1 else {
-                    return (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom) / 2.0 - circleDiameter(self.annularLayers[0])
+                    return (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom) / 2.0 - circleRadius(firstAnnularLayer)
 				}
 				
                 var currentLength: CGFloat = self.freezeZone.top
-				
 				if self.alignmentMode == .center {
 					if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
 						currentLength += (self.titleTextSizes.first?.height ?? 0) / 2 - circleRadius(firstAnnularLayer)
@@ -820,12 +835,8 @@ public class EasyStepIndicator: UIView {
 				return currentLength
 			}()
 			let annularStartX: CGFloat = {
-				guard self.numberOfSteps > 1 else {
-                    return (self.containerLayer.frame.width - self.freezeZone.left - self.freezeZone.right)/2
-				}
-				
 				if let _ = self.dataSource {
-					return startX - circleRadius(self.annularLayers[_index])
+					return circleCenterX - circleRadius(self.annularLayers[_index])
 				} else { // Storyboard
 					return self.freezeZone.left
 				}
