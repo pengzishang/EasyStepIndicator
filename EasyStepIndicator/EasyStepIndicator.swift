@@ -373,8 +373,8 @@ public class EasyStepIndicator: UIView {
             let contentWidth = self.getTotalWidth()
             self.scrollView.contentSize = CGSize.init(width: contentWidth, height: self.bounds.height)//Todo
 		} else {
-            let contentHeight = self.getTotalHeight() + self.freezeZone.top + self.freezeZone.bottom
-			self.scrollView.contentSize = CGSize.init(width: self.bounds.width, height: contentHeight)
+            let contentHeight = self.getTotalContentHeight()
+			self.scrollView.contentSize = CGSize.init(width: self.bounds.width, height: contentHeight + self.freezeZone.top + self.freezeZone.bottom)
 		}
         self.containerLayer.frame = CGRect.init(origin: self.bounds.origin, size: self.scrollView.contentSize)
 		if self.direction == .leftToRight || self.direction == .rightToLeft {
@@ -427,7 +427,7 @@ public class EasyStepIndicator: UIView {
 		}
 	}
 	
-	func getTotalHeight()-> CGFloat{
+	func getTotalContentHeight()-> CGFloat{
         if let _ = self.dataSource {
             self.maxContentWidths = self.getVerticalMaxContentWidths()
             self.getAllTextSize(maxContentWidths: maxContentWidths)
@@ -470,6 +470,8 @@ public class EasyStepIndicator: UIView {
 	}
     
     fileprivate func getAllTextSize(maxContentWidths:[CGFloat]) {
+        self.titleTextSizes.removeAll()
+        self.titleCharacterSizes.removeAll()
         for index in 0..<self.numberOfSteps {
             let size = self.getTextSize(index: index ,maxContentWidth: maxContentWidths[index])
             self.titleTextSizes.append(size.textSize)
@@ -512,7 +514,7 @@ public class EasyStepIndicator: UIView {
             $0.config.titleMargin
         }
         let maxContentWidths: [CGFloat] = zip(diameters, titleMargins)
-            .map { $0/2 + $1 + maxDiameter }
+            .map { $0/2 + $1 + maxDiameter/2 }
             .map { self.containerLayer.frame.width - $0 - self.freezeZone.left - self.freezeZone.right }
         assert(maxContentWidths.min() ?? 0 > 0, "freeze参数过大,请重新设置")
         return maxContentWidths
@@ -713,10 +715,10 @@ public class EasyStepIndicator: UIView {
 			let firstAnnularLayer = self.annularLayers.first
 			if self.alignmentMode == .center {
 				if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
-					return (self.titleTextSizes.first?.height ?? 0) / 2 - circleRadius(firstAnnularLayer)
+					return (self.titleTextSizes.first?.height ?? 0) / 2 - circleRadius(firstAnnularLayer) + self.freezeZone.top
 				}
 			}
-			return 0
+            return self.freezeZone.top
 		}()
 		
 		var processLengths: [CGFloat] = {
@@ -814,7 +816,7 @@ public class EasyStepIndicator: UIView {
                     return (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom) / 2.0 - circleDiameter(self.annularLayers[0])
 				}
 				
-				var currentLength: CGFloat = 0
+                var currentLength: CGFloat = self.freezeZone.top
 				
 				if self.alignmentMode == .center {
 					if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {

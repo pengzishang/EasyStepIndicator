@@ -84,7 +84,7 @@ class AnnularLayer: CAShapeLayer {
 		self.addSublayer(self.centerTextLayer)
 	}
 	
-	private func drawCenterCircle(didFinished: Bool) {=
+	private func drawCenterCircle(didFinished: Bool) {
 		
 		let centerPath = UIBezierPath()
 		let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - 1
