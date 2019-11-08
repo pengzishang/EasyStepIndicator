@@ -16,27 +16,41 @@ class LineLayer: CAShapeLayer {
 	
 	var showAnimating = true
 	
-	private(set) var indicator: EasyStepIndicator
+	public var indicator: EasyStepIndicator?
 	
-	public var config: LineConfig
+	public var config: LineConfig?
 	
 	public var isHorizontal: Bool = true
 	
 	// MARK: - Initialization
 	
 	public init(config: LineConfig, target: EasyStepIndicator) {
-        self.config = config
-        self.indicator = target
 		super.init()
+		self.config = config
+		self.indicator = target
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	override init(layer: Any) {
+		super.init(layer: layer)
+	}
+	
 	// MARK: - Functions
 	func updateStatus() {
 		tintLineLayer.removeFromSuperlayer()
+		
+		guard let indicator = indicator else {
+			assertionFailure("没有指定EasyStepIndicator")
+			return
+		}
+		
+		guard let config = self.config else {
+			assertionFailure("没有指定config")
+			return
+		}
 		
 		self.isHorizontal = indicator.direction == .leftToRight || indicator.direction == .rightToLeft
 		
@@ -70,6 +84,11 @@ class LineLayer: CAShapeLayer {
 	}
 	
 	private func drawTintLineAnimated(didFinished: Bool) {
+		guard let config = self.config else {
+			assertionFailure("没有指定config")
+			return
+		}
+		
 		let tintLinePath = UIBezierPath()
 		
 		if self.isHorizontal {

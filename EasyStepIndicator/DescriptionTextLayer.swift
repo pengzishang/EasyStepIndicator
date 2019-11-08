@@ -12,26 +12,36 @@ class DescriptionTextLayer: CAShapeLayer {
 	
 	private let tintTextLayer = CATextLayer()
 	
-	public var config: TitleConfig
+	public var config: TitleConfig?
 	
-    private(set) var indicator: EasyStepIndicator
+	public var indicator: EasyStepIndicator?
 	
 	public var isHorizontal: Bool = true
 	
 	public var titleSize: CGSize?
 	
 	init(titleConfig: TitleConfig, target: EasyStepIndicator) {
-        self.config = titleConfig
-        self.indicator = target
 		super.init()
+		self.config = titleConfig
 		self.fillColor = UIColor.clear.cgColor
+		self.indicator = target
 	}
+	
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	override init(layer: Any) {
+		super.init(layer: layer)
+	}
+	
 	fileprivate func drawText() {
+		guard let config = self.config else {
+			assertionFailure("没有指定config")
+			return
+		}
+		
 		self.tintTextLayer.removeFromSuperlayer()
 		self.tintTextLayer.string = config.title.content
 		self.tintTextLayer.alignmentMode = .center
@@ -44,6 +54,16 @@ class DescriptionTextLayer: CAShapeLayer {
 	}
 	
 	func updateStatus() {
+		
+		guard let indicator = indicator else {
+			assertionFailure("没有指定EasyStepIndicator")
+			return
+		}
+		
+		guard let config = self.config else {
+			assertionFailure("没有指定config")
+			return
+		}
 		
 		guard let _ = config.title.content else {
 			return
@@ -62,4 +82,6 @@ class DescriptionTextLayer: CAShapeLayer {
 		}
 		self.addSublayer(self.tintTextLayer)
 	}
+	
+	
 }
