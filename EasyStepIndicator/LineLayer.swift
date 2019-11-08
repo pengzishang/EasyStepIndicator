@@ -73,8 +73,9 @@ class LineLayer: CAShapeLayer {
 		let tintLinePath = UIBezierPath()
 		
 		if self.isHorizontal {
-			tintLinePath.move(to: CGPoint(x: 0, y: self.frame.midY))
-			tintLinePath.addLine(to: CGPoint(x: self.frame.width, y: self.frame.midY))
+			let centerY = self.frame.height / 2.0
+			tintLinePath.move(to: CGPoint(x: 0, y: centerY))
+			tintLinePath.addLine(to: CGPoint(x: self.frame.width, y: centerY))
 		} else {
 			let centerX = self.frame.width / 2.0
 			tintLinePath.move(to: CGPoint(x: centerX, y: 0))
