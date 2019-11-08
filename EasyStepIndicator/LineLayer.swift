@@ -16,41 +16,27 @@ class LineLayer: CAShapeLayer {
 	
 	var showAnimating = true
 	
-	public var indicator: EasyStepIndicator?
+	private(set) var indicator: EasyStepIndicator
 	
-	public var config: LineConfig?
+	public var config: LineConfig
 	
 	public var isHorizontal: Bool = true
 	
 	// MARK: - Initialization
 	
 	public init(config: LineConfig, target: EasyStepIndicator) {
+        self.config = config
+        self.indicator = target
 		super.init()
-		self.config = config
-		self.indicator = target
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	override init(layer: Any) {
-		super.init(layer: layer)
-	}
-	
 	// MARK: - Functions
 	func updateStatus() {
 		tintLineLayer.removeFromSuperlayer()
-		
-		guard let indicator = indicator else {
-			assertionFailure("没有指定EasyStepIndicator")
-			return
-		}
-		
-		guard let config = self.config else {
-			assertionFailure("没有指定config")
-			return
-		}
 		
 		self.isHorizontal = indicator.direction == .leftToRight || indicator.direction == .rightToLeft
 		
@@ -84,17 +70,11 @@ class LineLayer: CAShapeLayer {
 	}
 	
 	private func drawTintLineAnimated(didFinished: Bool) {
-		guard let config = self.config else {
-			assertionFailure("没有指定config")
-			return
-		}
-		
 		let tintLinePath = UIBezierPath()
 		
 		if self.isHorizontal {
-			let centerY = self.frame.height / 2.0
-			tintLinePath.move(to: CGPoint(x: 0, y: centerY))
-			tintLinePath.addLine(to: CGPoint(x: self.frame.width, y: centerY))
+			tintLinePath.move(to: CGPoint(x: 0, y: self.frame.midY))
+			tintLinePath.addLine(to: CGPoint(x: self.frame.width, y: self.frame.midY))
 		} else {
 			let centerX = self.frame.width / 2.0
 			tintLinePath.move(to: CGPoint(x: centerX, y: 0))

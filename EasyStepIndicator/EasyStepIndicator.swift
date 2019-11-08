@@ -62,7 +62,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleRadius: CGFloat = 20.0 {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.radius = circleRadius
+                $0.config.radius = circleRadius
 			}
 			self.updateSubLayers()
 		}
@@ -71,7 +71,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleAnnularIncompleteColor: UIColor = defaultIncompleteColor {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.annular.colors.incomplete = circleAnnularIncompleteColor
+                $0.config.annular.colors.incomplete = circleAnnularIncompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -80,7 +80,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleAnnularCompleteColor: UIColor = defaultCompleteColor {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.annular.colors.complete = circleAnnularCompleteColor
+                $0.config.annular.colors.complete = circleAnnularCompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -89,7 +89,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleStrokeWidth: CGFloat = 1.0 {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.annular.strokeWidth = circleStrokeWidth
+                $0.config.annular.strokeWidth = circleStrokeWidth
 			}
 			self.updateSubLayers()
 		}
@@ -98,10 +98,10 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleAnnularLineDashWidth: Float = 3 {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.annular.dashPatternComplete.width = circleAnnularLineDashWidth
+                $0.config.annular.dashPatternComplete.width = circleAnnularLineDashWidth
 			}
 			self.annularLayers.forEach {
-				$0.config?.annular.dashPatternIncomplete.width = circleAnnularLineDashWidth
+                $0.config.annular.dashPatternIncomplete.width = circleAnnularLineDashWidth
 			}
 			self.updateSubLayers()
 		}
@@ -110,10 +110,10 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleAnnularLineDashMargin: Float = 3 {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.annular.dashPatternComplete.margin = circleAnnularLineDashMargin
+                $0.config.annular.dashPatternComplete.margin = circleAnnularLineDashMargin
 			}
 			self.annularLayers.forEach {
-				$0.config?.annular.dashPatternIncomplete.margin = circleAnnularLineDashMargin
+                $0.config.annular.dashPatternIncomplete.margin = circleAnnularLineDashMargin
 			}
 			self.updateSubLayers()
 		}
@@ -122,7 +122,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleTintIncompleteColor: UIColor = defaultIncompleteColor {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.tint.colors.incomplete = circleTintIncompleteColor
+                $0.config.tint.colors.incomplete = circleTintIncompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -131,7 +131,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleTintCompleteColor: UIColor = defaultCompleteColor {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.tint.colors.complete = circleTintCompleteColor
+                $0.config.tint.colors.complete = circleTintCompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -140,7 +140,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var lineIncompleteColor: UIColor = defaultIncompleteColor {
 		didSet {
 			self.lineLayers.forEach {
-				$0.config?.colors.incomplete = lineIncompleteColor
+                $0.config.colors.incomplete = lineIncompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -149,7 +149,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var lineCompleteColor: UIColor = defaultCompleteColor {
 		didSet {
 			self.lineLayers.forEach {
-				$0.config?.colors.complete = lineCompleteColor
+                $0.config.colors.complete = lineCompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -158,7 +158,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var lineMargin: CGFloat = 0.0 {
 		didSet {
 			self.lineLayers.forEach {
-				$0.config?.marginBetweenCircle = lineMargin
+                $0.config.marginBetweenCircle = lineMargin
 			}
 			self.updateSubLayers()
 		}
@@ -167,7 +167,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var lineStrokeWidth: CGFloat = 4.0 {
 		didSet {
 			self.lineLayers.forEach {
-				$0.config?.strokeWidth = lineStrokeWidth
+                $0.config.strokeWidth = lineStrokeWidth
 			}
 			self.updateSubLayers()
 		}
@@ -177,10 +177,10 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var lineImaginaryMargin: Float = 1 {
 		didSet {
 			self.lineLayers.forEach {
-				$0.config?.dashPatternComplete.margin = lineImaginaryMargin
+                $0.config.dashPatternComplete.margin = lineImaginaryMargin
 			}
 			self.lineLayers.forEach {
-				$0.config?.dashPatternIncomplete.margin = lineImaginaryMargin
+                $0.config.dashPatternIncomplete.margin = lineImaginaryMargin
 			}
 			self.updateSubLayers()
 		}
@@ -189,10 +189,10 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var lineImaginaryWidth: Float = 5 {
 		didSet {
 			self.lineLayers.forEach {
-				$0.config?.dashPatternComplete.width = lineImaginaryWidth
+                $0.config.dashPatternComplete.width = lineImaginaryWidth
 			}
 			self.lineLayers.forEach {
-				$0.config?.dashPatternIncomplete.width = lineImaginaryWidth
+                $0.config.dashPatternIncomplete.width = lineImaginaryWidth
 			}
 			self.updateSubLayers()
 		}
@@ -219,7 +219,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleTextIncompleteColor: UIColor = defaultIncompleteColor {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.stepText.colors.incomplete = circleTextIncompleteColor
+                $0.config.stepText.colors.incomplete = circleTextIncompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -229,7 +229,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var circleTextCompleteColor: UIColor = defaultCompleteColor {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.stepText.colors.complete = circleTextCompleteColor
+                $0.config.stepText.colors.complete = circleTextCompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -246,7 +246,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var stepDescriptionTextIncompleteColor: UIColor = UIColor.red {
 		didSet {
 			self.descriptionTextLayers.forEach {
-				$0.config?.title.colors.incomplete = stepDescriptionTextIncompleteColor
+                $0.config.title.colors.incomplete = stepDescriptionTextIncompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -256,7 +256,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var stepDescriptionTextCompleteColor: UIColor = UIColor.green {
 		didSet {
 			self.descriptionTextLayers.forEach {
-				$0.config?.title.colors.complete = stepDescriptionTextCompleteColor
+                $0.config.title.colors.complete = stepDescriptionTextCompleteColor
 			}
 			self.updateSubLayers()
 		}
@@ -266,7 +266,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var stepDescriptionTextMargin: CGFloat = 3 {
 		didSet {
 			self.annularLayers.forEach {
-				$0.config?.titleMargin = stepDescriptionTextMargin
+                $0.config.titleMargin = stepDescriptionTextMargin
 			}
 			self.updateSubLayers()
 		}
@@ -276,7 +276,7 @@ public class EasyStepIndicator: UIView {
 	@IBInspectable public var stepDescriptionTextFontSize: CGFloat = 18 {
 		didSet {
 			self.descriptionTextLayers.forEach {
-				$0.config?.title.fontSize = stepDescriptionTextFontSize
+                $0.config.title.fontSize = stepDescriptionTextFontSize
 			}
 			self.updateSubLayers()
 		}
@@ -328,8 +328,7 @@ public class EasyStepIndicator: UIView {
 		for index in 0..<self.numberOfSteps {
 			
 			let stepConfig = StepConfig.init(radius: self.circleRadius, stepIndex: index)
-			let annularLayer = AnnularLayer.init(config: stepConfig)
-			annularLayer.indicator = self
+            let annularLayer = AnnularLayer.init(config: stepConfig, target: self)
 			self.containerLayer.addSublayer(annularLayer)
 			self.annularLayers.append(annularLayer)
 			
@@ -357,13 +356,13 @@ public class EasyStepIndicator: UIView {
         for index in 0..<self.numberOfSteps {
             let character = self.dataSource?.characterForStep(indicator: self, index: index)
             let title = self.dataSource?.titleForStep(indicator: self, index: index)
-            self.delegate?.stepConfigForStep(indicator: self, index: index, config: &self.annularLayers[index].config!)
-            self.annularLayers[index].config?.stepText.content = character
+            self.delegate?.stepConfigForStep(indicator: self, index: index, config: &self.annularLayers[index].config)
+            self.annularLayers[index].config.stepText.content = character
             if (index < self.numberOfSteps - 1) {
-                self.delegate?.lineConfigForProcess(indicator: self, index: index, config: &self.lineLayers[index].config!)
+                self.delegate?.lineConfigForProcess(indicator: self, index: index, config: &self.lineLayers[index].config)
             }
-			self.delegate?.titleConfigForStep(indicator: self, index: index, config: &self.descriptionTextLayers[index].config!)
-			self.descriptionTextLayers[index].config?.title.content = title
+            self.delegate?.titleConfigForStep(indicator: self, index: index, config: &self.descriptionTextLayers[index].config)
+            self.descriptionTextLayers[index].config.title.content = title
 		}
 	}
 	
@@ -487,8 +486,8 @@ public class EasyStepIndicator: UIView {
 		let newTitle = _dataSource.titleForStep(indicator: self, index: index)
 		let titleConfig = self.descriptionTextLayers[index].config
 		
-		let font = UIFont.systemFont(ofSize: titleConfig?.title.fontSize ?? self.stepDescriptionTextFontSize)
-		let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: titleConfig?.title.style]
+        let font = UIFont.systemFont(ofSize: titleConfig.title.fontSize )
+        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: titleConfig.title.style]
 		let attributesText = NSAttributedString(string: newTitle, attributes: attributes as [NSAttributedString.Key: Any])
 		let textSize = attributesText.boundingRect(with: CGSize.init(width: maxContentWidth, height: maxContentHeight), options: .usesLineFragmentOrigin, context: nil).size
 		let characterAttributesText = NSAttributedString(string: String(newTitle.first ?? "K"), attributes: attributes as [NSAttributedString.Key: Any])
@@ -497,7 +496,7 @@ public class EasyStepIndicator: UIView {
 	}
 	
 	fileprivate func circleRadius(_ annularLayer: AnnularLayer?) -> CGFloat {
-		annularLayer?.config?.radius ?? self.circleRadius
+        annularLayer?.config.radius ?? self.circleRadius
 	}
 	
 	fileprivate func circleDiameter(_ annularLayer: AnnularLayer?) -> CGFloat {
@@ -510,7 +509,7 @@ public class EasyStepIndicator: UIView {
         }
         let maxDiameter = diameters.max() ?? self.circleRadius * 2
         let titleMargins: [CGFloat] = self.annularLayers.map {
-            $0.config?.titleMargin ?? self.stepDescriptionTextMargin
+            $0.config.titleMargin
         }
         let maxContentWidths: [CGFloat] = zip(diameters, titleMargins)
             .map { $0/2 + $1 + maxDiameter }
@@ -533,7 +532,7 @@ public class EasyStepIndicator: UIView {
 			}
 			
 			let titleMargins = self.annularLayers.map {
-				$0.config?.titleMargin ?? self.stepDescriptionTextMargin
+                $0.config.titleMargin
 			}
 			let titleHeights = self.titleTextSizes.map {
 				$0.height
@@ -569,7 +568,7 @@ public class EasyStepIndicator: UIView {
 								comparedWidths[index] = circleDiameter(annularLayer)
 							}
 							let topPadding = circleRadius(annularLayer) - titleCharacterSizes[index].width / 2
-							let processLength = topPadding + comparedWidths[index] + verticalFontMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin) - circleDiameter(annularLayer)
+							let processLength = topPadding + comparedWidths[index] + verticalFontMargin - 2 * (lineLayer.config.marginBetweenCircle ?? self.lineMargin) - circleDiameter(annularLayer)
 							processLengths.append(processLength)
 						}
 					} else {
@@ -585,7 +584,7 @@ public class EasyStepIndicator: UIView {
 							($0, $1)
 						}
 						for index in 0..<self.numberOfSteps - 1 {
-							processLengths.append((widthPairs[index].0 + widthPairs[index].1) / 2 - (self.lineLayers[index].config?.marginBetweenCircle ?? self.lineMargin) * 2 + verticalFontMargin)
+							processLengths.append((widthPairs[index].0 + widthPairs[index].1) / 2 - (self.lineLayers[index].config.marginBetweenCircle ?? self.lineMargin) * 2 + verticalFontMargin)
 						}
 					}
 					return processLengths
@@ -596,7 +595,7 @@ public class EasyStepIndicator: UIView {
 						totalLengthWithoutLine += circleDiameter(annularLayer)
 						if index < self.numberOfSteps - 1 {
 							let lineConfig = self.lineLayers[index].config
-							totalLengthWithoutLine += (lineConfig?.marginBetweenCircle ?? self.stepDescriptionTextMargin) * 2
+                            totalLengthWithoutLine += (lineConfig.marginBetweenCircle ?? self.stepDescriptionTextMargin) * 2
 						}
 					}
 					switch self.alignmentMode {
@@ -643,7 +642,7 @@ public class EasyStepIndicator: UIView {
 				for __index in 0..<_index {
 					let _annularLayer = self.annularLayers[__index]
 					currentLength += circleDiameter(_annularLayer)
-					currentLength += (self.lineLayers[__index].config?.marginBetweenCircle ?? self.lineMargin) * 2
+                    currentLength += (self.lineLayers[__index].config.marginBetweenCircle ?? self.lineMargin) * 2
 					currentLength += processLengths[__index]
 				}
 				return currentLength
@@ -664,9 +663,9 @@ public class EasyStepIndicator: UIView {
 		func layoutHorizontalLineLayer(_index: Int, annularPoint: CGPoint) {
 			let annularLayer = self.annularLayers[_index]
 			let lineLayer = self.lineLayers[_index]
-			let lineStartX = annularPoint.x + circleDiameter(annularLayer) + (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
-			let lineStartY = annularPoint.y + circleRadius(annularLayer) - (lineLayer.config?.strokeWidth ?? self.lineStrokeWidth) / 2
-			lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: processLengths[_index], height: lineLayer.config?.strokeWidth ?? self.lineStrokeWidth)
+            let lineStartX = annularPoint.x + circleDiameter(annularLayer) + (lineLayer.config.marginBetweenCircle ?? self.lineMargin)
+            let lineStartY = annularPoint.y + circleRadius(annularLayer) - (lineLayer.config.strokeWidth ?? self.lineStrokeWidth) / 2
+            lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: processLengths[_index], height: lineLayer.config.strokeWidth ?? self.lineStrokeWidth)
 			lineLayer.updateStatus()
 		}
 		
@@ -681,7 +680,7 @@ public class EasyStepIndicator: UIView {
 				descriptionStartX -= self.titleCharacterSizes[_index].width / 2
 			}
 			
-			let descriptionStartY = annularPoint.y + circleDiameter(annularLayer) + (annularLayer.config?.titleMargin ?? self.stepDescriptionTextMargin)
+            let descriptionStartY = annularPoint.y + circleDiameter(annularLayer) + (annularLayer.config.titleMargin )
 			descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height)
 			descriptionTextLayer.updateStatus()
 		}
@@ -742,7 +741,8 @@ public class EasyStepIndicator: UIView {
 								comparedHeights[index] = circleDiameter(annularLayer)
 							}
 							let topPadding = circleRadius(annularLayer) - titleCharacterSizes[index].height / 2
-							let processLength = topPadding + comparedHeights[index] + verticalFontMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin) - circleDiameter(annularLayer)
+							var processLength = topPadding + comparedHeights[index] + verticalFontMargin
+                            processLength -= 2 * (lineLayer.config.marginBetweenCircle ?? self.lineMargin) + circleDiameter(annularLayer)
 							processLengths.append(processLength)
 						}
 					} else {
@@ -758,7 +758,10 @@ public class EasyStepIndicator: UIView {
 							($0, $1)
 						}
 						for index in 0..<self.numberOfSteps - 1 {
-							processLengths.append((heightPairs[index].0 + heightPairs[index].1) / 2 - (self.lineLayers[index].config?.marginBetweenCircle ?? self.lineMargin) * 2 + verticalFontMargin)
+                            var processLength = (heightPairs[index].0 + heightPairs[index].1) / 2
+                            processLength -= (self.lineLayers[index].config.marginBetweenCircle ?? self.lineMargin) * 2
+                            processLength += verticalFontMargin
+							processLengths.append(processLength)
 						}
 					}
 					return processLengths
@@ -770,7 +773,7 @@ public class EasyStepIndicator: UIView {
 						totalLengthWithoutLine += circleDiameter(annularLayer)
 						if index < self.numberOfSteps - 1 {
 							let lineConfig = self.lineLayers[index].config
-							totalLengthWithoutLine += (lineConfig?.marginBetweenCircle ?? self.stepDescriptionTextMargin) * 2
+                            totalLengthWithoutLine += (lineConfig.marginBetweenCircle ?? self.stepDescriptionTextMargin) * 2
 						}
 					}
 					if self.alignmentMode == .center {
@@ -821,7 +824,7 @@ public class EasyStepIndicator: UIView {
 				
 				for __index in 0..<_index {
 					currentLength += circleDiameter(self.annularLayers[__index])
-					currentLength += (self.lineLayers[__index].config?.marginBetweenCircle ?? self.lineMargin) * 2
+                    currentLength += (self.lineLayers[__index].config.marginBetweenCircle ?? self.lineMargin) * 2
 					currentLength += processLengths[__index]
 				}
 				return currentLength
@@ -846,9 +849,9 @@ public class EasyStepIndicator: UIView {
 		func layoutVerticalLineLayer(_index: Int, annularPoint: CGPoint) {
 			let annularLayer = self.annularLayers[_index]
 			let lineLayer = self.lineLayers[_index]
-			let lineStartY = annularPoint.y + circleDiameter(annularLayer) + (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
-			let lineStartX = annularPoint.x + circleRadius(annularLayer) - (lineLayer.config?.strokeWidth ?? self.lineStrokeWidth) / 2
-			lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: lineLayer.config?.strokeWidth ?? self.lineStrokeWidth, height: processLengths[_index])
+            let lineStartY = annularPoint.y + circleDiameter(annularLayer) + (lineLayer.config.marginBetweenCircle ?? self.lineMargin)
+            let lineStartX = annularPoint.x + circleRadius(annularLayer) - (lineLayer.config.strokeWidth ?? self.lineStrokeWidth) / 2
+            lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: lineLayer.config.strokeWidth ?? self.lineStrokeWidth, height: processLengths[_index])
 			lineLayer.updateStatus()
 		}
 		
@@ -863,7 +866,7 @@ public class EasyStepIndicator: UIView {
 				descriptionStartY -= self.titleCharacterSizes[_index].height / 2
 			}
 			
-			let descriptionStartX = annularPoint.x + circleDiameter(annularLayer) + (annularLayer.config?.titleMargin ?? self.stepDescriptionTextMargin)
+            let descriptionStartX = annularPoint.x + circleDiameter(annularLayer) + (annularLayer.config.titleMargin )
 			descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height)//修正2px
 			descriptionTextLayer.updateStatus()
 		}
