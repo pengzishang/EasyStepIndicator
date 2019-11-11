@@ -59,7 +59,7 @@ extension HorizontalController:EasyStepIndicatorDataSource {
     }
     
     func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
-//        return "T"
+//        return "TTT"
         "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  "
 //        [ "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ","This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ", "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ", "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  "][index]
 //        ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]

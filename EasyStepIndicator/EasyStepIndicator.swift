@@ -422,7 +422,6 @@ public class EasyStepIndicator: UIView {
                         if index < self.numberOfSteps - 1 {
                             totalWidth += minContentMargin
                         }
-//                        totalWidth += 2//单个字和一句话的第一个字前面往往差了1个像素
                     case .center:
                         totalWidth += max(self.titleTextSizes[index].width,circleDiameter(annularLayer))
                         if index < self.numberOfSteps - 1 {
@@ -593,9 +592,9 @@ public class EasyStepIndicator: UIView {
                             var processLength : CGFloat = 0
 							if titleTextSizes[index].width - self.titleCharacterSizes[index].width/2 < circleRadius(annularLayer) {
                                 processLength = minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
-                            } else {
+                            } else {//疑似这里有问题
                                 processLength = titleTextSizes[index].width + minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
-                                processLength += titleCharacterSizes[index].width/2 - circleRadius(annularLayer)
+                                processLength += -titleCharacterSizes[index].width/2 - circleRadius(annularLayer)
                             }
 							
 							processLengths.append(processLength)
