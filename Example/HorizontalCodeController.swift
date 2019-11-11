@@ -25,6 +25,7 @@ class HorizontalCodeController: UIViewController {
         indicator?.delegate = self
         indicator?.dataSource = self
         indicator?.currentStep = 0 //如果需要调整目前进度
+        self.indicator?.freezeZone = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         
         self.stepper = UIStepper.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 20)))
         self.stepper?.center = CGPoint.init(x: (indicator?.frame.midX ?? 0), y: (indicator?.frame.maxY ?? 400))

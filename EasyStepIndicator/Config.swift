@@ -29,10 +29,12 @@ public enum Direction: UInt {
 	case leftToRight = 0, rightToLeft, topToBottom, bottomToTop
 }
 
+
+
 public enum AlignmentMode: UInt {
 	case top = 0, //每个标题和圆圈的起始对齐
 		 center, //每个标题和起始和圆圈的中心对齐
-		 centerWithAnnularStartAndAnnularEnd//标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview
+		 centerWithAnnularStartAndAnnularEnd //标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview
 }
 
 struct StatusColorPattern {

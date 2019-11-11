@@ -233,12 +233,44 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="dsG-fm-BWK">
-                                <rect key="frame" x="160" y="625" width="94" height="32"/>
-                                <connections>
-                                    <action selector="didChangeValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="Vsy-s3-jkp"/>
-                                </connections>
-                            </stepper>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7ck-Eg-w4x">
+                                <rect key="frame" x="67" y="625" width="280" height="124"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="x8x-b7-veo">
+                                        <rect key="frame" x="81.5" y="0.0" width="117" height="32"/>
+                                        <segments>
+                                            <segment title="top"/>
+                                            <segment title="center"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="changeSegmentValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="xJu-vw-ft2"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="dsG-fm-BWK">
+                                        <rect key="frame" x="93" y="46" width="94" height="32"/>
+                                        <connections>
+                                            <action selector="didChangeValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="Vsy-s3-jkp"/>
+                                        </connections>
+                                    </stepper>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="ie0-Aj-Z2z">
+                                        <rect key="frame" x="0.0" y="93" width="280" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shouldStepLineFitDescriptionText" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIl-K2-ibb">
+                                                <rect key="frame" x="0.0" y="0.0" width="203" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bKs-zd-kBp">
+                                                <rect key="frame" x="231" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="changeSwitchValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="bAA-tq-p1V"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXk-OI-Srz">
                                 <rect key="frame" x="148.5" y="211" width="117" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
@@ -248,9 +280,9 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="7ck-Eg-w4x" firstAttribute="top" secondItem="rnz-22-Crw" secondAttribute="bottom" constant="10" id="1wt-Zg-mW2"/>
                             <constraint firstItem="AXk-OI-Srz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8lf-Qg-hhe"/>
-                            <constraint firstItem="dsG-fm-BWK" firstAttribute="centerX" secondItem="rnz-22-Crw" secondAttribute="centerX" id="BU0-ty-u56"/>
-                            <constraint firstItem="dsG-fm-BWK" firstAttribute="top" secondItem="rnz-22-Crw" secondAttribute="bottom" constant="10" id="NHU-Z3-i2Z"/>
+                            <constraint firstItem="7ck-Eg-w4x" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JYQ-fA-hf4"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="top" secondItem="AXk-OI-Srz" secondAttribute="bottom" constant="10" id="TAd-GS-4cp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rnz-22-Crw" secondAttribute="trailing" constant="40" id="XhU-WC-36m"/>
                             <constraint firstItem="rnz-22-Crw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gwd-Iq-T1e"/>
@@ -263,6 +295,7 @@
                     <connections>
                         <outlet property="currentStep" destination="AXk-OI-Srz" id="cBf-QB-93s"/>
                         <outlet property="indicator" destination="rnz-22-Crw" id="1rX-up-qYZ"/>
+                        <outlet property="segment" destination="x8x-b7-veo" id="wMH-OL-hPO"/>
                         <outlet property="stepper" destination="dsG-fm-BWK" id="geN-V2-0aD"/>
                     </connections>
                 </viewController>
@@ -377,11 +410,10 @@
                                         </connections>
                                     </stepper>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OwO-3a-fNa">
-                                        <rect key="frame" x="0.0" y="46" width="354" height="32"/>
+                                        <rect key="frame" x="118.5" y="46" width="117" height="32"/>
                                         <segments>
                                             <segment title="top"/>
                                             <segment title="center"/>
-                                            <segment title="centerWithAnnularStartAndAnnularEnd"/>
                                         </segments>
                                         <connections>
                                             <action selector="changeSegmentValue:" destination="Cij-yo-usf" eventType="valueChanged" id="5T3-bC-t0K"/>
@@ -424,6 +456,7 @@
                     <connections>
                         <outlet property="currentStep" destination="tl9-Ad-qF6" id="BuJ-9c-xoc"/>
                         <outlet property="indicator" destination="H3T-pM-BZD" id="mwg-TQ-85j"/>
+                        <outlet property="segment" destination="OwO-3a-fNa" id="s7T-aA-CLL"/>
                         <outlet property="stepper" destination="g8C-gp-vKE" id="GXC-Yf-oUd"/>
                     </connections>
                 </viewController>
