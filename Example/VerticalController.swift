@@ -13,6 +13,7 @@ class VerticalController: UIViewController {
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var indicator: EasyStepIndicator!
     @IBOutlet weak var currentStep: UILabel!
+    @IBOutlet weak var segment: UISegmentedControl!
     
     var shouldStepLineFitText = false
     
@@ -20,8 +21,9 @@ class VerticalController: UIViewController {
         super.viewDidLoad()
         self.indicator.dataSource = self
         self.indicator.delegate = self
-        self.indicator.alignmentMode = .center
+        self.indicator.alignmentMode = .top
         self.indicator.freezeZone = UIEdgeInsets.init(top: 50, left: 20, bottom: 20, right: 10)
+        segment.selectedSegmentIndex = 0
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
     }

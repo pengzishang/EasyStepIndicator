@@ -63,7 +63,7 @@ class AnnularLayer: CAShapeLayer {
 	}
 	
 	private func drawAnnularPath() {
-		let circlesRadius = fmin(self.frame.width, self.frame.height) / 2.0 - self.lineWidth / 2.0
+        let circlesRadius = (self.config?.radius ?? fmin(self.frame.width, self.frame.height) / 2.0 - (self.config?.annular.strokeWidth ?? self.lineWidth)/2)
 		self.annularPath.removeAllPoints()
 		self.annularPath.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: circlesRadius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true)
 		self.path = self.annularPath.cgPath
@@ -77,7 +77,7 @@ class AnnularLayer: CAShapeLayer {
 		guard let stepCircleText = config.stepText.content else {
 			return
 		}
-		//TODO
+
 		let fontSize = self.config?.stepText.fontSize ?? 18
 		let font = UIFont.boldSystemFont(ofSize: fontSize)
 		let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: config.stepText.style]
@@ -101,7 +101,7 @@ class AnnularLayer: CAShapeLayer {
 		}
 		
 		let centerPath = UIBezierPath()
-		let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - 1
+		let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - (self.config?.annular.strokeWidth ?? self.lineWidth)/2
 		centerPath.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: circlesRadius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true)
 		
 		self.centerCircleLayer.path = centerPath.cgPath

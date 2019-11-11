@@ -303,6 +303,8 @@ public class EasyStepIndicator: UIView {
             _freezeZone
         }
     }
+	//描述文字间最小间距
+	public var minContentMargin : CGFloat = 10
     
     private var _freezeZone : UIEdgeInsets = UIEdgeInsets.zero
 	
@@ -311,8 +313,6 @@ public class EasyStepIndicator: UIView {
 	private var titleTextSizes: [CGSize] = []
 	
 	private var titleCharacterSizes: [CGSize] = []
-	
-	private var minContentMargin : CGFloat = 10
 	
 	private var scrollView = UIScrollView()
     
@@ -406,7 +406,7 @@ public class EasyStepIndicator: UIView {
 	
 	func getContentTotalWidth()-> CGFloat{
         if let _ = self.dataSource {
-            self.maxContentWidths = Array.init(repeating: self.containerLayer.bounds.width / CGFloat(self.numberOfSteps), count: self.numberOfSteps)
+            self.maxContentWidths = Array.init(repeating: (self.containerLayer.bounds.width - self.freezeZone.left - self.freezeZone.right) / CGFloat(self.numberOfSteps) - self.minContentMargin, count: self.numberOfSteps)
             self.getAllTextSize(maxContentWidths: maxContentWidths)
             if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
                 var totalWidth: CGFloat = 0
@@ -639,6 +639,7 @@ public class EasyStepIndicator: UIView {
 			return Array.init(repeating: processLength, count: self.numberOfSteps - 1)
 		}()
 		
+        print(processLengths)
 		func layoutHorizontalAnnularLayers(_index: Int) -> CGPoint {
 			let annularStartX: CGFloat = {
 				let firstAnnularLayer = self.annularLayers.first
