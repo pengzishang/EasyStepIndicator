@@ -50,7 +50,8 @@ class DescriptionTextLayer: CAShapeLayer {
 		self.tintTextLayer.contentsScale = UIScreen.main.scale
 		self.tintTextLayer.frame = self.bounds.integral
 		self.tintTextLayer.isWrapped = true
-        //self.tintTextLayer.backgroundColor = UIColor.gray.cgColor
+        self.tintTextLayer.truncationMode = .end
+        self.tintTextLayer.backgroundColor = UIColor.gray.cgColor
 	}
 	
 	func updateStatus() {

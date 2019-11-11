@@ -329,6 +329,10 @@ public class EasyStepIndicator: UIView {
     }
 	
 	// MARK: - Functions
+    
+    public func reload() {
+        self.updateSubLayers()
+    }
 	
 	private func createSteps() {
         self.scrollView.removeFromSuperview()
@@ -364,10 +368,6 @@ public class EasyStepIndicator: UIView {
         }
         self.addSubview(self.scrollView)
         self.scrollView.layer.addSublayer(self.containerLayer)
-        self.updateSubLayers()
-    }
-    
-    public func reload() {
         self.updateSubLayers()
     }
     
@@ -407,19 +407,22 @@ public class EasyStepIndicator: UIView {
 	func getContentTotalWidth()-> CGFloat{
         if let _ = self.dataSource {
             self.maxContentWidths = Array.init(repeating: (self.containerLayer.bounds.width - self.freezeZone.left - self.freezeZone.right) / CGFloat(self.numberOfSteps) - self.minContentMargin, count: self.numberOfSteps)
-            self.getAllTextSize(maxContentWidths: maxContentWidths)
+            self.getAllTextSize(maxContentWidths: Array.init(repeating: CGFloat.greatestFiniteMagnitude, count: self.numberOfSteps))
             if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
                 var totalWidth: CGFloat = 0
                 for index in 0..<self.numberOfSteps {
                     let annularLayer = self.annularLayers[index]
                     switch self.alignmentMode {
                     case .top:
-                        if self.titleTextSizes[index].width - self.titleCharacterSizes[index].width/2 < circleRadius(annularLayer) {
+                        if self.titleTextSizes[index].width - self.titleCharacterSizes[index].width/2 < circleRadius(annularLayer) {//字没超出圆范围
                             totalWidth += circleDiameter(annularLayer)
                         } else {
                             totalWidth += circleRadius(annularLayer) + self.titleTextSizes[index].width - self.titleCharacterSizes[index].width/2
                         }
-                        totalWidth += minContentMargin
+                        if index < self.numberOfSteps - 1 {
+                            totalWidth += minContentMargin
+                        }
+//                        totalWidth += 2//单个字和一句话的第一个字前面往往差了1个像素
                     case .center:
                         totalWidth += max(self.titleTextSizes[index].width,circleDiameter(annularLayer))
                         if index < self.numberOfSteps - 1 {
@@ -541,6 +544,7 @@ public class EasyStepIndicator: UIView {
 	
 	private func layoutHorizontal() {
 		var maxContentHeight: CGFloat = 0
+        var contentHeights : [CGFloat] = []
 		if let _ = self.dataSource {
 			let titleMargins = self.annularLayers.map {
 				$0.config?.titleMargin ?? self.stepDescriptionTextMargin
@@ -550,15 +554,25 @@ public class EasyStepIndicator: UIView {
 			}
 			let radiuses = self.annularLayers.map {
 				circleRadius($0)
-			}
-			maxContentHeight = zip(zip(titleMargins, titleHeights).map(+), radiuses).map(+).max() ?? 0
+            }
+            let maxRadius = radiuses.max() ?? self.circleRadius
+            let contentTop = radiuses.map { $0 + maxRadius }
+            
+            contentHeights = zip(zip(titleMargins, titleHeights).map(+), contentTop).map(+)
+            maxContentHeight = contentHeights.max() ?? 0
 		}
         let diameters: [CGFloat] = self.annularLayers.map {
             circleDiameter($0)
         }
         let maxDiameter = diameters.max() ?? self.circleRadius * 2
-        let circleCenterY = (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - maxContentHeight + maxDiameter) / 2 // Y起点
-		
+        var circleCenterY = (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - maxContentHeight + maxDiameter) / 2 // Y起点
+        
+        var beyondHeights : [CGFloat] = Array.init(repeating: 0, count: self.numberOfSteps)
+        if (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - maxContentHeight - maxDiameter) < 0 {
+            circleCenterY = maxDiameter / 2
+            beyondHeights = contentHeights.map {self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - $0}.map { $0 > 0 ? 0 : abs($0) }
+        }
+
 		var processLengths: [CGFloat] = {
 			guard self.numberOfSteps > 1 else {
 				return Array.init(repeating: 0, count: self.numberOfSteps - 1)
@@ -567,7 +581,6 @@ public class EasyStepIndicator: UIView {
 			var processLength: CGFloat = 0
 			if let _dataSource = self.dataSource {
 				if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
-					let verticalFontMargin: CGFloat = 10
 					let textWidths = titleTextSizes.map {
 						$0.width
 					}
@@ -577,11 +590,14 @@ public class EasyStepIndicator: UIView {
 						for index in 0..<self.numberOfSteps - 1 {
 							let annularLayer = self.annularLayers[index]
 							let lineLayer = self.lineLayers[index]
-							if comparedWidths[index] < circleDiameter(annularLayer) {
-								comparedWidths[index] = circleDiameter(annularLayer)
-							}
-							let topPadding = circleRadius(annularLayer) - titleCharacterSizes[index].width / 2
-							let processLength = topPadding + comparedWidths[index] + verticalFontMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin) - circleDiameter(annularLayer)
+                            var processLength : CGFloat = 0
+							if titleTextSizes[index].width - self.titleCharacterSizes[index].width/2 < circleRadius(annularLayer) {
+                                processLength = minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
+                            } else {
+                                processLength = titleTextSizes[index].width + minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
+                                processLength += titleCharacterSizes[index].width/2 - circleRadius(annularLayer)
+                            }
+							
 							processLengths.append(processLength)
 						}
 					} else {
@@ -597,7 +613,7 @@ public class EasyStepIndicator: UIView {
 							($0, $1)
 						}
 						for index in 0..<self.numberOfSteps - 1 {
-							processLengths.append((widthPairs[index].0 + widthPairs[index].1) / 2 - (self.lineLayers[index].config?.marginBetweenCircle ?? self.lineMargin) * 2 + verticalFontMargin)
+							processLengths.append((widthPairs[index].0 + widthPairs[index].1) / 2 - (self.lineLayers[index].config?.marginBetweenCircle ?? self.lineMargin) * 2 + minContentMargin)
 						}
 					}
 					return processLengths
@@ -638,7 +654,7 @@ public class EasyStepIndicator: UIView {
 			}
 			return Array.init(repeating: processLength, count: self.numberOfSteps - 1)
 		}()
-		
+        
         print(processLengths)
 		func layoutHorizontalAnnularLayers(_index: Int) -> CGPoint {
 			let annularStartX: CGFloat = {
@@ -691,7 +707,7 @@ public class EasyStepIndicator: UIView {
 			}
 			
 			let descriptionStartY = annularPoint.y + circleDiameter(annularLayer) + (annularLayer.config?.titleMargin ?? self.stepDescriptionTextMargin)
-			descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height)
+			descriptionTextLayer.frame = CGRect.init(x: descriptionStartX, y: descriptionStartY, width: self.titleTextSizes[_index].width, height: self.titleTextSizes[_index].height - beyondHeights[_index])
 			descriptionTextLayer.updateStatus()
 		}
 		

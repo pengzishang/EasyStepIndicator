@@ -54,11 +54,14 @@ class HorizontalController: UIViewController {
 
 extension HorizontalController:EasyStepIndicatorDataSource {
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        return "A"
         ["A","B","C","D"][index]
     }
     
     func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
-        [ "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ","This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ", "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ", "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  "][index]
+//        return "T"
+        "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  "
+//        [ "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ","This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ", "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  ", "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business.  "][index]
 //        ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
     }
     
@@ -67,7 +70,7 @@ extension HorizontalController:EasyStepIndicatorDataSource {
 extension HorizontalController:EasyStepIndicatorDelegate {
     func stepConfigForStep(indicator: EasyStepIndicator, index: Int, config: inout StepConfig){
         if index == 2{
-            config.radius = 30
+//            config.radius = 40
         }
         if index == 3 {
             config.titleMargin = 20
@@ -92,7 +95,7 @@ extension HorizontalController:EasyStepIndicatorDelegate {
     }
     
     func shouldStepLineFitDescriptionText() -> Bool {
-        false
+        return self.shouldStepLineFitText
     }
     
     func didChangeStep(indicator: EasyStepIndicator, index: Int) {
