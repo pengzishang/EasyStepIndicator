@@ -149,7 +149,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="numberOfSteps">
-                                        <integer key="value" value="4"/>
+                                        <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="currentStep">
                                         <integer key="value" value="1"/>
@@ -179,7 +179,7 @@
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineMargin">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="circleTextIncompleteColor">
                                         <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -233,8 +233,8 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7ck-Eg-w4x">
-                                <rect key="frame" x="67" y="625" width="280" height="124"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7ck-Eg-w4x">
+                                <rect key="frame" x="67" y="625" width="280" height="114"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="x8x-b7-veo">
                                         <rect key="frame" x="81.5" y="0.0" width="117" height="32"/>
@@ -247,13 +247,13 @@
                                         </connections>
                                     </segmentedControl>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="dsG-fm-BWK">
-                                        <rect key="frame" x="93" y="46" width="94" height="32"/>
+                                        <rect key="frame" x="93" y="41" width="94" height="32"/>
                                         <connections>
                                             <action selector="didChangeValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="Vsy-s3-jkp"/>
                                         </connections>
                                     </stepper>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="ie0-Aj-Z2z">
-                                        <rect key="frame" x="0.0" y="93" width="280" height="31"/>
+                                        <rect key="frame" x="0.0" y="83" width="280" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shouldStepLineFitDescriptionText" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIl-K2-ibb">
                                                 <rect key="frame" x="0.0" y="0.0" width="203" height="31"/>
@@ -297,6 +297,7 @@
                         <outlet property="indicator" destination="rnz-22-Crw" id="1rX-up-qYZ"/>
                         <outlet property="segment" destination="x8x-b7-veo" id="wMH-OL-hPO"/>
                         <outlet property="stepper" destination="dsG-fm-BWK" id="geN-V2-0aD"/>
+                        <outlet property="switcher" destination="bKs-zd-kBp" id="m0R-gc-6Et"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -320,10 +321,10 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="numberOfSteps">
-                                        <integer key="value" value="4"/>
+                                        <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="currentStep">
-                                        <integer key="value" value="1"/>
+                                        <integer key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="circleRadius">
                                         <real key="value" value="20"/>
@@ -458,6 +459,7 @@
                         <outlet property="indicator" destination="H3T-pM-BZD" id="mwg-TQ-85j"/>
                         <outlet property="segment" destination="OwO-3a-fNa" id="s7T-aA-CLL"/>
                         <outlet property="stepper" destination="g8C-gp-vKE" id="GXC-Yf-oUd"/>
+                        <outlet property="switcher" destination="pvL-Oz-adJ" id="b8B-qK-omt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbv-IP-Bnp" sceneMemberID="firstResponder"/>
