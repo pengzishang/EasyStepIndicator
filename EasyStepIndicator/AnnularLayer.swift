@@ -17,8 +17,8 @@ class AnnularLayer: CAShapeLayer {
 	
 	// MARK: - Properties
 	
-	public var indicator: EasyStepIndicator?
-	public var config: StepConfig?
+	public var indicator: EasyStepIndicator = EasyStepIndicator()
+    public var config: StepConfig = StepConfig.init(radius: 20, stepIndex: 0)
 	
 	// MARK: - Initialization
 	
@@ -40,18 +40,14 @@ class AnnularLayer: CAShapeLayer {
 	public func updateStatus() {
 		self.centerTextLayer.removeFromSuperlayer()
 		self.centerCircleLayer.removeFromSuperlayer()
-		guard let indicator = indicator else {
-			assertionFailure("没有指定EasyStepIndicator")
-			return
-		}
 		
-		if indicator.currentStep > config?.stepIndex ?? 0 {//已经完成的步骤
+        if indicator.currentStep > config.stepIndex {//已经完成的步骤
 			self.path = nil
 			self.drawCenterCircle(didFinished: true)
 			self.drawText(didFinished: true)
 		} else {
 			self.drawAnnularPath()
-			if indicator.currentStep == config?.stepIndex ?? 0 {//当前步骤
+            if indicator.currentStep == config.stepIndex {//当前步骤
 				self.drawCenterCircle(didFinished: !indicator.currentStepAsIncomplete)
 				self.animateCenter()
 				self.drawText(didFinished: !indicator.currentStepAsIncomplete)
@@ -63,22 +59,19 @@ class AnnularLayer: CAShapeLayer {
 	}
 	
 	private func drawAnnularPath() {
-        let circlesRadius = (self.config?.radius ?? fmin(self.frame.width, self.frame.height) / 2.0 - (self.config?.annular.strokeWidth ?? self.lineWidth)/2)
+        let circlesRadius = (self.config.radius )
 		self.annularPath.removeAllPoints()
 		self.annularPath.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: circlesRadius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true)
 		self.path = self.annularPath.cgPath
 	}
 	
 	private func drawText(didFinished: Bool) {
-		guard let config = self.config else {
-			return
-		}
 		
 		guard let stepCircleText = config.stepText.content else {
 			return
 		}
 
-		let fontSize = self.config?.stepText.fontSize ?? 18
+        let fontSize = self.config.stepText.fontSize 
 		let font = UIFont.boldSystemFont(ofSize: fontSize)
 		let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: config.stepText.style]
 		let attributesText = NSAttributedString(string: stepCircleText, attributes: attributes as [NSAttributedString.Key: Any])
@@ -96,12 +89,9 @@ class AnnularLayer: CAShapeLayer {
 	}
 	
 	private func drawCenterCircle(didFinished: Bool) {
-		guard let config = self.config else {
-			return
-		}
 		
 		let centerPath = UIBezierPath()
-		let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - (self.config?.annular.strokeWidth ?? self.lineWidth)/2
+        let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - (self.config.annular.strokeWidth )/2
 		centerPath.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: circlesRadius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true)
 		
 		self.centerCircleLayer.path = centerPath.cgPath
@@ -110,7 +100,7 @@ class AnnularLayer: CAShapeLayer {
 		self.centerCircleLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 		self.centerCircleLayer.fillColor = didFinished ?
 			config.tint.colors.complete?.cgColor : config.tint.colors.incomplete?.cgColor
-		self.centerCircleLayer.lineWidth = config.annular.strokeWidth ?? 3
+        self.centerCircleLayer.lineWidth = config.annular.strokeWidth
 		self.centerCircleLayer.strokeColor = didFinished ?
 			config.annular.colors.complete?.cgColor : config.annular.colors.incomplete?.cgColor
 		
