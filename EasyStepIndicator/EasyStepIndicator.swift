@@ -307,7 +307,7 @@ public class EasyStepIndicator: UIView {
         }
     }
     
-    public var scrollView = UIScrollView()
+    public var contentScrollView = UIScrollView()
     
     private var annularLayers = [AnnularLayer]()
     private var lineLayers = [LineLayer]()
@@ -336,7 +336,7 @@ public class EasyStepIndicator: UIView {
     }
 	
 	private func createSteps() {
-        self.scrollView.removeFromSuperview()
+        self.contentScrollView.removeFromSuperview()
 		self.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
 		self.containerLayer.sublayers?.forEach({ $0.removeFromSuperlayer() })
 		
@@ -370,8 +370,8 @@ public class EasyStepIndicator: UIView {
 			self.containerLayer.addSublayer(descriptionLayer)
             self.descriptionTextLayers.append(descriptionLayer)
         }
-        self.addSubview(self.scrollView)
-        self.scrollView.layer.addSublayer(self.containerLayer)
+        self.addSubview(self.contentScrollView)
+        self.contentScrollView.layer.addSublayer(self.containerLayer)
         self.updateSubLayers()
     }
     
@@ -391,15 +391,15 @@ public class EasyStepIndicator: UIView {
 	
 	private func updateSubLayers() {
 		self.updateData()
-        self.scrollView.frame = self.layer.bounds
+        self.contentScrollView.frame = self.layer.bounds
 		if self.direction == .leftToRight || self.direction == .rightToLeft {
             let contentWidth = self.getContentTotalWidth()
-            self.scrollView.contentSize = CGSize.init(width: contentWidth + self.freezeZone.left + self.freezeZone.right, height: self.bounds.height)//Todo
+            self.contentScrollView.contentSize = CGSize.init(width: contentWidth + self.freezeZone.left + self.freezeZone.right, height: self.bounds.height)//Todo
 		} else {
             let contentHeight = self.getTotalContentHeight()
-			self.scrollView.contentSize = CGSize.init(width: self.bounds.width, height: contentHeight + self.freezeZone.top + self.freezeZone.bottom)
+			self.contentScrollView.contentSize = CGSize.init(width: self.bounds.width, height: contentHeight + self.freezeZone.top + self.freezeZone.bottom)
 		}
-        self.containerLayer.frame = CGRect.init(origin: self.bounds.origin, size: self.scrollView.contentSize)
+        self.containerLayer.frame = CGRect.init(origin: self.bounds.origin, size: self.contentScrollView.contentSize)
 		if self.direction == .leftToRight || self.direction == .rightToLeft {
 			self.layoutHorizontal()
 		} else {
