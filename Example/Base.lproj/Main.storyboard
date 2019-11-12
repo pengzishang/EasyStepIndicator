@@ -297,6 +297,7 @@
                         <outlet property="indicator" destination="rnz-22-Crw" id="1rX-up-qYZ"/>
                         <outlet property="segment" destination="x8x-b7-veo" id="wMH-OL-hPO"/>
                         <outlet property="stepper" destination="dsG-fm-BWK" id="geN-V2-0aD"/>
+                        <outlet property="switcher" destination="bKs-zd-kBp" id="m0R-gc-6Et"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -458,6 +459,7 @@
                         <outlet property="indicator" destination="H3T-pM-BZD" id="mwg-TQ-85j"/>
                         <outlet property="segment" destination="OwO-3a-fNa" id="s7T-aA-CLL"/>
                         <outlet property="stepper" destination="g8C-gp-vKE" id="GXC-Yf-oUd"/>
+                        <outlet property="switcher" destination="pvL-Oz-adJ" id="b8B-qK-omt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbv-IP-Bnp" sceneMemberID="firstResponder"/>

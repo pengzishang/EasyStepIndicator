@@ -51,7 +51,7 @@ class DescriptionTextLayer: CAShapeLayer {
 		self.tintTextLayer.frame = self.bounds.integral
 		self.tintTextLayer.isWrapped = true
         self.tintTextLayer.truncationMode = .end
-        self.tintTextLayer.backgroundColor = UIColor.gray.cgColor
+//        self.tintTextLayer.backgroundColor = UIColor.gray.cgColor
 	}
 	
 	func updateStatus() {

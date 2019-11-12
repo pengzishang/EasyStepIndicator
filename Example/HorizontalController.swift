@@ -14,8 +14,9 @@ class HorizontalController: UIViewController {
     @IBOutlet weak var indicator: EasyStepIndicator!
     @IBOutlet weak var currentStep: UILabel!
     @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var switcher: UISwitch!
     
-    var shouldStepLineFitText = false
+    var shouldStepLineFitText = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,8 @@ class HorizontalController: UIViewController {
         self.indicator.delegate = self
         self.indicator.alignmentMode = .top
         segment.selectedSegmentIndex = 0
-//        self.indicator.freezeZone = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 20)
+        switcher.isOn = shouldStepLineFitText
+        self.indicator.freezeZone = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 20)
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
         setState(step: 0)
         

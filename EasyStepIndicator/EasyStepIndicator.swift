@@ -408,7 +408,7 @@ public class EasyStepIndicator: UIView {
         if let _ = self.dataSource {
             self.maxContentWidths = Array.init(repeating: (self.containerLayer.bounds.width - self.freezeZone.left - self.freezeZone.right) / CGFloat(self.numberOfSteps) - self.minContentMargin, count: self.numberOfSteps)
             self.getAllTextSize(maxContentWidths: Array.init(repeating: CGFloat.greatestFiniteMagnitude, count: self.numberOfSteps))
-            if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
+            if self.delegate?.shouldStepLineFitDescriptionText() ?? true {
                 var totalWidth: CGFloat = 0
                 for index in 0..<self.numberOfSteps {
                     let annularLayer = self.annularLayers[index]
@@ -452,7 +452,7 @@ public class EasyStepIndicator: UIView {
         if let _ = self.dataSource {
             self.maxContentWidths = self.getVerticalMaxContentWidths()
             self.getAllTextSize(maxContentWidths: maxContentWidths)
-            if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
+            if self.delegate?.shouldStepLineFitDescriptionText() ?? true {
                 var totalHeight: CGFloat = 0
                 for index in 0..<self.numberOfSteps {
                     let annularLayer = self.annularLayers[index]
@@ -579,7 +579,7 @@ public class EasyStepIndicator: UIView {
 			
 			var processLength: CGFloat = 0
 			if let _dataSource = self.dataSource {
-				if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
+				if self.delegate?.shouldStepLineFitDescriptionText() ?? true {
 					let textWidths = titleTextSizes.map {
 						$0.width
 					}
@@ -592,7 +592,7 @@ public class EasyStepIndicator: UIView {
                             var processLength : CGFloat = 0
 							if titleTextSizes[index].width - self.titleCharacterSizes[index].width/2 < circleRadius(annularLayer) {
                                 processLength = minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
-                            } else {//疑似这里有问题
+                            } else {
                                 processLength = titleTextSizes[index].width + minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
                                 processLength += -titleCharacterSizes[index].width/2 - circleRadius(annularLayer)
                             }
@@ -751,7 +751,7 @@ public class EasyStepIndicator: UIView {
 			var processLength: CGFloat = 0
 			if let _dataSource = self.dataSource {
 				
-				if self.delegate?.shouldStepLineFitDescriptionText() ?? false {
+				if self.delegate?.shouldStepLineFitDescriptionText() ?? true {
 					let verticalFontMargin: CGFloat = 10
 					let textHeights = titleTextSizes.map {
 						$0.height
