@@ -27,7 +27,6 @@ class DescriptionTextLayer: CAShapeLayer {
 		self.indicator = target
 	}
 	
-	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -37,7 +36,6 @@ class DescriptionTextLayer: CAShapeLayer {
 	}
 	
 	fileprivate func drawText() {
-		
 		self.tintTextLayer.removeFromSuperlayer()
 		self.tintTextLayer.string = config.title.content
 		self.tintTextLayer.alignmentMode = .center
@@ -69,6 +67,4 @@ class DescriptionTextLayer: CAShapeLayer {
 		}
 		self.addSublayer(self.tintTextLayer)
 	}
-	
-	
 }

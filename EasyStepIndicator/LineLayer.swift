@@ -90,7 +90,7 @@ class LineLayer: CAShapeLayer {
 		self.tintLineLayer.path = tintLinePath.cgPath
 		self.tintLineLayer.frame = self.bounds
 		self.tintLineLayer.strokeColor = didFinished ? config.colors.complete?.cgColor : config.colors.incomplete?.cgColor
-		self.tintLineLayer.lineWidth = config.strokeWidth ?? 4
+        self.tintLineLayer.lineWidth = config.strokeWidth
 		self.tintLineLayer.backgroundColor = UIColor.clear.cgColor
 		var dashPatternComplete: [NSNumber]?
 		var dashPatternIncomplete: [NSNumber]?
