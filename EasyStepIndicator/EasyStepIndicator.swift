@@ -304,7 +304,7 @@ public class EasyStepIndicator: UIView {
         }
     }
 	//描述文字间最小间距
-	public var minContentMargin : CGFloat = 10
+	public var minContentMargin : CGFloat = 5
     
     private var _freezeZone : UIEdgeInsets = UIEdgeInsets.zero
 	
@@ -463,7 +463,9 @@ public class EasyStepIndicator: UIView {
                         } else {
                             totalHeight += circleRadius(annularLayer) + self.titleTextSizes[index].height - self.titleCharacterSizes[index].height/2
                         }
-                        totalHeight += minContentMargin
+                        if index < self.numberOfSteps - 1 {
+                            totalHeight += minContentMargin
+                        }
                     case .center:
                         totalHeight += max(self.titleTextSizes[index].height,circleDiameter(annularLayer))
                         if index < self.numberOfSteps - 1 {
@@ -654,7 +656,6 @@ public class EasyStepIndicator: UIView {
 			return Array.init(repeating: processLength, count: self.numberOfSteps - 1)
 		}()
         
-        print(processLengths)
 		func layoutHorizontalAnnularLayers(_index: Int) -> CGPoint {
 			let annularStartX: CGFloat = {
 				let firstAnnularLayer = self.annularLayers.first
@@ -734,16 +735,6 @@ public class EasyStepIndicator: UIView {
 			}
 		}()
 		
-		let startY: CGFloat = {//整个图形起始Y
-			let firstAnnularLayer = self.annularLayers.first
-			if self.alignmentMode == .center {
-				if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
-					return (self.titleTextSizes.first?.height ?? 0) / 2 - circleRadius(firstAnnularLayer) + self.freezeZone.top
-				}
-			}
-            return self.freezeZone.top
-		}()
-		
 		var processLengths: [CGFloat] = {
 			guard self.numberOfSteps > 1 else {
 				return Array.init(repeating: 0, count: self.numberOfSteps - 1)
@@ -752,21 +743,21 @@ public class EasyStepIndicator: UIView {
 			if let _dataSource = self.dataSource {
 				
 				if self.delegate?.shouldStepLineFitDescriptionText() ?? true {
-					let verticalFontMargin: CGFloat = 10
 					let textHeights = titleTextSizes.map {
 						$0.height
 					}
 					var processLengths: [CGFloat] = []
 					var comparedHeights = textHeights
-					if self.alignmentMode == .top {//计算firstbaseline
+					if self.alignmentMode == .top {
 						for index in 0..<self.numberOfSteps - 1 {
 							let annularLayer = self.annularLayers[index]
 							let lineLayer = self.lineLayers[index]
-							if comparedHeights[index] < circleDiameter(annularLayer) {
-								comparedHeights[index] = circleDiameter(annularLayer)
-							}
-							let topPadding = circleRadius(annularLayer) - titleCharacterSizes[index].height / 2
-							let processLength = topPadding + comparedHeights[index] + verticalFontMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin) - circleDiameter(annularLayer)
+                            if titleTextSizes[index].height - self.titleCharacterSizes[index].height/2 < circleRadius(annularLayer) {
+                                processLength = minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
+                            } else {
+                                processLength = titleTextSizes[index].height + minContentMargin - 2 * (lineLayer.config?.marginBetweenCircle ?? self.lineMargin)
+                                processLength += -titleCharacterSizes[index].height/2 - circleRadius(annularLayer)
+                            }
 							processLengths.append(processLength)
 						}
 					} else {
@@ -782,7 +773,7 @@ public class EasyStepIndicator: UIView {
 							($0, $1)
 						}
 						for index in 0..<self.numberOfSteps - 1 {
-							processLengths.append((heightPairs[index].0 + heightPairs[index].1) / 2 - (self.lineLayers[index].config?.marginBetweenCircle ?? self.lineMargin) * 2 + verticalFontMargin)
+							processLengths.append((heightPairs[index].0 + heightPairs[index].1) / 2 - (self.lineLayers[index].config?.marginBetweenCircle ?? self.lineMargin) * 2 + minContentMargin)
 						}
 					}
 					return processLengths

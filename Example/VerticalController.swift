@@ -23,7 +23,7 @@ class VerticalController: UIViewController {
         self.indicator.dataSource = self
         self.indicator.delegate = self
         self.indicator.alignmentMode = .top
-        self.indicator.freezeZone = UIEdgeInsets.init(top: 50, left: 20, bottom: 20, right: 10)
+//        self.indicator.freezeZone = UIEdgeInsets.init(top: 50, left: 20, bottom: 20, right: 10)
         switcher.isOn = self.shouldStepLineFitText
         segment.selectedSegmentIndex = 0
         stepper.maximumValue = Double(indicator.numberOfSteps - 1)
@@ -56,10 +56,12 @@ class VerticalController: UIViewController {
 
 extension VerticalController:EasyStepIndicatorDataSource {
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        return "\(index)"
         ["1","B","2","D"][index]
     }
     
     func titleForStep(indicator: EasyStepIndicator, index: Int) -> String {
+        return "T"
         //        return ["Alarm\ntriggered", "Dispatch\na guard", "Track\nprogress", "Finishes\ninvestigation","Finishes\ninvestigation"][index]
         [ "This is to introduce Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang You, our import manager of Textiles Department. ","Yours faithfully,Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce", "Track progress,Mr. Frank J,O our new marketing specialist who will be in London from April 5 to mid April on business. We are pleased to introduce", "Finishes\ninvestigation,in London from April 5 to mid April on business. We are pleased to introduce Mr. Wang"][index]
     }
