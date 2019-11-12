@@ -139,6 +139,7 @@ extension VerticalController :EasyStepIndicatorDelegate {
 | maxContentWidth| 内容最大宽度(仅仅横向可用)||
 | minContentMargin| 描述文字强制最小间距||
 | contentScrollView| 内容滚动视图||
+|freezeZone|冻结区域,区域将没有内容,留白||
 
 ### 可代码配置属性
 

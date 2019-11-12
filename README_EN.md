@@ -5,16 +5,7 @@ Welcome everyone to give advice ,giveStar
 
 Add more attributes to the step indicator, more customizable styles
 
-### Landscape mode
-
-<img src="https://s2.ax1x.com/2019/11/06/MiCEE6.gif" alt="MiCEE6.gif" border="0" />
-
-### Portrait mode
-
-|Vertical Reverse | Vertical Forward |
-|:--------------------:|:---------------------------:|
-|<img src="https://s2.ax1x.com/2019/11/06/MiCsaV.gif" alt="MiCsaV.gif" border="0" />|<img src="https://s2.ax1x.com/2019/11/06/MiPiRg.gif" alt="MiPiRg.gif" border="0" />|
-
+<img src="https://s2.ax1x.com/2019/11/06/MiFJ56.png" alt="MiFJ56.png" border="0" />
 
 ## Background
 
@@ -157,6 +148,7 @@ You can make your own customizations for each attribute of each element.
 | maxContentWidth| Maximum content width (only available horizontally)||
 | minContentMargin| Descriptive text forced minimum spacing||
 | contentScrollView| Content scroll view||
+|freezeZone|Freeze area, area will have no content, leave blank||
 
 
 

@@ -80,7 +80,7 @@ class HorizontalController: UIViewController {
 
 extension HorizontalController:EasyStepIndicatorDataSource {
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
-        return "A"
+        return "\(index)"
 //        ["A","B","C","D"][index]
     }
     
