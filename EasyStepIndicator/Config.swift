@@ -74,7 +74,7 @@ struct StepConfig {
 		public var dashPatternComplete = LineDashPattern()
 		public var dashPatternIncomplete = LineDashPattern()
 		//指示圆框线条的宽度
-		public var strokeWidth: CGFloat? = 1.0
+		public var strokeWidth: CGFloat = 2.0
 	}
 	
 	struct Tint {
@@ -93,7 +93,7 @@ struct LineConfig {
 	public var dashPatternComplete = LineDashPattern()
 	public var dashPatternIncomplete = LineDashPattern()
 	//线条宽度
-	public var strokeWidth: CGFloat? = 4.0
+	public var strokeWidth: CGFloat = 4.0
 	//指向线条离圆形的初始距离
 	public var marginBetweenCircle: CGFloat = 2.0
 	public var processIndex: Int

@@ -601,7 +601,6 @@ public class EasyStepIndicator: UIView {
                                 processLength = titleTextSizes[index].width + minContentMargin - 2 * (lineLayer.config.marginBetweenCircle )
                                 processLength += -titleCharacterSizes[index].width/2 - circleRadius(annularLayer)
                             }
-							
 							processLengths.append(processLength)
 						}
 					} else {
@@ -634,18 +633,18 @@ public class EasyStepIndicator: UIView {
 					switch self.alignmentMode {
 					case .top:
 						let lastAnnularLayer = self.annularLayers.last
-						if self.titleTextSizes.last?.width ?? 0 + (self.titleCharacterSizes.last?.width ?? 0) / 2 > circleDiameter(lastAnnularLayer) {
-							totalLengthWithoutLine += (self.titleTextSizes.last?.width ?? 0) - circleDiameter(lastAnnularLayer)
-							totalLengthWithoutLine += (titleCharacterSizes.last?.width ?? 0) / 2
+                        if self.titleTextSizes.last!.width > circleDiameter(lastAnnularLayer) {
+                            totalLengthWithoutLine += (self.titleTextSizes.last!.width ) - circleDiameter(lastAnnularLayer)
+                            totalLengthWithoutLine += (titleCharacterSizes.last!.width ) / 2
 						}
 					case .center:
 						let firstAnnularLayer = self.annularLayers.first
 						let lastAnnularLayer = self.annularLayers.last
-						if self.titleTextSizes.first?.width ?? 0 > circleDiameter(firstAnnularLayer) {
-							totalLengthWithoutLine += (self.titleTextSizes.first?.width ?? 0) / 2 - circleRadius(firstAnnularLayer)
+                        if self.titleTextSizes.first!.width > circleDiameter(firstAnnularLayer) {
+                            totalLengthWithoutLine += (self.titleTextSizes.first!.width ) / 2 - circleRadius(firstAnnularLayer)
 						}
-						if self.titleTextSizes.last?.width ?? 0 > circleDiameter(lastAnnularLayer) {
-							totalLengthWithoutLine += (self.titleTextSizes.last?.width ?? 0) / 2 - circleRadius(lastAnnularLayer)
+                        if self.titleTextSizes.last!.width > circleDiameter(lastAnnularLayer) {
+                            totalLengthWithoutLine += (self.titleTextSizes.last!.width ) / 2 - circleRadius(lastAnnularLayer)
 						}
 					case .centerWithAnnularStartAndAnnularEnd://不计首尾超界
 						break
@@ -668,8 +667,8 @@ public class EasyStepIndicator: UIView {
 				
                 var currentLength: CGFloat = self.freezeZone.left
 				if self.alignmentMode == .center {
-					if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.width ?? 0 {
-						currentLength += (self.titleTextSizes.first?.width ?? 0) / 2 - circleRadius(firstAnnularLayer)
+                    if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first!.width {
+                        currentLength += (self.titleTextSizes.first!.width ) / 2 - circleRadius(firstAnnularLayer)
 					}
 				}
 				
@@ -693,8 +692,8 @@ public class EasyStepIndicator: UIView {
 			let annularLayer = self.annularLayers[_index]
 			let lineLayer = self.lineLayers[_index]
             let lineStartX = annularPoint.x + circleDiameter(annularLayer) + (lineLayer.config.marginBetweenCircle )
-            let lineStartY = annularPoint.y + circleRadius(annularLayer) - (lineLayer.config.strokeWidth ?? self.lineStrokeWidth) / 2
-            lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: processLengths[_index], height: lineLayer.config.strokeWidth ?? self.lineStrokeWidth)
+            let lineStartY = annularPoint.y + circleRadius(annularLayer) - (lineLayer.config.strokeWidth ) / 2
+            lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: processLengths[_index], height: lineLayer.config.strokeWidth )
 			lineLayer.updateStatus()
 		}
 		
@@ -797,19 +796,19 @@ public class EasyStepIndicator: UIView {
 						
 						var topContentPadding: CGFloat = 0
 						var bottomContentPadding: CGFloat = 0
-						if self.titleTextSizes.first?.height ?? 0 > circleDiameter(firstAnnularLayer) {
-							topContentPadding = (self.titleTextSizes.first?.height ?? 0) / 2 - circleRadius(firstAnnularLayer)
+                        if self.titleTextSizes.first!.height > circleDiameter(firstAnnularLayer) {
+                            topContentPadding = (self.titleTextSizes.first!.height ) / 2 - circleRadius(firstAnnularLayer)
 						}
-						if self.titleTextSizes.last?.height ?? 0 > circleDiameter(lastAnnularLayer) {
-							bottomContentPadding = (self.titleTextSizes.last?.height ?? 0) / 2 - circleRadius(lastAnnularLayer)
+                        if self.titleTextSizes.last!.height > circleDiameter(lastAnnularLayer) {
+                            bottomContentPadding = (self.titleTextSizes.last!.height ) / 2 - circleRadius(lastAnnularLayer)
 						}
 						totalLengthWithoutLine += topContentPadding + bottomContentPadding
 					} else if self.alignmentMode == .top {
 						let lastAnnularLayer = self.annularLayers.last
 						var bottomContentPadding: CGFloat = 0
-						if self.titleTextSizes.last?.height ?? 0 + (self.titleCharacterSizes.last?.height ?? 0) / 2 > circleDiameter(lastAnnularLayer) {
-							bottomContentPadding = (self.titleTextSizes.last?.height ?? 0) / 2 - circleRadius(lastAnnularLayer)
-							bottomContentPadding += (self.titleCharacterSizes.last?.height ?? 0) / 2
+                        if self.titleTextSizes.last!.height > circleDiameter(lastAnnularLayer) {
+                            bottomContentPadding = (self.titleTextSizes.last!.height ) / 2 - circleRadius(lastAnnularLayer)
+                            bottomContentPadding += (self.titleCharacterSizes.last!.height ) / 2
 						}
 					}
                     totalLengthWithoutLine += self.freezeZone.top + self.freezeZone.bottom
@@ -831,8 +830,8 @@ public class EasyStepIndicator: UIView {
 				
                 var currentLength: CGFloat = self.freezeZone.top
 				if self.alignmentMode == .center {
-					if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first?.height ?? 0 {
-						currentLength += (self.titleTextSizes.first?.height ?? 0) / 2 - circleRadius(firstAnnularLayer)
+                    if circleDiameter(firstAnnularLayer) < self.titleTextSizes.first!.height {
+                        currentLength += (self.titleTextSizes.first!.height ) / 2 - circleRadius(firstAnnularLayer)
 					}
 				}
 				
@@ -860,8 +859,8 @@ public class EasyStepIndicator: UIView {
 			let annularLayer = self.annularLayers[_index]
 			let lineLayer = self.lineLayers[_index]
             let lineStartY = annularPoint.y + circleDiameter(annularLayer) + (lineLayer.config.marginBetweenCircle )
-            let lineStartX = annularPoint.x + circleRadius(annularLayer) - (lineLayer.config.strokeWidth ?? self.lineStrokeWidth) / 2
-            lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: lineLayer.config.strokeWidth ?? self.lineStrokeWidth, height: processLengths[_index])
+            let lineStartX = annularPoint.x + circleRadius(annularLayer) - (lineLayer.config.strokeWidth ) / 2
+            lineLayer.frame = CGRect.init(x: lineStartX, y: lineStartY, width: lineLayer.config.strokeWidth , height: processLengths[_index])
 			lineLayer.updateStatus()
 		}
 		

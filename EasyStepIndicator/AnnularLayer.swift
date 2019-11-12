@@ -91,7 +91,7 @@ class AnnularLayer: CAShapeLayer {
 	private func drawCenterCircle(didFinished: Bool) {
 		
 		let centerPath = UIBezierPath()
-        let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - (self.config.annular.strokeWidth ?? self.lineWidth)/2
+        let circlesRadius = min(self.frame.width, self.frame.height) / 2.0 - (self.config.annular.strokeWidth )/2
 		centerPath.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: circlesRadius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true)
 		
 		self.centerCircleLayer.path = centerPath.cgPath
@@ -100,7 +100,7 @@ class AnnularLayer: CAShapeLayer {
 		self.centerCircleLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 		self.centerCircleLayer.fillColor = didFinished ?
 			config.tint.colors.complete?.cgColor : config.tint.colors.incomplete?.cgColor
-		self.centerCircleLayer.lineWidth = config.annular.strokeWidth ?? 3
+        self.centerCircleLayer.lineWidth = config.annular.strokeWidth
 		self.centerCircleLayer.strokeColor = didFinished ?
 			config.annular.colors.complete?.cgColor : config.annular.colors.incomplete?.cgColor
 		
