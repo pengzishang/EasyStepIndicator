@@ -16,9 +16,9 @@ class LineLayer: CAShapeLayer {
 	
 	var showAnimating = true
 	
-	public var indicator: EasyStepIndicator?
+	public var indicator: EasyStepIndicator = EasyStepIndicator()
 	
-	public var config: LineConfig?
+    public var config: LineConfig  = LineConfig(processIndex: 0)
 	
 	public var isHorizontal: Bool = true
 	
@@ -41,16 +41,6 @@ class LineLayer: CAShapeLayer {
 	// MARK: - Functions
 	func updateStatus() {
 		tintLineLayer.removeFromSuperlayer()
-		
-		guard let indicator = indicator else {
-			assertionFailure("没有指定EasyStepIndicator")
-			return
-		}
-		
-		guard let config = self.config else {
-			assertionFailure("没有指定config")
-			return
-		}
 		
 		self.isHorizontal = indicator.direction == .leftToRight || indicator.direction == .rightToLeft
 		
@@ -84,10 +74,6 @@ class LineLayer: CAShapeLayer {
 	}
 	
 	private func drawTintLineAnimated(didFinished: Bool) {
-		guard let config = self.config else {
-			assertionFailure("没有指定config")
-			return
-		}
 		
 		let tintLinePath = UIBezierPath()
 		
