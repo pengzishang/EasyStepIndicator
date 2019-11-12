@@ -572,7 +572,8 @@ public class EasyStepIndicator: UIView {
         var circleCenterY = (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - maxContentHeight + maxDiameter) / 2 // Y起点
         
         var beyondHeights : [CGFloat] = Array.init(repeating: 0, count: self.numberOfSteps)
-        if (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - maxContentHeight - maxDiameter) < 0 {
+        let contentBeyondBound = (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - maxContentHeight - maxDiameter) < 0
+        if contentBeyondBound {
             circleCenterY = maxDiameter / 2
             beyondHeights = contentHeights.map {self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - $0}.map { $0 > 0 ? 0 : abs($0) }
         }
@@ -594,8 +595,8 @@ public class EasyStepIndicator: UIView {
 						for index in 0..<self.numberOfSteps - 1 {
 							let annularLayer = self.annularLayers[index]
 							let lineLayer = self.lineLayers[index]
-                            var processLength : CGFloat = 0
-							if titleTextSizes[index].width - self.titleCharacterSizes[index].width/2 < circleRadius(annularLayer) {
+                            let circleRadiusMoreThanTitleTextSize = titleTextSizes[index].width - self.titleCharacterSizes[index].width/2 < circleRadius(annularLayer)
+							if circleRadiusMoreThanTitleTextSize {
                                 processLength = minContentMargin - 2 * (lineLayer.config.marginBetweenCircle )
                             } else {
                                 processLength = titleTextSizes[index].width + minContentMargin - 2 * (lineLayer.config.marginBetweenCircle )
@@ -633,7 +634,8 @@ public class EasyStepIndicator: UIView {
 					switch self.alignmentMode {
 					case .top:
 						let lastAnnularLayer = self.annularLayers.last
-                        if self.titleTextSizes.last!.width > circleDiameter(lastAnnularLayer) {
+                        let circleRadiusMoreThanTitleTextSize = self.titleTextSizes.last!.width > circleDiameter(lastAnnularLayer) - self.titleTextSizes.last!.width/2
+                        if circleRadiusMoreThanTitleTextSize {
                             totalLengthWithoutLine += (self.titleTextSizes.last!.width ) - circleDiameter(lastAnnularLayer)
                             totalLengthWithoutLine += (titleCharacterSizes.last!.width ) / 2
 						}
