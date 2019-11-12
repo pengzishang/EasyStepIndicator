@@ -26,8 +26,5 @@
 /* Class = "UINavigationItem"; title = "EasyStepIndicator"; ObjectID = "pUY-FH-cHE"; */
 "pUY-FH-cHE.title" = "EasyStepIndicator";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "tl9-Ad-qF6"; */
-"tl9-Ad-qF6.text" = "Label";
-
 /* Class = "UILabel"; text = "横向显示(Storyboard)"; ObjectID = "udb-gL-h3q"; */
 "udb-gL-h3q.text" = "Storyboard";
