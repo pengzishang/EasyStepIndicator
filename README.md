@@ -144,6 +144,9 @@ extension VerticalController :EasyStepIndicatorDelegate {
 | stepDescriptionTextCompleteColor|描述文字完成时候的颜色|13|
 | stepDescriptionTextMargin| Indicator和Description之间Margin|12|
 | stepDescriptionTextFontSize| 步骤描述文字的大小|13|
+| maxContentWidth| 内容最大宽度(仅仅横向可用)||
+| minContentMargin| 描述文字强制最小间距||
+| contentScrollView| 内容滚动视图||
 
 ### 可代码配置属性
 
@@ -173,8 +176,7 @@ extension VerticalController :EasyStepIndicatorDelegate {
 | 值 | 描述  |
 |:---------------------------:|:---------------------------:|
 |top|每个标题和圆圈的起始对齐|
-|center|每个标题和起始和圆圈的中心对齐,|
-|centerWithAnnularStartAndAnnularEnd|标题和圆圈中心对齐,且强制以第一个圆圈的顶作为layer起始点,可能会超出superview|
+|center|每个标题和起始和圆圈的中心对齐|
 
 <img src="https://s2.ax1x.com/2019/11/07/MiXIu6.gif" alt="MiXIu6.gif" border="0" />
 
@@ -196,8 +198,8 @@ extension VerticalController :EasyStepIndicatorDelegate {
 
 - [x] 上传到Cocoapods;
 - [x] 描述文字适配垂直方向;
-- [x] 垂直方向Demo
+- [x] Demo
 - [x] 代码描述
-- [ ] 将超出部分显示为 "..."
-- [ ] 自适应超出部分设置为滚动
+- [x] 将超出部分显示为 "..."
+- [x] 自适应超出部分设置为滚动
 - [ ] 自定义描述部分的View,不限于文字

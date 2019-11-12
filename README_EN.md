@@ -154,6 +154,11 @@ You can make your own customizations for each attribute of each element.
 | stepDescriptionTextMargin| Margin between Indicator and Description|12|
 | stepDescriptionTextFontSize| Step Description Text Size |13|
 | stepLineFitDescriptionText | Line adapts to the height of the text. If there is too much text, it is recommended to open (more text will overflow superview). If it is closed, the height of Line is associated with SuperView, it will not overflow superview |无|
+| maxContentWidth| Maximum content width (only available horizontally)||
+| minContentMargin| Descriptive text forced minimum spacing||
+| contentScrollView| Content scroll view||
+
+
 
 ### Codeable Attributes
 
@@ -184,7 +189,6 @@ You can make your own customizations for each attribute of each element.
 |:---------------------------:|:---------------------------:|
 |top|The starting alignment of each title and circle|
 |center|Each title and start are aligned with the center of the circle, |
-|centerWithAnnularStartAndAnnularEnd|The title is aligned with the center of the circle, and the top of the first circle is forced to be the starting point of the layer, which may exceed superview|
 
 <img src="https://s2.ax1x.com/2019/11/07/MiXIu6.gif" alt="MiXIu6.gif" border="0" />
 
@@ -206,8 +210,8 @@ Welcome everyone to provide comments and suggestions
 
 - [x] uploaded to Cocoapods;
 - [x] describes the text adaptation to the vertical direction;
-- [x] Vertical Direction Demo
+- [x] Demo
 - [x] code description
-- [ ] displays the excess as "..."
-- [ ] Adaptive excess is set to scroll
+- [x] displays the excess as "..."
+- [x] Adaptive excess is set to scroll
 - [ ] View of the custom description section, not limited to text

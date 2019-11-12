@@ -15,10 +15,6 @@ public class EasyStepIndicator: UIView {
 	weak var delegate: EasyStepIndicatorDelegate?
 	
 	// Variables
-	private var annularLayers = [AnnularLayer]()
-	private var lineLayers = [LineLayer]()
-	private var descriptionTextLayers = [DescriptionTextLayer]()
-	private let containerLayer = CALayer()
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
@@ -284,18 +280,13 @@ public class EasyStepIndicator: UIView {
     
     @IBInspectable public var freezeZone : UIEdgeInsets {
         set {
+            _freezeZone = newValue
             if self.direction == .rightToLeft {
-                _freezeZone.bottom = newValue.bottom
-                _freezeZone.top = newValue.top
                 _freezeZone.left = newValue.right
                 _freezeZone.right = newValue.left
             } else if self.direction == .bottomToTop{
                 _freezeZone.bottom = newValue.top
                 _freezeZone.top = newValue.bottom
-                _freezeZone.left = newValue.left
-                _freezeZone.right = newValue.right
-            } else {
-                _freezeZone = newValue
             }
             self.updateSubLayers()
         }
@@ -303,19 +294,29 @@ public class EasyStepIndicator: UIView {
             _freezeZone
         }
     }
-	//描述文字间最小间距
-	public var minContentMargin : CGFloat = 5
+    //描述文字间最小间距
+    public var minContentMargin : CGFloat = 5 {
+        didSet {
+            self.updateSubLayers()
+        }
+    }
     
+    public var maxContentWidth : CGFloat = CGFloat.greatestFiniteMagnitude {
+        didSet {
+            self.updateSubLayers()
+        }
+    }
+    
+    public var contentScrollView = UIScrollView()
+    
+    private var annularLayers = [AnnularLayer]()
+    private var lineLayers = [LineLayer]()
+    private var descriptionTextLayers = [DescriptionTextLayer]()
+    private let containerLayer = CALayer()
     private var _freezeZone : UIEdgeInsets = UIEdgeInsets.zero
-	
 	private var showLineAnimating = true
-	
 	private var titleTextSizes: [CGSize] = []
-	
 	private var titleCharacterSizes: [CGSize] = []
-	
-	private var scrollView = UIScrollView()
-    
     private var maxContentWidths : [CGFloat] = []
 	
 	// MARK: - Init
@@ -335,7 +336,7 @@ public class EasyStepIndicator: UIView {
     }
 	
 	private func createSteps() {
-        self.scrollView.removeFromSuperview()
+        self.contentScrollView.removeFromSuperview()
 		self.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
 		self.containerLayer.sublayers?.forEach({ $0.removeFromSuperlayer() })
 		
@@ -361,7 +362,7 @@ public class EasyStepIndicator: UIView {
 			if (index < self.numberOfSteps - 1) {
 				let lineConfig = LineConfig.init(processIndex: index)
 				let lineLayer = LineLayer.init(config: lineConfig, target: self)
-				self.containerLayer.addSublayer(lineLayer)
+				self.containerLayer.insertSublayer(lineLayer, above: annularLayer)
 				self.lineLayers.append(lineLayer)
 			}
 			let titleConfig = TitleConfig.init(stepIndex: index)
@@ -369,8 +370,8 @@ public class EasyStepIndicator: UIView {
 			self.containerLayer.addSublayer(descriptionLayer)
             self.descriptionTextLayers.append(descriptionLayer)
         }
-        self.addSubview(self.scrollView)
-        self.scrollView.layer.addSublayer(self.containerLayer)
+        self.addSubview(self.contentScrollView)
+        self.contentScrollView.layer.addSublayer(self.containerLayer)
         self.updateSubLayers()
     }
     
@@ -390,15 +391,15 @@ public class EasyStepIndicator: UIView {
 	
 	private func updateSubLayers() {
 		self.updateData()
-        self.scrollView.frame = self.layer.bounds
+        self.contentScrollView.frame = self.layer.bounds
 		if self.direction == .leftToRight || self.direction == .rightToLeft {
             let contentWidth = self.getContentTotalWidth()
-            self.scrollView.contentSize = CGSize.init(width: contentWidth + self.freezeZone.left + self.freezeZone.right, height: self.bounds.height)//Todo
+            self.contentScrollView.contentSize = CGSize.init(width: contentWidth + self.freezeZone.left + self.freezeZone.right, height: self.bounds.height)//Todo
 		} else {
             let contentHeight = self.getTotalContentHeight()
-			self.scrollView.contentSize = CGSize.init(width: self.bounds.width, height: contentHeight + self.freezeZone.top + self.freezeZone.bottom)
+			self.contentScrollView.contentSize = CGSize.init(width: self.bounds.width, height: contentHeight + self.freezeZone.top + self.freezeZone.bottom)
 		}
-        self.containerLayer.frame = CGRect.init(origin: self.bounds.origin, size: self.scrollView.contentSize)
+        self.containerLayer.frame = CGRect.init(origin: self.bounds.origin, size: self.contentScrollView.contentSize)
 		if self.direction == .leftToRight || self.direction == .rightToLeft {
 			self.layoutHorizontal()
 		} else {
@@ -409,8 +410,8 @@ public class EasyStepIndicator: UIView {
 	
 	func getContentTotalWidth()-> CGFloat{
         if let _ = self.dataSource {
-            self.maxContentWidths = Array.init(repeating: (self.containerLayer.bounds.width - self.freezeZone.left - self.freezeZone.right) / CGFloat(self.numberOfSteps) - self.minContentMargin, count: self.numberOfSteps)
-            self.getAllTextSize(maxContentWidths: Array.init(repeating: CGFloat.greatestFiniteMagnitude, count: self.numberOfSteps))
+            self.maxContentWidths = Array.init(repeating: maxContentWidth, count: self.numberOfSteps)
+            self.getAllTextSize(maxContentWidths: self.maxContentWidths)
             if self.delegate?.shouldStepLineFitDescriptionText() ?? true {
                 var totalWidth: CGFloat = 0
                 for index in 0..<self.numberOfSteps {
@@ -519,7 +520,7 @@ public class EasyStepIndicator: UIView {
 		let attributesText = NSAttributedString(string: newTitle, attributes: attributes as [NSAttributedString.Key: Any])
 		let textSize = attributesText.boundingRect(with: CGSize.init(width: maxContentWidth, height: maxContentHeight), options: .usesLineFragmentOrigin, context: nil).size
 		let characterAttributesText = NSAttributedString(string: String(newTitle.first ?? "K"), attributes: attributes as [NSAttributedString.Key: Any])
-		let characterSize = characterAttributesText.boundingRect(with: CGSize.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size
+		let characterSize = characterAttributesText.boundingRect(with: CGSize.init(width: maxContentWidth, height: maxContentHeight), options: .usesLineFragmentOrigin, context: nil).size
 		return (textSize, characterSize)
 	}
 	
@@ -541,7 +542,7 @@ public class EasyStepIndicator: UIView {
         }
         let maxContentWidths: [CGFloat] = zip(diameters, titleMargins)
             .map { $0/2 + $1 + maxDiameter/2 }
-            .map { self.containerLayer.frame.width - $0 - self.freezeZone.left - self.freezeZone.right }
+            .map { self.layer.frame.width - $0 - self.freezeZone.left - self.freezeZone.right }
         assert(maxContentWidths.min() ?? 0 > 0, "freeze参数过大,请重新设置")
         return maxContentWidths
     }
@@ -574,7 +575,7 @@ public class EasyStepIndicator: UIView {
         var beyondHeights : [CGFloat] = Array.init(repeating: 0, count: self.numberOfSteps)
         let contentBeyondBound = (self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - maxContentHeight - maxDiameter) < 0
         if contentBeyondBound {
-            circleCenterY = maxDiameter / 2
+            circleCenterY = maxDiameter / 2 + self.freezeZone.top
             beyondHeights = contentHeights.map {self.containerLayer.frame.height - self.freezeZone.top - self.freezeZone.bottom - $0}.map { $0 > 0 ? 0 : abs($0) }
         }
 
