@@ -7,17 +7,7 @@
 
 给步骤指示器加入更多的属性,更多可定制的样式
 
-<a href="https://imgchr.com/i/M3a8Wq"><img src="https://s2.ax1x.com/2019/11/12/M3a8Wq.md.gif" alt="M3a8Wq.gif" border="0" /></a>
-
-### 横向模式
-
-<img src="https://s2.ax1x.com/2019/11/06/MiCEE6.gif" alt="MiCEE6.gif" border="0" />
-
-### 纵向模式
-
-|纵向逆向|纵向正向|
-|:--------------------:|:---------------------------:|
-|<img src="https://s2.ax1x.com/2019/11/06/MiCsaV.gif" alt="MiCsaV.gif" border="0" />|<img src="https://s2.ax1x.com/2019/11/06/MiPiRg.gif" alt="MiPiRg.gif" border="0" />|
+<img src="https://s2.ax1x.com/2019/11/12/M3a8Wq.gif" alt="M3a8Wq.gif" border="0" />
 
 ## 背景
 
