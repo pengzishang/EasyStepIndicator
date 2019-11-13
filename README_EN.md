@@ -5,7 +5,7 @@ Welcome everyone to give advice ,giveStar
 
 Add more attributes to the step indicator, more customizable styles
 
-<img src="https://s2.ax1x.com/2019/11/06/MiFJ56.png" alt="MiFJ56.png" border="0" />
+<img src="https://s2.ax1x.com/2019/11/12/M3dU3t.gif" alt="M3dU3t.gif" border="0" />
 
 ## Background
 
