@@ -15,6 +15,8 @@ let defaultCompleteColor = UIColor.green
 protocol EasyStepIndicatorDataSource: class {
 	func characterForStep(indicator: EasyStepIndicator, index: Int) -> String
 	func titleForStep(indicator: EasyStepIndicator, index: Int) -> String
+	func viewForProcess(indicator: EasyStepIndicator, index: Int) -> UIView
+	func oppositeViewForStep(indicator: EasyStepIndicator, index: Int) -> UIView
 }
 
 protocol EasyStepIndicatorDelegate: class {
@@ -28,8 +30,6 @@ protocol EasyStepIndicatorDelegate: class {
 public enum Direction: UInt {
 	case leftToRight = 0, rightToLeft, topToBottom, bottomToTop
 }
-
-
 
 public enum AlignmentMode: UInt {
 	case top = 0, //每个标题和圆圈的起始对齐
@@ -68,6 +68,8 @@ struct StepConfig {
 	public var radius: CGFloat
 	public let stepIndex: Int
 	public var titleMargin: CGFloat = 3
+	public var oppositeView: UIView?
+	public var viewMargin: CGFloat = 3
 	
 	struct Annular {
 		public var colors = StatusColorPattern()
@@ -97,6 +99,8 @@ struct LineConfig {
 	//指向线条离圆形的初始距离
 	public var marginBetweenCircle: CGFloat = 2.0
 	public var processIndex: Int
+	public var view: UIView?
+	public var viewMargin: CGFloat = 3
 }
 
 
