@@ -52,6 +52,14 @@ class HorizontalCodeController: UIViewController {
 }
 
 extension HorizontalCodeController : EasyStepIndicatorDataSource {
+    func viewForProcess(indicator: EasyStepIndicator, index: Int) -> UIView? {
+        return nil
+    }
+    
+    func oppositeViewForStep(indicator: EasyStepIndicator, index: Int) -> UIView? {
+        return nil
+    }
+    
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
         return "ab"
     }

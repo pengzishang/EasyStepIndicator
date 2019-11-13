@@ -50,7 +50,7 @@ class HorizontalController: UIViewController {
     }
     
     @IBAction func changeAlignmentSegmentValue(_ sender: UISegmentedControl) {
-        indicator.alignmentMode = [AlignmentMode.top,AlignmentMode.center,AlignmentMode.centerWithAnnularStartAndAnnularEnd][sender.selectedSegmentIndex]
+        indicator.alignmentMode = [AlignmentMode.top,AlignmentMode.center][sender.selectedSegmentIndex]
     }
     
     @IBAction func didDirectSegmentValueChange(_ sender: UISegmentedControl) {
@@ -79,6 +79,15 @@ class HorizontalController: UIViewController {
 
 
 extension HorizontalController:EasyStepIndicatorDataSource {
+    
+    func viewForProcess(indicator: EasyStepIndicator, index: Int) -> UIView? {
+        return nil
+    }
+    
+    func oppositeViewForStep(indicator: EasyStepIndicator, index: Int) -> UIView? {
+        return nil
+    }
+    
     func characterForStep(indicator: EasyStepIndicator, index: Int) -> String {
         return "\(index)"
 //        ["A","B","C","D"][index]

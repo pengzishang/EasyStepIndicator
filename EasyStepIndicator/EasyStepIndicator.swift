@@ -379,9 +379,11 @@ public class EasyStepIndicator: UIView {
 		for index in 0..<self.numberOfSteps {
 			let character = self.dataSource?.characterForStep(indicator: self, index: index)
 			let title = self.dataSource?.titleForStep(indicator: self, index: index)
-            let oppositeView = self.dataSource?.oppositeViewForStep(indicator: self, index: index)
+            if let oppositeView = self.dataSource?.oppositeViewForStep(indicator: self, index: index) {
+                self.annularLayers[index].config.oppositeView = oppositeView
+            }
 			self.delegate?.stepConfigForStep(indicator: self, index: index, config: &self.annularLayers[index].config)
-            self.annularLayers[index].config.oppositeView = oppositeView
+            
 			self.annularLayers[index].config.stepText.content = character
 			if (index < self.numberOfSteps - 1) {
 				let view = self.dataSource?.viewForProcess(indicator: self, index: index)
@@ -435,19 +437,6 @@ public class EasyStepIndicator: UIView {
 						if index < self.numberOfSteps - 1 {
 							totalWidth += minContentMargin
 						}
-					case .centerWithAnnularStartAndAnnularEnd:
-						totalWidth += max(self.titleTextSizes[index].width, circleDiameter(annularLayer))
-						if index < self.numberOfSteps - 1 {
-							totalWidth += minContentMargin
-						}
-						let firstAnnularLayer = self.annularLayers.first
-						let lastAnnularLayer = self.annularLayers.last
-						if circleDiameter(firstAnnularLayer) < self.titleTextSizes[index].width {
-							totalWidth -= (self.titleTextSizes[index].width - circleDiameter(firstAnnularLayer)) / 2
-						}
-						if circleDiameter(lastAnnularLayer) < self.titleTextSizes[index].width {
-							totalWidth -= (self.titleTextSizes[index].width - circleDiameter(lastAnnularLayer)) / 2
-						}
 					}
 				}
 				return totalWidth
@@ -478,19 +467,6 @@ public class EasyStepIndicator: UIView {
 						totalHeight += max(self.titleTextSizes[index].height, circleDiameter(annularLayer))
 						if index < self.numberOfSteps - 1 {
 							totalHeight += minContentMargin
-						}
-					case .centerWithAnnularStartAndAnnularEnd:
-						totalHeight += max(self.titleTextSizes[index].height, circleDiameter(annularLayer))
-						if index < self.numberOfSteps - 1 {
-							totalHeight += minContentMargin
-						}
-						let firstAnnularLayer = self.annularLayers.first
-						let lastAnnularLayer = self.annularLayers.last
-						if circleDiameter(firstAnnularLayer) < self.titleTextSizes[index].height {
-							totalHeight -= (self.titleTextSizes[index].height - circleDiameter(firstAnnularLayer)) / 2
-						}
-						if circleDiameter(lastAnnularLayer) < self.titleTextSizes[index].height {
-							totalHeight -= (self.titleTextSizes[index].height - circleDiameter(lastAnnularLayer)) / 2
 						}
 					}
 				}
@@ -663,8 +639,6 @@ public class EasyStepIndicator: UIView {
 						if self.titleTextSizes.last!.width > circleDiameter(lastAnnularLayer) {
 							totalLengthWithoutLine += (self.titleTextSizes.last!.width) / 2 - circleRadius(lastAnnularLayer)
 						}
-					case .centerWithAnnularStartAndAnnularEnd://不计首尾超界
-						break
 					}
 					totalLengthWithoutLine += self.freezeZone.left + self.freezeZone.right
 					processLength = (self.containerLayer.frame.width - totalLengthWithoutLine) / CGFloat(self.numberOfSteps - 1)
@@ -719,7 +693,7 @@ public class EasyStepIndicator: UIView {
 			let annularLayer = self.annularLayers[_index]
 			var descriptionStartX: CGFloat = annularPoint.x
 			descriptionStartX += circleRadius(annularLayer)
-			if self.alignmentMode == .center || self.alignmentMode == .centerWithAnnularStartAndAnnularEnd {
+			if self.alignmentMode == .center {
 				descriptionStartX -= (self.titleTextSizes[_index].width) / 2
 			} else {
 				descriptionStartX -= self.titleCharacterSizes[_index].width / 2
@@ -886,7 +860,7 @@ public class EasyStepIndicator: UIView {
 			let annularLayer = self.annularLayers[_index]
 			var descriptionStartY: CGFloat = annularPoint.y
 			descriptionStartY += circleRadius(annularLayer)
-			if self.alignmentMode == .center || self.alignmentMode == .centerWithAnnularStartAndAnnularEnd {
+			if self.alignmentMode == .center {
 				descriptionStartY -= (self.titleTextSizes[_index].height) / 2
 			} else {
 				descriptionStartY -= self.titleCharacterSizes[_index].height / 2
