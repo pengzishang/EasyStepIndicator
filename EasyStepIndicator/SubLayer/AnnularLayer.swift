@@ -22,8 +22,9 @@ class AnnularLayer: CAShapeLayer {
 	
 	// MARK: - Initialization
 	
-	required init(config: StepConfig) {
+    required init(config: StepConfig,target:EasyStepIndicator) {
 		super.init()
+        self.indicator = target
 		self.config = config
 		self.fillColor = UIColor.clear.cgColor
 	}

@@ -99,8 +99,8 @@ struct LineConfig {
 	//指向线条离圆形的初始距离
 	public var marginBetweenCircle: CGFloat = 2.0
 	public var processIndex: Int
-	public var view: UIView?
-	public var viewMargin: CGFloat = 3
+	public var processView: UIView?
+	public var processViewMargin: CGFloat = 3
 }
 
 
