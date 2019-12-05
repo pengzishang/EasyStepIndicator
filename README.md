@@ -195,4 +195,4 @@ extension VerticalController :EasyStepIndicatorDelegate {
 - [x] 代码描述
 - [x] 将超出部分显示为 "..."
 - [x] 自适应超出部分设置为滚动
-- [ ] 自定义描述部分的View,不限于文字
+- [ ] 自定义描述部分的View(类似于"高德地图"中交通路线和"车来了"中公交动态的样子),不限于文字
