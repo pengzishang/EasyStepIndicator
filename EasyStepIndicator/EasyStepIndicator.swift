@@ -542,7 +542,10 @@ public class EasyStepIndicator: UIView {
         }
         let maxContentWidths: [CGFloat] = zip(diameters, titleMargins)
             .map { $0/2 + $1 + maxDiameter/2 }
-            .map { self.layer.frame.width - $0 - self.freezeZone.left - self.freezeZone.right }
+            .map({ (maxWidth) -> CGFloat in
+                let margin = maxWidth + self.freezeZone.left - self.freezeZone.right
+                return self.layer.frame.width - margin
+            })
         assert(maxContentWidths.min() ?? 0 > 0, "freeze参数过大,请重新设置")
         return maxContentWidths
     }
