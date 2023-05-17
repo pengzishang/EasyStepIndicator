@@ -1,4 +1,5 @@
 # EasyStepIndicator
+[中文](https://github.com/pengzishang/EasyStepIndicator/blob/master/README.md)｜English
 
 <h3 align="left"><a href="https://github.com/pengzishang/EasyStepIndicator" target="_blank">Github</a></h3>
 Welcome everyone to give advice ,giveStar
